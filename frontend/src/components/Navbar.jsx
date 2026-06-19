@@ -1,229 +1,320 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#" },
+  {
+    label: "Home",
+    href: "/",
+  },
 
   {
     label: "Epoxy Flooring Services",
-    href: "#",
+
     dropdown: [
-      "Epoxy For Kitchens and Food Processing Areas",
-      "Epoxy Flooring Systems For Industrial Environments",
-      "Warehouse Epoxy Flooring System",
-      "Workshop Epoxy Floor Coating System",
-      "Garage Epoxy Flooring",
-      "Cementitious Polyurethane Floor Coating Systems",
-      "Metallic & Marble Effect Epoxy Flooring System",
-      "Solid Colour Epoxy Flooring",
-      "Premium Flake Epoxy Flooring",
-      "SEF SuperClear | Grind and Seal",
-      "Epoxy Flooring Over Tiles",
-      "Heavy Duty Line Marking Using Two Pack Products",
-      "Epoxy Flooring For Driveways",
-      "Concrete Grinding Service",
-      "High Build Epoxy Repair Service",
+      {
+        label: "Epoxy For Kitchens and Food Processing Areas",
+        href: "/epoxy-kitchens",
+      },
+
+      {
+        label: "Epoxy Flooring Systems For Industrial Environments",
+        href: "/industrial-epoxy-flooring",
+      },
+
+      {
+        label: "Warehouse Epoxy Flooring System",
+        href: "/warehouse-epoxy-flooring",
+      },
+
+      {
+        label: "Workshop Epoxy Floor Coating System",
+        href: "/workshop-epoxy-flooring",
+      },
+
+      {
+        label: "Garage Epoxy Flooring",
+        href: "/garage-epoxy-flooring",
+      },
+
+      {
+        label: "Cementitious Polyurethane Floor Coating Systems",
+        href: "/polyurethane-floor-coating",
+      },
+
+      {
+        label: "Metallic & Marble Effect Epoxy Flooring System",
+        href: "/metallic-marble-epoxy",
+      },
+
+      {
+        label: "Solid Colour Epoxy Flooring",
+        href: "/solid-colour-epoxy",
+      },
+
+      {
+        label: "Premium Flake Epoxy Flooring",
+        href: "/flake-epoxy-flooring",
+      },
+
+      {
+        label: "SEF SuperClear | Grind and Seal",
+        href: "/sef-superclear",
+      },
+
+      {
+        label: "Epoxy Flooring Over Tiles",
+        href: "/epoxy-over-tiles",
+      },
+
+      {
+        label: "Heavy Duty Line Marking Using Two Pack Products",
+        href: "/line-marking",
+      },
+
+      {
+        label: "Epoxy Flooring For Driveways",
+        href: "/driveway-epoxy-flooring",
+      },
+
+      {
+        label: "Concrete Grinding Service",
+        href: "/concrete-grinding",
+      },
+
+      {
+        label: "High Build Epoxy Repair Service",
+        href: "/epoxy-repair-service",
+      },
     ],
   },
 
-  { label: "Stellmann Non-Slip", href: "#" },
-  { label: "2026 Cost Guide", href: "#", badge: "New" },
-  { label: "Gallery", href: "#" },
-  { label: "Reviews", href: "#" },
-  { label: "Blog", href: "#" },
+  {
+    label: "Stellmann Non-Slip",
+    href: "/stellmann",
+  },
+
+  {
+    label: "2026 Cost Guide",
+    href: "/cost-guide",
+    badge: "New",
+  },
+
+  {
+    label: "Gallery",
+    href: "/gallery",
+  },
+
+  {
+    label: "Reviews",
+    href: "/reviews",
+  },
+
+  {
+    label: "Blog",
+    href: "/blog",
+  },
 ];
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [active, setActive] = useState("Home");
+
   const [openDropdown, setOpenDropdown] = useState(false);
 
   return (
-    <nav className="bg-white w-full">
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+    <nav className="sticky top-0 z-50 bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        {/* LOGO */}
 
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-2.5 shrink-0 no-underline">
+        <NavLink to="/" className="flex items-center gap-3 no-underline">
           <img
             src="/src/assets/logo.svg"
             alt="Sydney Epoxy Floors"
             className="h-12 w-auto"
           />
+        </NavLink>
 
-          <span className="text-[10px] tracking-widest text-white/35 uppercase leading-relaxed hidden sm:block">
-            Sydney Epoxy Floors
-            <br />
-            Better · Smarter · Greener
-          </span>
-        </a>
+        {/* DESKTOP MENU */}
 
-
-        {/* Desktop nav links */}
-        <ul className="hidden lg:flex items-center gap-0.5 list-none m-0 p-0">
-
+        <ul className="hidden lg:flex items-center gap-1">
           {NAV_LINKS.map(({ label, href, dropdown, badge }) => (
-
             <li
               key={label}
               className="relative"
               onMouseEnter={() => dropdown && setOpenDropdown(true)}
-              onMouseLeave={() => dropdown && setOpenDropdown(false)}
+              onMouseLeave={() => {
+                if (dropdown) {
+                  setTimeout(() => setOpenDropdown(false), 200);
+                }
+              }}
             >
+              {dropdown ?
+                <button
+                  onClick={() => setOpenDropdown(!openDropdown)}
+                  className="
 
-              <a
-                href={href}
-                onClick={() => setActive(label)}
-                className={[
-                  "flex items-center gap-1 px-3 py-1.5 rounded-md text-[13px] tracking-wide transition-colors duration-150 no-underline whitespace-nowrap",
-                  active === label
-                    ? "text-gray-900"
-                    : "text-gray-700 hover:text-black hover:bg-black/[0.07]",
-                ].join(" ")}
-              >
+flex
+items-center
+gap-1
+px-3
+py-2
+rounded-md
+text-[13px]
+text-gray-700
+hover:text-[#CC1F1F]
+hover:bg-red-50
+transition
+bg-transparent
+border-none
+cursor-pointer
 
-                {label}
+"
+                >
+                  {label}
 
-                {badge && (
-                  <span className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded-full bg-[#CC1F1F]/20 text-[#f08080]">
-                    {badge}
-                  </span>
-                )}
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+              : <NavLink
+                  to={href}
+                  className={({ isActive }) =>
+                    [
+                      "px-3 py-2 rounded-md text-[13px] transition no-underline",
 
-                {dropdown && (
-                  <ChevronDown className="w-3 h-3 opacity-50" />
-                )}
+                      isActive ?
+                        "text-[#CC1F1F] font-bold"
+                      : "text-gray-700 hover:text-[#CC1F1F] hover:bg-red-50",
+                    ].join(" ")
+                  }
+                >
+                  {label}
 
-              </a>
+                  {badge && (
+                    <span className="ml-2 text-[10px] bg-red-100 text-[#CC1F1F] px-1.5 py-0.5 rounded-full">
+                      {badge}
+                    </span>
+                  )}
+                </NavLink>
+              }
 
+              {/* DROPDOWN */}
 
-              {/* Epoxy Dropdown */}
               {dropdown && openDropdown && (
-                <div className="absolute top-full left-0 mt-2 w-[300px] bg-white shadow-lg py-3 z-50">
+                <div
+                  className="
 
+absolute
+
+top-full
+
+left-0
+
+mt-2
+
+w-[330px]
+
+bg-white
+
+shadow-xl
+
+rounded-md
+
+border
+
+py-3
+
+z-50
+
+"
+                >
                   {dropdown.map((item) => (
-
-                    <a
-                      key={item}
-                      href="#"
+                    <NavLink
+                      key={item.label}
+                      to={item.href}
+                      onClick={() => setOpenDropdown(false)}
                       className="
-                        block
-                        px-6
-                        py-2
-                        text-[13px]
-                        font-semibold
-                        text-gray-500
-                        leading-tight
-                        no-underline
-                        hover:text-[#CC1F1F]
-                        transition-colors
-                      "
+
+block
+
+px-6
+
+py-2
+
+text-[13px]
+
+font-semibold
+
+text-gray-500
+
+hover:text-[#CC1F1F]
+
+hover:bg-red-50
+
+transition
+
+no-underline
+
+"
                     >
-                      {item}
-                    </a>
-
+                      {item.label}
+                    </NavLink>
                   ))}
-
                 </div>
               )}
-
             </li>
-
           ))}
-
         </ul>
 
+        {/* RIGHT SIDE */}
 
-
-        {/* CTA + mobile toggle */}
-        <div className="flex items-center gap-3 shrink-0">
-
-          <div className="hidden lg:block w-px h-5 bg-white/10" />
-
-          <a
-            href="#contact"
-            className="hidden lg:inline-flex items-center gap-1.5 bg-[#CC1F1F] hover:bg-[#b31a1a] text-white text-[13px] font-medium tracking-wide px-4 py-2 rounded-md transition-colors duration-150 no-underline"
+        <div className="flex items-center gap-3">
+          <NavLink
+            to="/contact"
+            className="hidden lg:flex bg-[#CC1F1F] text-white px-4 py-2 rounded-md text-sm no-underline"
           >
-            Contact Us <span aria-hidden="true">→</span>
-          </a>
+            Contact Us →
+          </NavLink>
 
-
-          {/* Mobile hamburger */}
           <button
-            className="lg:hidden flex flex-col gap-1.5 p-1.5 text-black/60 hover:text-black transition-colors"
-            onClick={() => setMobileOpen((o) => !o)}
-            aria-label="Toggle menu"
+            className="lg:hidden flex flex-col gap-1.5"
+            onClick={() => setMobileOpen(!mobileOpen)}
           >
+            <span className="w-5 h-0.5 bg-black" />
 
-            <span
-              className={`block w-5 h-0.5 bg-current transition-transform duration-200 ${
-                mobileOpen ? "translate-y-2 rotate-45" : ""
-              }`}
-            />
+            <span className="w-5 h-0.5 bg-black" />
 
-            <span
-              className={`block w-5 h-0.5 bg-current transition-opacity duration-200 ${
-                mobileOpen ? "opacity-0" : ""
-              }`}
-            />
-
-            <span
-              className={`block w-5 h-0.5 bg-current transition-transform duration-200 ${
-                mobileOpen ? "-translate-y-2 -rotate-45" : ""
-              }`}
-            />
-
+            <span className="w-5 h-0.5 bg-black" />
           </button>
-
         </div>
-
       </div>
 
+      {/* MOBILE MENU */}
 
-
-      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-white/[0.06] px-6 py-4 flex flex-col gap-1">
-
+        <div className="lg:hidden border-t px-6 py-4 flex flex-col gap-2">
           {NAV_LINKS.map(({ label, href, badge }) => (
-
-            <a
+            <NavLink
               key={label}
-              href={href}
-              onClick={() => {
-                setActive(label);
-                setMobileOpen(false);
-              }}
-              className={[
-                "flex items-center justify-between px-3 py-2.5 rounded-md text-sm no-underline transition-colors",
-                active === label
-                  ? "text-black bg-black/[0.07]"
-                  : "text-black/60 hover:text-black hover:bg-black/[0.05]",
-              ].join(" ")}
-            >
+              to={href}
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                [
+                  "px-3 py-2 rounded-md text-sm no-underline",
 
+                  isActive ?
+                    "text-[#CC1F1F] font-bold bg-red-50"
+                  : "text-gray-700",
+                ].join(" ")
+              }
+            >
               {label}
 
               {badge && (
-                <span className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded-full bg-[#CC1F1F]/20 text-[#f08080]">
-                  {badge}
-                </span>
+                <span className="ml-2 text-xs text-[#CC1F1F]">{badge}</span>
               )}
-
-            </a>
-
+            </NavLink>
           ))}
-
-
-          <a
-            href="#contact"
-            className="mt-3 flex items-center justify-center gap-1.5 bg-[#CC1F1F] hover:bg-[#b31a1a] text-white text-sm font-medium tracking-wide px-4 py-2.5 rounded-md transition-colors no-underline"
-          >
-            Contact Us →
-          </a>
-
         </div>
       )}
-
     </nav>
   );
 }

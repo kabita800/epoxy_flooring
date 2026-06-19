@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@media(max-width:640px){
+
+body{
+overflow-x:hidden;
+}
+
+h1,h2,h3{
+word-break:normal;
+}
+
+.hero-content{
+padding-top:40px;
+}
+
+.service-card:hover,
+.feature-card:hover,
+.area-card:hover{
+transform:none;
+}
+
+}
