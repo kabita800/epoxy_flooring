@@ -702,6 +702,7 @@ sm:h-[280px] object-cover"
           </Reveal>
 
           {/* Feature Cards */}
+          {/* Feature Cards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Reveal
               delay={0}
