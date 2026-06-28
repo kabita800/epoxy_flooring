@@ -161,7 +161,7 @@ py-2
 rounded-md
 text-[13px]
 text-gray-700
-hover:text-[#CC1F1F]
+hover:text-[#A11717]
 hover:bg-red-50
 transition
 bg-transparent
@@ -181,15 +181,15 @@ cursor-pointer
                       "px-3 py-2 rounded-md text-[13px] transition no-underline",
 
                       isActive ?
-                        "text-[#CC1F1F] font-bold"
-                      : "text-gray-700 hover:text-[#CC1F1F] hover:bg-red-50",
+                        "text-[#A11717] font-bold"
+                      : "text-gray-700 hover:text-[#A11717] hover:bg-red-50",
                     ].join(" ")
                   }
                 >
                   {label}
 
                   {badge && (
-                    <span className="ml-2 text-[10px] bg-red-100 text-[#CC1F1F] px-1.5 py-0.5 rounded-full">
+                    <span className="ml-2 text-[10px] bg-red-100 text-[#A11717] px-1.5 py-0.5 rounded-full">
                       {badge}
                     </span>
                   )}
@@ -245,7 +245,7 @@ font-semibold
 
 text-gray-500
 
-hover:text-[#CC1F1F]
+hover:text-[#A11717]
 
 hover:bg-red-50
 
@@ -269,7 +269,7 @@ no-underline
         <div className="flex items-center gap-3">
           <NavLink
             to="/contact"
-            className="hidden lg:flex bg-[#CC1F1F] text-white px-4 py-2 rounded-md text-sm no-underline"
+            className="hidden lg:flex bg-[#A11717] text-white px-4 py-2 rounded-md text-sm no-underline"
           >
             Contact Us →
           </NavLink>
@@ -301,7 +301,7 @@ no-underline
                   "px-3 py-2 rounded-md text-sm no-underline",
 
                   isActive ?
-                    "text-[#CC1F1F] font-bold bg-red-50"
+                    "text-[#A11717] font-bold bg-red-50"
                   : "text-gray-700",
                 ].join(" ")
               }
@@ -309,7 +309,7 @@ no-underline
               {label}
 
               {badge && (
-                <span className="ml-2 text-xs text-[#CC1F1F]">{badge}</span>
+                <span className="ml-2 text-xs text-[#A11717]">{badge}</span>
               )}
             </NavLink>
           ))}

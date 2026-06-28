@@ -61,7 +61,7 @@ function LinkList({ items }) {
         <li key={item}>
           <a
             href="#"
-            className="text-[12.5px] text-gray-500 hover:text-[#CC1F1F] transition-colors leading-snug"
+            className="text-[12.5px] text-gray-500 hover:text-[#A11717] transition-colors leading-snug"
           >
             {item}
           </a>
@@ -94,7 +94,7 @@ export default function Footer() {
             </span>
           </a>
 
-          <p className="flex items-center gap-2 text-[13px] text-gray-600 hover:text-[#CC1F1F] transition-colors mb-2 no-underline">
+          <p className="flex items-center gap-2 text-[13px] text-gray-600 hover:text-[#A11717] transition-colors mb-2 no-underline">
             Premium epoxy flooring solutions that deliver exceptional
             durability, seamless finishes, and lasting protection for
             residential, commercial, and industrial spaces.
@@ -106,14 +106,14 @@ export default function Footer() {
           <ColLabel>Contact us</ColLabel>
           <a
             href="tel:1300037699"
-            className="flex items-center gap-2 text-[13px] text-gray-600 hover:text-[#CC1F1F] transition-colors mb-2 no-underline"
+            className="flex items-center gap-2 text-[13px] text-gray-600 hover:text-[#A11717] transition-colors mb-2 no-underline"
           >
             <svg
               width="15"
               height="15"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#CC1F1F"
+              stroke="#A11717"
               strokeWidth="2"
               strokeLinecap="round"
               aria-hidden="true"
@@ -124,14 +124,14 @@ export default function Footer() {
           </a>
           <a
             href="mailto:admin@sydneyepoxyfloors.com.au"
-            className="flex items-center gap-2 text-[13px] text-gray-600 hover:text-[#CC1F1F] transition-colors no-underline"
+            className="flex items-center gap-2 text-[13px] text-gray-600 hover:text-[#A11717] transition-colors no-underline"
           >
             <svg
               width="15"
               height="15"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#CC1F1F"
+              stroke="#A11717"
               strokeWidth="2"
               strokeLinecap="round"
               aria-hidden="true"
@@ -147,7 +147,7 @@ export default function Footer() {
                 key={label}
                 href="#"
                 aria-label={label}
-                className="w-[30px] h-[30px] rounded-md border border-gray-200 bg-white flex items-center justify-center text-gray-500 hover:border-[#CC1F1F] hover:text-[#CC1F1F] transition-colors"
+                className="w-[30px] h-[30px] rounded-md border border-gray-200 bg-white flex items-center justify-center text-gray-500 hover:border-[#A11717] hover:text-[#A11717] transition-colors"
               >
                 <svg
                   width="15"
@@ -191,7 +191,7 @@ export default function Footer() {
               <a
                 key={link}
                 href="#"
-                className="text-[12px] text-gray-500 hover:text-[#CC1F1F] transition-colors no-underline"
+                className="text-[12px] text-gray-500 hover:text-[#A11717] transition-colors no-underline"
               >
                 {link}
               </a>
