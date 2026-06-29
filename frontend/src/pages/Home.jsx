@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import {
   Award,
@@ -386,12 +387,12 @@ const Home = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <a
-                  href="#contact"
+                <Link
+                  to="/contact"
                   className="btn-primary bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-5 py-2.5 rounded-sm font-semibold no-underline inline-flex items-center justify-center gap-2 sef-mono text-xs uppercase tracking-wide"
                 >
                   Get Free Quote <ArrowRight size={14} />
-                </a>
+                </Link>
                 <a
                   href="#services"
                   className="btn-ghost border border-[var(--paper)]/30 hover:bg-[var(--paper)] hover:text-[var(--ink)] text-[var(--paper)] px-5 py-2.5 rounded-sm font-semibold no-underline text-center sef-mono text-xs uppercase tracking-wide"
@@ -441,12 +442,12 @@ const Home = () => {
                   to outlast the building around it.
                 </p>
 
-                <a
-                  href="#contact"
-                  className="btn-primary inline-flex items-center gap-2 bg-[var(--ink)] hover:bg-[var(--ink-soft)] text-[var(--paper)] px-4 py-2.5 rounded-sm font-semibold sef-mono text-xs uppercase tracking-wide"
+                <Link
+                  to="/contact"
+                  className="btn-primary inline-flex items-center gap-2 bg-[var(--ink)] hover:bg-[var(--ink-soft)] text-[var(--paper)] px-4 py-2.5 rounded-sm font-semibold sef-mono text-xs uppercase tracking-wide no-underline"
                 >
                   Start your project <ArrowUpRight size={14} />
-                </a>
+                </Link>
 
                 <div className="flex gap-6 sm:gap-8 mt-10 border-t border-[var(--ink)]/10 pt-6">
                   <div className="stat-block">
@@ -698,9 +699,12 @@ const Home = () => {
                 Speak with our specialists for expert advice, product
                 recommendations, and a free on-site assessment.
               </p>
-              <button className="btn-primary bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-6 py-2.5 rounded-sm text-xs font-semibold sef-mono uppercase tracking-wide">
+              <Link
+                to="/contact"
+                className="btn-primary bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-6 py-2.5 rounded-sm text-xs font-semibold sef-mono uppercase tracking-wide no-underline inline-block"
+              >
                 Book Free Assessment
-              </button>
+              </Link>
             </Reveal>
           </div>
         </section>

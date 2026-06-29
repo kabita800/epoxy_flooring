@@ -313,6 +313,14 @@ no-underline
               )}
             </NavLink>
           ))}
+
+          <NavLink
+            to="/contact"
+            onClick={() => setMobileOpen(false)}
+            className="mt-3 bg-[#A11717] text-white px-3 py-2.5 rounded-md text-sm font-semibold text-center no-underline hover:bg-[#831111] transition duration-200"
+          >
+            Contact Us →
+          </NavLink>
         </div>
       )}
     </nav>

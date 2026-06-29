@@ -2,18 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const IMGS = [
-  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
-  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80",
-  "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=1200&q=80",
-  "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
-  "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=1200&q=80",
-  "https://images.unsplash.com/photo-1553341640-6f7a00d37e30?w=1200&q=80",
-  "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=80",
-  "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
-  "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=1200&q=80",
-  "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&q=80",
-  "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&q=80",
+  "/src/assets/image7.jpg",
+  "/src/assets/epoxycoatingforpoolsurrounds.png",
+  "/src/assets/image3.jpg",
+  "/src/assets/flake.jpg",
+  "/src/assets/image23.jpg",
+  "/src/assets/image25.jpg",
+  "/src/assets/image21.jpg",
+  "/src/assets/image20.jpg",
+  "/src/assets/industrial.jpg",
+  "/src/assets/image24.jpg",
+  "/src/assets/image19.jpg",
+  "/src/assets/image18.jpg",
 ];
 const img = (i) => IMGS[i % IMGS.length];
 

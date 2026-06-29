@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const SERVICES_LEFT = [
   "Kitchens & food processing areas",
   "Warehouse epoxy flooring",
@@ -19,15 +21,15 @@ const SERVICES_RIGHT = [
 ];
 
 const BOTTOM_LINKS = [
-  "Home",
-  "Epoxy Flooring Services",
-  "Stellmann Non-Slip",
-  "2026 Cost Guide",
-  "Gallery",
-  "Reviews",
-  "Blog",
-  "Terms of Trade",
-  "Contact Us",
+  { label: "Home", href: "/" },
+  { label: "Epoxy Flooring Services", href: "#" },
+  { label: "Stellmann Non-Slip", href: "/stellmann" },
+  { label: "2026 Cost Guide", href: "/cost-guide" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Reviews", href: "/reviews" },
+  { label: "Blog", href: "/blog" },
+  { label: "Terms of Trade", href: "#" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 const SOCIALS = [
@@ -187,14 +189,14 @@ export default function Footer() {
             className="flex flex-wrap gap-x-4 gap-y-1"
             aria-label="Footer navigation"
           >
-            {BOTTOM_LINKS.map((link) => (
-              <a
-                key={link}
-                href="#"
+            {BOTTOM_LINKS.map(({ label, href }) => (
+              <Link
+                key={label}
+                to={href}
                 className="text-[12px] text-gray-500 hover:text-[#A11717] transition-colors no-underline"
               >
-                {link}
-              </a>
+                {label}
+              </Link>
             ))}
           </nav>
           <span className="text-[12px] text-gray-500">

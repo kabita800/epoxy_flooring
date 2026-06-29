@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const FEATURES = [
   {
@@ -446,9 +447,12 @@ export default function Stellmann() {
               Stellmann applicators.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <button className="stl-cta-btn bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-7 py-3.5 rounded-sm font-semibold stl-mono text-xs uppercase tracking-wide">
+              <Link
+                to="/contact"
+                className="stl-cta-btn bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-7 py-3.5 rounded-sm font-semibold stl-mono text-xs uppercase tracking-wide no-underline inline-block"
+              >
                 Get a free quote
-              </button>
+              </Link>
               <a
                 href="tel:1300037699"
                 className="border border-[var(--paper)]/25 hover:bg-[var(--paper)] hover:text-[var(--ink)] text-[var(--paper)] px-7 py-3.5 rounded-sm font-semibold stl-mono text-xs uppercase tracking-wide transition-colors"

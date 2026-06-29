@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import {
   Phone,
@@ -237,12 +238,12 @@ export default function CostGuide() {
                 trust and one that's marketing math.
               </p>
               <div className="flex flex-wrap items-center gap-5 mt-9">
-                <a
-                  href="#contact"
+                <Link
+                  to="/contact"
                   className="btn-primary bg-[var(--brick)] hover:bg-[var(--brick-deep)] text-white px-7 py-3.5 rounded-full font-semibold no-underline inline-flex items-center gap-2 text-[15px]"
                 >
                   Contact us <ArrowRight size={16} />
-                </a>
+                </Link>
                 <span className="cg-mono text-[11px] text-[var(--slate-soft)] uppercase tracking-wide">
                   21+ years, same company
                 </span>
@@ -492,9 +493,12 @@ export default function CostGuide() {
                 warranty that doesn't need an exit clause.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-5 mt-10">
-                <button className="btn-primary bg-[var(--brick)] hover:bg-[var(--brick-deep)] text-white px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2 text-[15px]">
+                <Link
+                  to="/contact"
+                  className="btn-primary bg-[var(--brick)] hover:bg-[var(--brick-deep)] text-white px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2 text-[15px] no-underline"
+                >
                   Get your free quote <ArrowRight size={16} />
-                </button>
+                </Link>
                 <a
                   href="tel:1300037699"
                   className="btn-ghost border border-white/25 hover:bg-white hover:text-[var(--ink)] text-white px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2 no-underline text-[15px]"
