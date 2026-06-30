@@ -6,6 +6,7 @@ const IMGS = [
   "/src/assets/epoxycoatingforpoolsurrounds.png",
   "/src/assets/image3.jpg",
   "/src/assets/flake.jpg",
+  "/src/assets/image11.jpg",
   "/src/assets/image23.jpg",
   "/src/assets/image25.jpg",
   "/src/assets/image21.jpg",
@@ -14,6 +15,15 @@ const IMGS = [
   "/src/assets/image24.jpg",
   "/src/assets/image19.jpg",
   "/src/assets/image18.jpg",
+  "/src/assets/image12.jpg",
+  "/src/assets/image13.jpg",
+  "/src/assets/image14.jpg",
+  "/src/assets/image15.jpg",
+  "/src/assets/image16.jpg",
+  "/src/assets/image17.jpg",
+  "/src/assets/image18.jpg",
+
+
 ];
 const img = (i) => IMGS[i % IMGS.length];
 
@@ -27,7 +37,7 @@ const posts = [
     category: "Garage",
     readTime: "5 min",
     featured: true,
-    image: img(0),
+    image: img(5),
     body: [
       {
         text: "Having a beautiful house is one of the aspirations of any homeowner. Usually, they want to spend wisely for their homes, and ensure to put their resources and efforts into the right investment. Just like choosing the best flooring for your home especially in your garage, as this is one of the most prone to damage.",
@@ -576,7 +586,7 @@ const posts = [
     category: "Garage",
     readTime: "6 min",
     featured: false,
-    image: img(0),
+    image: img(12),
     body: [
       {
         heading: "Traditional Garage Flooring",
@@ -613,7 +623,7 @@ const posts = [
     category: "Process",
     readTime: "5 min",
     featured: false,
-    image: img(1),
+    image: img(13),
     body: [
       {
         text: "Epoxy floors are robust, resilient, and long-lasting floor coverings that may be found in garages, sunrooms, high traffic corridors and pathways, and warehouses. Epoxy flooring is quite simple to maintain if you follow a few guidelines.",
@@ -646,7 +656,7 @@ const posts = [
     category: "Innovation",
     readTime: "6 min",
     featured: false,
-    image: img(2),
+    image: img(14),
     body: [
       {
         text: "Some of the most popular ornamental flooring styles such as mosaic-like terrazzo may be costly to install and repair if damaged, making them unsuitable for many commercial, industrial and institutional environments. Decorative flake epoxy flooring may be laid to provide a long lasting terrazzo-like look with great benefits and value for money.",
@@ -699,7 +709,7 @@ const posts = [
     category: "Industrial",
     readTime: "7 min",
     featured: false,
-    image: img(3),
+    image: img(15),
     body: [
       {
         text: "For so many years, epoxy flooring has received a lot of excellent and positive reviews from homeowners and professionals from different businesses alike. Although there is a great range of floor solutions and coating choices, epoxy flooring is still the best option for commercial and industrial facilities.",
@@ -744,7 +754,7 @@ const posts = [
     category: "Industrial",
     readTime: "6 min",
     featured: false,
-    image: img(4),
+    image: img(16),
     body: [
       {
         text: "Epoxy flooring is one of the most adaptable floor coverings available, suitable for use in industrial, commercial and even domestic settings. Epoxy not only offers great durability and comes in a variety of colors, but it also has a long lifespan and requires little care.",
@@ -785,7 +795,7 @@ const posts = [
     category: "Industrial",
     readTime: "6 min",
     featured: false,
-    image: img(5),
+    image: img(17),
     body: [
       {
         text: "Whether in big and multiple locations, manufacturing plants or in a unified facility operation, workshops are where things get started and finished — and workshop flooring is the foundation.",
@@ -837,7 +847,7 @@ const posts = [
     category: "Healthcare",
     readTime: "6 min",
     featured: false,
-    image: img(6),
+    image: img(18),
     body: [
       {
         text: "A hospital has hundreds of moving parts, therefore picking the best hospital flooring system is no easy task. Clinic offices, corridors, operating rooms, labs and imaging rooms are all used on a regular basis. During a 24 hour period hospital floors see a lot of foot traffic, wheelchairs, hospital beds, carts and machinery movement. Because of the large amount of square footage and continual mobility, it is critical to have flooring that adds to the facility's performance.",
@@ -1067,7 +1077,7 @@ const posts = [
     category: "Guide",
     readTime: "7 min",
     featured: false,
-    image: img(11),
+    image: img(18),
     body: [
       {
         text: "As we all know, epoxy flooring is used to protect our floors and at the same time beautify and decorate the floors. Epoxy is the most widely used flooring solution as it has amazing mechanical resistance properties. There are different types of epoxy flooring and as a homeowner or business owner, you need to know first the most appropriate kind to use for your space.",
@@ -1115,7 +1125,7 @@ const posts = [
     category: "Benefits",
     readTime: "5 min",
     featured: false,
-    image: img(0),
+    image: img(19),
     body: [
       {
         text: "When planning to revamp your commercial or living space it's essential to find a floor solution that can stand the brunt of your everyday activities, and resist any wear and tear without calling for too much maintenance. Epoxy Flooring is known for functionality, aesthetics, safety, low-maintenance, and may be the perfect reason to ditch your old flooring system.",
@@ -1155,7 +1165,7 @@ const posts = [
     category: "Safety",
     readTime: "4 min",
     featured: false,
-    image: img(1),
+    image: img(11),
     body: [
       {
         text: "Generally speaking, any wet floor covering will be slippery and you need to take extra care when stepping over it. Anti slip media is an additive available in different sizes and types that can be added to epoxy system topcoats to provide slip resistance. Smooth floors are more slippery than textured or rough floors but generally the rougher the floor, the harder it is to keep it clean.",
@@ -1232,7 +1242,7 @@ const posts = [
     category: "Commercial",
     readTime: "6 min",
     featured: false,
-    image: img(3),
+    image: img(16),
     body: [
       {
         text: "In the building industry and businesses such as manufacturing, facilities, food processing plants or warehouses, showrooms, retail stores and hotels, epoxy flooring is the most popular flooring type used by many business owners in Sydney. Epoxy resins act as protective layers from fire and water or any other damage that would likely occur in commercial and industrial spaces through time.",
@@ -1278,7 +1288,7 @@ const posts = [
     category: "Benefits",
     readTime: "5 min",
     featured: false,
-    image: img(4),
+    image: img(13),
     body: [
       {
         text: "Flooring is one of the crucial parts of any house and building construction. The question as to which type and/or kind of flooring to be used is the next thing to think about. There are many factors to consider such as costs, time, durability and maintenance. Many people especially business owners believe that Epoxy is one of the most affordable commercial flooring options because preventative maintenance is the best way to save money if you plan to have it long term.",
@@ -1343,7 +1353,7 @@ function HeroGrid({ post, onOpen }) {
     <div
       ref={ref}
       onClick={() => onOpen(post)}
-      className="grid grid-cols-1 lg:grid-cols-2 min-h-[260px] overflow-hidden cursor-pointer rounded-xl"
+      className="grid grid-cols-1 lg:grid-cols-2 min-h-[200px] lg:h-[240px] overflow-hidden cursor-pointer rounded-xl"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
@@ -1387,7 +1397,7 @@ function HeroGrid({ post, onOpen }) {
           </span>
         </button>
       </div>
-      <div className="relative overflow-hidden rounded-r-xl min-h-[160px] lg:min-h-0">
+      <div className="relative overflow-hidden rounded-r-xl min-h-[200px] lg:min-h-0 lg:max-h-[220px]">
         <div
           className="absolute inset-0 bg-[#e8d5d5]"
           style={{ opacity: imgLoaded ? 0 : 1, transition: "opacity 0.5s" }}

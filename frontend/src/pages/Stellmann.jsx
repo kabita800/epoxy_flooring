@@ -192,9 +192,9 @@ export default function Stellmann() {
 
       <div className="stl-root">
         {/* ============ HERO — split diagonal panel, distinct from homepage's full-bleed slider ============ */}
-        <section className="relative bg-white overflow-hidden">
-          <div className="max-w-6xl mx-auto px-5 sm:px-8 md:px-10 pt-16 pb-20 md:pt-24 md:pb-28">
-            <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+<section className="relative bg-white overflow-hidden">
+<div className="max-w-6xl mx-auto px-5 sm:px-8 md:px-10 pt-16 pb-10 md:pt-24 md:pb-12">
+              <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
               <div>
                 <p className="stl-mono uppercase tracking-[2px] text-[11px] sm:text-xs text-[var(--resin-soft)] font-semibold mb-4 flex items-center gap-2.5">
                   <span className="inline-block w-6 h-px bg-[var(--resin-soft)]" />
@@ -271,8 +271,8 @@ export default function Stellmann() {
         </section>
 
         {/* ============ HOW IT WORKS — feature grid ============ */}
-        <section className="py-14 md:py-20 bg-[var(--paper)]">
-          <div className="max-w-6xl mx-auto px-5 md:px-10">
+<section className="pt-6 pb-14 md:pt-8 md:pb-20 bg-[var(--paper)]">
+            <div className="max-w-6xl mx-auto px-5 md:px-10">
             <div className="max-w-xl mb-10">
               <span className="stl-mono inline-flex items-center gap-2 text-[11px] uppercase tracking-[1.5px] text-[var(--resin-deep)] font-semibold mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--resin)]" />

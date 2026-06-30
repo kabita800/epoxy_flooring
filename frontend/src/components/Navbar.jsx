@@ -14,77 +14,77 @@ const NAV_LINKS = [
     dropdown: [
       {
         label: "Epoxy For Kitchens and Food Processing Areas",
-        href: "/epoxy-kitchens",
+        href: "/services/epoxy-kitchens",
       },
 
       {
         label: "Epoxy Flooring Systems For Industrial Environments",
-        href: "/industrial-epoxy-flooring",
+        href: "/services/industrial-epoxy-flooring",
       },
 
       {
         label: "Warehouse Epoxy Flooring System",
-        href: "/warehouse-epoxy-flooring",
+        href: "/services/warehouse-epoxy-flooring",
       },
 
       {
         label: "Workshop Epoxy Floor Coating System",
-        href: "/workshop-epoxy-flooring",
+        href: "/services/workshop-epoxy-flooring",
       },
 
       {
         label: "Garage Epoxy Flooring",
-        href: "/garage-epoxy-flooring",
+        href: "/services/garage-epoxy-flooring",
       },
 
       {
         label: "Cementitious Polyurethane Floor Coating Systems",
-        href: "/polyurethane-floor-coating",
+        href: "/services/polyurethane-floor-coating",
       },
 
       {
         label: "Metallic & Marble Effect Epoxy Flooring System",
-        href: "/metallic-marble-epoxy",
+        href: "/services/metallic-epoxy-flooring",
       },
 
       {
         label: "Solid Colour Epoxy Flooring",
-        href: "/solid-colour-epoxy",
+        href: "/services/solid-colour-epoxy",
       },
 
       {
         label: "Premium Flake Epoxy Flooring",
-        href: "/flake-epoxy-flooring",
+        href: "/services/flake-epoxy-flooring",
       },
 
       {
         label: "SEF SuperClear | Grind and Seal",
-        href: "/sef-superclear",
+        href: "/services/sef-superclear",
       },
 
       {
         label: "Epoxy Flooring Over Tiles",
-        href: "/epoxy-over-tiles",
+        href: "/services/epoxy-over-tiles",
       },
 
       {
         label: "Heavy Duty Line Marking Using Two Pack Products",
-        href: "/line-marking",
+        href: "/services/line-marking",
       },
 
       {
         label: "Epoxy Flooring For Driveways",
-        href: "/driveway-epoxy-flooring",
+        href: "/services/driveway-epoxy-flooring",
       },
 
       {
         label: "Concrete Grinding Service",
-        href: "/concrete-grinding",
+        href: "/services/concrete-grinding",
       },
 
       {
         label: "High Build Epoxy Repair Service",
-        href: "/epoxy-repair-service",
+        href: "/services/epoxy-repair-service",
       },
     ],
   },
@@ -103,11 +103,6 @@ const NAV_LINKS = [
   {
     label: "Gallery",
     href: "/gallery",
-  },
-
-  {
-    label: "Reviews",
-    href: "/reviews",
   },
 
   {
