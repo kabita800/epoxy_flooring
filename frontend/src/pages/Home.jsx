@@ -768,6 +768,25 @@ const Home = () => {
             </div>
           </div>
         </section>
+
+         {/* ===== FOOTER ===== */}
+      <footer id="contact" className="border-t border-[#eceeed] py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
+          <span className="text-sm font-semibold text-[#1C2326]">
+            Sydney <span className="text-[#A11717]">Epoxy</span> Floor
+          </span>
+          <p className="max-w-md text-sm text-[#5b6669]">
+            Get a personalised quote for your commercial kitchen or food
+            processing floor.
+          </p>
+          <a
+            href="/contact"
+            className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313]"
+          >
+            Contact us
+          </a>
+        </div>
+      </footer>
       </div>
     </>
   );

@@ -22,8 +22,6 @@ const IMGS = [
   "/src/assets/image16.jpg",
   "/src/assets/image17.jpg",
   "/src/assets/image18.jpg",
-
-
 ];
 const img = (i) => IMGS[i % IMGS.length];
 
@@ -1565,9 +1563,7 @@ function CTABanner() {
         </div>
         <div className="flex flex-col sm:flex-row gap-2.5 shrink-0">
           <a
-            href="https://www.sydneyepoxyfloors.com.au/contact"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/contact"
             className="px-6 py-2.5 bg-[#A11717] text-white text-[10px] font-bold tracking-[1.2px] uppercase rounded-lg cursor-pointer hover:bg-[#8a1313] transition-all duration-200 text-center no-underline"
           >
             Request a Quote
@@ -1703,9 +1699,7 @@ function ArticleView({ post, related, onBack, onOpen }) {
             Have a flooring project in mind?
           </p>
           <a
-            href="https://www.sydneyepoxyfloors.com.au/contact"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/contact"
             className="inline-flex items-center gap-2 self-start sm:self-auto no-underline"
           >
             <span className="px-5 py-2.5 bg-[#A11717] text-white text-[11px] font-bold tracking-[1.2px] uppercase rounded-md hover:bg-[#8a1313] transition-colors">

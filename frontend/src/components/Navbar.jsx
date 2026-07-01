@@ -205,17 +205,23 @@ left-0
 
 mt-2
 
-w-[330px]
+w-[280px]
+
+max-h-[320px]
+
+overflow-y-auto
 
 bg-white
 
-shadow-xl
+shadow-lg
 
 rounded-md
 
 border
 
-py-3
+border-gray-200
+
+py-2
 
 z-50
 
@@ -230,15 +236,15 @@ z-50
 
 block
 
-px-6
+px-4
 
-py-2
+py-1.5
 
-text-[13px]
+text-[12px]
 
-font-semibold
+font-medium
 
-text-gray-500
+text-gray-600
 
 hover:text-[#A11717]
 

@@ -1,79 +1,113 @@
 import React, { useState, useEffect } from "react";
 
 /**
- * SEF SuperClear — Concrete Grind & Seal System landing page
+ * Sydney Concrete Grinding — Dustless Concrete Grinding Service
  *
- * Same visual system as the Seamless Flake / Solid Colour pages:
- * white surfaces, steel-grey neutrals, and a single deep-red accent
- * (#A11717) used sparingly. Compact hero, simple sections, image gallery.
+ * Same visual system as the previous SEF pages: white surfaces, steel-grey
+ * neutrals, and a single deep-red accent (#A11717) used sparingly. Compact
+ * hero, simple sections, service cards, image gallery.
  */
 
-const BENEFITS = [
+const LOCATIONS = [
+  "Sydney",
+  "Wollongong",
+  "Blue Mountains",
+  "Gosford",
+  "Newcastle",
+  "Canberra",
+];
+
+const SERVICES_LIST = [
   {
-    label: "Natural beauty, enhanced",
-    detail: "Brings out the natural look of concrete while adding a protective clear coating.",
+    label: "Concrete grinding",
+    detail: "Smooths, levels and prepares concrete surfaces for a flawless finish.",
   },
   {
-    label: "Cost-effective",
-    detail: "The look of polished concrete, without the cost of the real thing.",
+    label: "Grinding over tiles",
+    detail: "De-glosses and preps tiled surfaces for coating or re-tiling.",
   },
   {
-    label: "Crack & ramp repair",
-    detail: "Fixes and repairs cracks, and can build and seal ramps in the same process.",
+    label: "Existing coating removal",
+    detail: "Strips old coatings back to a clean, workable substrate.",
   },
   {
-    label: "Low VOC & eco-friendly",
-    detail: "Environmentally friendly top coats with minimal off-gassing.",
+    label: "Glue & adhesive removal",
+    detail: "Clears tile adhesive and residue ahead of your next surface.",
   },
   {
-    label: "Matte, Satin or Gloss",
-    detail: "Top coats available in the finish that suits your space.",
+    label: "Line marking removal",
+    detail: "Removes old line marking cleanly, ready for re-marking.",
+  },
+];
+
+const DETAILED_SERVICES = [
+  {
+    title: "Concrete Grinding",
+    detail:
+      "Advanced floor grinding techniques and equipment smooth and level concrete surfaces, removing existing coatings and imperfections and preparing them for a flawless finish. Precision work that gets your floors or walls ready for whatever comes next, aesthetic or functional.",
+  },
+  {
+    title: "Tile Surface Preparation",
+    detail:
+      "Planning to replace or re-tile a surface? We meticulously remove existing tile adhesive or other coatings, making sure the surface is perfectly clean and ready for the next phase of your project.",
+  },
+  {
+    title: "Dust-Free Operation",
+    detail:
+      "Cutting-edge dust extraction equipment and methods minimise dust and airborne particles throughout the entire process — a cleaner environment for our team and clients, and a reduced risk of respiratory issues.",
+  },
+  {
+    title: "Professional Expertise",
+    detail:
+      "With over 21 years operating in the industry, our skilled team takes pride in attention to detail and a commitment to customer satisfaction. Trust us to handle your project with real professionalism.",
   },
 ];
 
 const APPLICATIONS = [
-  "Photography Studios",
-  "Shops & Retail Stores",
-  "Night Clubs",
-  "Bars",
-  "Homes",
-  "Patios",
-  "Storage Facilities",
-  "Factories",
+  "Warehouse Floors",
+  "Workshops",
+  "Garages",
+  "Shops",
+  "Showrooms",
+  "Commercial Kitchens",
+  "Industrial Environments",
+  "Offices",
+  "House Slabs",
+  "Sports Fields",
 ];
 
 const GALLERY = [
   {
-    src: "/src/assets/image42.jpg",
-    alt: "SuperClear grind and seal concrete floor in a retail store",
+    src: "/src/assets/image74.jpg",
+    alt: "Dustless concrete grinding equipment in a warehouse",
   },
   {
-    src: "/src/assets/image43.jpg",
-    alt: "Clear coated concrete floor in a photography studio",
+    src: "/src/assets/image75.jpg",
+    alt: "Concrete grinding preparation in a commercial kitchen",
   },
   {
-    src: "/src/assets/image44.jpg",
-    alt: "Grind and seal concrete floor finish in a home interior",
+    src: "/src/assets/image76.jpg",
+    alt: "Diamond grinding of a garage floor slab",
   },
   {
-    src: "/src/assets/image45.jpg",
-    alt: "Polished-look concrete floor in a night club",
+    src: "/src/assets/image77.jpg",
+    alt: "Tile surface preparation before recoating",
   },
   {
-    src: "/src/assets/image46.jpg",
-    alt: "SuperClear coated concrete patio floor",
+    src: "/src/assets/image78.jpg",
+    alt: "Concrete grinding in an industrial workshop",
   },
   {
-    src: "/src/assets/image47.jpg",
-    alt: "Grind and seal flooring in a storage facility",
+    src: "/src/assets/image79.jpg",
+    alt: "Coating removal on a factory floor",
   },
   {
-    src: "/src/assets/image48.jpg",
-    alt: "Clear coated concrete floor in a bar",
+    src: "/src/assets/image80.jpg",
+    alt: "Line marking removal in a warehouse aisle",
   },
   {
-    src: "/src/assets/image49.jpg",
-    alt: "Satin finish grind and seal concrete floor in a factory",
+    src: "/src/assets/image81.jpg",
+    alt: "Concrete grinding on a sports field slab",
   },
 ];
 
@@ -182,7 +216,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
   );
 }
 
-export default function SuperClearGrindAndSeal() {
+export default function SydneyConcreteGrinding() {
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const closeLightbox = () => setLightboxIndex(null);
@@ -200,24 +234,38 @@ export default function SuperClearGrindAndSeal() {
       {/* ===== HERO — compact ===== */}
       <header className="relative flex h-[60vh] min-h-[420px] items-center overflow-hidden bg-[#1C2326] text-white">
         <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80"
-          alt="Clear coated grind and seal concrete floor"
+          src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1600&q=80"
+          alt="Dustless diamond concrete grinding equipment on a warehouse floor"
           className="absolute inset-0 h-full w-full object-cover opacity-45"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1C2326] via-[#1C2326]/60 to-[#1C2326]/30" />
 
         <div className="relative mx-auto w-full max-w-6xl px-6">
           <p className="text-xs font-medium uppercase tracking-[0.25em] text-[#e2867a]">
-            SEF SuperClear — Grind &amp; Seal System
+            Sydney Concrete Grinding
           </p>
           <h1 className="mt-4 max-w-2xl text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
-            Achieve a look that always keeps up with the changing trends
+            Dustless concrete grinding &amp; surface preparation
           </h1>
           <p className="mt-5 max-w-xl text-[15px] text-[#cfd6d4] sm:text-base">
-            A transparent coating system that creates the look of polished
-            concrete, clean, easy to maintain and simple to work into any
-            colour scheme, without the hefty cost of the real thing.
+            Take the hassle out of preparing your floor — state-of-the-art
+            equipment and a genuinely dust-free operation, ready for
+            whatever comes next.
           </p>
+
+          <ul className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
+            {LOCATIONS.map((loc, i) => (
+              <React.Fragment key={loc}>
+                <li className="text-sm text-[#cfd6d4]">{loc}</li>
+                {i < LOCATIONS.length - 1 && (
+                  <span className="text-sm text-[#5b6669]" aria-hidden="true">
+                    |
+                  </span>
+                )}
+              </React.Fragment>
+            ))}
+          </ul>
+
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <a
               href="/contact"
@@ -235,31 +283,31 @@ export default function SuperClearGrindAndSeal() {
         </div>
       </header>
 
-      {/* ===== BENEFITS ===== */}
+      {/* ===== SERVICES WE PROVIDE ===== */}
       <section id="benefits" className="mx-auto max-w-6xl px-6 py-14">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-          What you get
+          Services we provide
         </p>
         <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-          Optimum protection, without the polished concrete price tag
+          Take the hassle out of preparing your floor
         </h2>
 
         <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
-          {BENEFITS.map((b) => (
-            <div key={b.label}>
+          {SERVICES_LIST.map((s) => (
+            <div key={s.label}>
               <span className="block h-px w-10 bg-[#A11717]" />
               <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">
-                {b.label}
+                {s.label}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">
-                {b.detail}
+                {s.detail}
               </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== WHY / APPLICATIONS ===== */}
+      {/* ===== WHY US ===== */}
       <section
         id="why-us"
         className="border-y border-[#eceeed] bg-[#FAFBFB] py-14"
@@ -269,61 +317,100 @@ export default function SuperClearGrindAndSeal() {
             Why it works
           </p>
           <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-            Suitable for a wide range of spaces
+            Exceptional surface preparation, without the mess
           </h2>
 
           <div className="mt-8 grid items-start gap-10 lg:grid-cols-2">
             <div className="space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
               <p>
-                Interior designers love the look of polished concrete
-                because it's clean, easy to maintain, and simple to work
-                into a range of colour schemes. Our Grind and Seal service
-                creates that same look, without the hefty cost of actual
-                polished concrete.
+                Sydney Concrete Grinding is dedicated to exceptional surface
+                preparation for both concrete and tile surfaces. With
+                state-of-the-art floor preparation equipment and expertise,
+                we make sure your surfaces are perfectly prepared for
+                whatever comes next.
               </p>
               <p>
-                An epoxy flooring finish adds aesthetic value to any space,
-                available in flake, metallic and polished concrete looks —
-                exuding both sophistication and style.
-              </p>
-              <p className="rounded-xl border border-[#eceeed] bg-white px-5 py-4 text-sm text-[#3f4a4d]">
-                <span className="font-semibold text-[#1C2326]">
-                  Polished concrete vs. Grind and Seal:
-                </span>{" "}
-                the two differ mainly in price. SuperClear brings out the
-                natural beauty of concrete while giving optimum protection,
-                and is well suited to fixing and repairing cracks, building
-                ramps, and sealing floors at a cost-effective price.
+                One of the key benefits of choosing us is our commitment to
+                a dust-free operation. Advanced technology and specialised
+                dust extractors let us complete our work efficiently while
+                keeping dust at bay, without compromising quality.
               </p>
             </div>
 
-            <ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {APPLICATIONS.map((use) => (
-                <li
-                  key={use}
-                  className="flex items-start gap-2 text-sm text-[#3f4a4d]"
-                >
-                  <span
-                    className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
-                    aria-hidden="true"
-                  />
-                  {use}
-                </li>
-              ))}
-            </ul>
+            <p className="rounded-xl border border-[#eceeed] bg-white px-5 py-4 text-sm text-[#3f4a4d]">
+              <span className="font-semibold text-[#1C2326]">
+                21+ years in the industry.
+              </span>{" "}
+              We prioritise quality, efficiency and customer satisfaction
+              above all else, working closely with clients to deliver
+              tailored surface preparation solutions.
+            </p>
           </div>
         </div>
       </section>
 
+      {/* ===== DETAILED SERVICES ===== */}
+      <section id="services" className="mx-auto max-w-6xl px-6 py-14">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+          Our services
+        </p>
+        <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+          How we prepare your surface
+        </h2>
+
+        <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
+          {DETAILED_SERVICES.map((s) => (
+            <div
+              key={s.title}
+              className="rounded-2xl border border-[#eceeed] bg-white p-6 sm:p-8"
+            >
+              <span className="block h-px w-10 bg-[#A11717]" />
+              <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">
+                {s.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">
+                {s.detail}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== APPLICATIONS ===== */}
+      <section id="areas" className="bg-[#0E1214] py-12">
+        <div className="mx-auto max-w-4xl px-6">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+            Suitable for
+          </p>
+          <h2 className="mt-3 text-center text-3xl font-semibold leading-tight text-white">
+            Diamond grinding for every kind of space
+          </h2>
+
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            {APPLICATIONS.map((area) => (
+              <li
+                key={area}
+                className="flex items-center gap-2 text-sm text-[#e7eaec]"
+              >
+                <span
+                  className="h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
+                  aria-hidden="true"
+                />
+                {area}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* ===== GALLERY — 4 columns ===== */}
-      <section id="gallery" className="py-14">
+      <section id="gallery" className="bg-[#FAFBFB] py-14">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
             Completed work
           </p>
           <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#1C2326]">
-            Photos of our completed clear coating &amp; grind and seal
-            projects
+            Photos of our completed concrete grinding projects
           </h2>
 
           <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
@@ -353,8 +440,8 @@ export default function SuperClearGrindAndSeal() {
             Sydney <span className="text-[#A11717]">Epoxy</span> Floor
           </span>
           <p className="max-w-md text-sm text-[#5b6669]">
-            Get a personalised quote for your grind and seal or SuperClear
-            concrete floor.
+            Let Sydney Concrete Grinding be your partner in surface
+            preparation. Contact us today to schedule a consultation.
           </p>
           <a
             href="/contact"

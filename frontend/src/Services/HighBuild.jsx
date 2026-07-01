@@ -1,100 +1,117 @@
 import React, { useState, useEffect } from "react";
 
 /**
- * Heavy Duty Line Marking Service — landing page
+ * High Build Epoxy Floor Repair — Sydney Epoxy Floors
  *
- * Same visual system as the previous SEF pages: white surfaces, steel-grey
+ * Same visual system as the other SEF pages: white surfaces, steel-grey
  * neutrals, and a single deep-red accent (#A11717) used sparingly. Compact
- * hero, simple sections, material comparison cards, image gallery.
+ * hero, simple sections, service cards, image gallery.
  */
 
-const BENEFITS = [
+const LOCATIONS = [
+  "Sydney",
+  "Wollongong",
+  "Blue Mountains",
+  "Gosford",
+  "Newcastle",
+  "Canberra",
+];
+
+const REPAIR_LIST = [
   {
-    label: "Durability",
-    detail: "Withstands heavy traffic, abrasion and impact, resisting chemicals and oils.",
+    label: "Damaged concrete",
+    detail: "Restores worn or broken slabs back to a sound, stable surface.",
   },
   {
-    label: "Visibility",
-    detail: "Excellent visibility even in low light, available in a range of colours.",
+    label: "Spalled joints",
+    detail: "Rebuilds crumbling joint edges before they widen and spread.",
   },
   {
-    label: "Fast curing time",
-    detail: "Polyaspartic and MMA cure quickly, minimising facility downtime.",
+    label: "Re-surfacing",
+    detail: "Rebuilds a smooth, even wear layer over tired concrete.",
   },
   {
-    label: "Longevity",
-    detail: "Longer lifespan than traditional paint, cutting reapplication and maintenance.",
+    label: "Cracks",
+    detail: "Fills and seals cracks to stop moisture and further movement.",
   },
   {
-    label: "Preparation-led results",
-    detail: "Cleaning, repairing and grinding the surface first for lasting adhesion.",
+    label: "Epoxy injection",
+    detail: "Bonds and reinforces structural cracks from the inside out.",
+  },
+  {
+    label: "Concrete tanks",
+    detail: "Repairs and re-lines tanks for a durable, watertight finish.",
+  },
+];
+
+const DETAILED_SERVICES = [
+  {
+    title: "High Build Epoxy Mortar",
+    detail:
+      "Our repair and maintenance work is carried out using high build epoxy resin mortar, built to handle joints, patching and striping without compromising the strength of the slab beneath. Ongoing needs are met and your flooring system stays well-preserved for the long run.",
+  },
+  {
+    title: "Time-Efficient Repairs",
+    detail:
+      "If your business needs to remain open, our repair crew work efficiently around your schedule. Skilled, dedicated tradespeople bring the latest technology to every job, so you get the finest repairs and results with minimal disruption.",
+  },
+  {
+    title: "Economical & Long-Lasting",
+    detail:
+      "Epoxy is a more affordable alternative to traditional flooring options and stands the test of time. It also cuts down on cleaning tools and products, since stains and dirt are easy to manage on a repaired epoxy surface.",
+  },
+  {
+    title: "Preventative Protection",
+    detail:
+      "Attending to issues before they grow keeps your flooring safer and your costs down. A High Build Epoxy Floor Repair is an easy, cost-effective way to stop a small problem becoming a significant, expensive one.",
   },
 ];
 
 const APPLICATIONS = [
-  "Mega Warehouses",
-  "Mechanical Workshops",
-  "Food Processing Facilities",
-  "Bus Depots",
-  "Truck Depots",
-  "Roads",
-];
-
-const MATERIALS = [
-  {
-    title: "Epoxy",
-    detail:
-      "Excellent chemical resistance and strong resistance against wear and dirt, making it easy to keep clean in mechanical workshops, warehouses and food facilities.",
-  },
-  {
-    title: "MMA",
-    detail:
-      "Highly resistant to abrasion and chemicals, with fast cure and UV-stable properties suited to indoor and outdoor areas. Cures in sub-zero temperatures, but produces a strong smell while curing.",
-  },
-  {
-    title: "Polyaspartic",
-    detail:
-      "Lower odour than other products, with quick curing and sunlight resistance for indoor and outdoor use. Typically needs diamond grinding or shot blasting, and may require an epoxy-based primer.",
-  },
-  {
-    title: "Two Pack Polyurethane",
-    detail:
-      "Excellent weather resistance and high durability, delivering long-lasting performance under heavy traffic and harsh environmental conditions.",
-  },
+  "Warehouse Floors",
+  "Workshops",
+  "Garages",
+  "Shops",
+  "Showrooms",
+  "Commercial Kitchens",
+  "Industrial Environments",
+  "Offices",
+  "Concrete Tanks",
+  "Loading Docks",
 ];
 
 const GALLERY = [
   {
-    src: "/src/assets/image58.jpg",
-    alt: "Heavy duty epoxy line marking in a warehouse",
+    src: "https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=800&q=80",
+    alt: "Epoxy joint and crack repair on a warehouse floor",
   },
   {
-    src: "/src/assets/image59.jpg",
-    alt: "Yellow safety line marking in a mechanical workshop",
+    src: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=80",
+    alt: "Concrete surface being patched ahead of epoxy coating",
   },
   {
-    src: "/src/assets/image60.jpg",
-    alt: "Polyaspartic line marking in a food processing facility",
+    src: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80",
+    alt: "Spalled joint repair on an industrial slab",
   },
   {
-    src: "/src/assets/image61.jpg",
-    alt: "Line marking in a bus depot",
+    src: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+    alt: "Crack injection repair on commercial flooring",
   },
   {
-    src: "/src/assets/image62.jpg",
-    alt: "Two pack polyurethane line marking on a loading dock",
+    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    alt: "Re-surfaced concrete floor in a commercial kitchen",
   },
   {
-    src: "/src/assets/image63.jpg",
-    alt: "MMA line marking on an outdoor road surface",
+    src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    alt: "High build epoxy mortar applied to a damaged floor section",
   },
   {
-    src: "/src/assets/image64.jpg",
-    alt: "Heavy duty line marking in a truck depot",
+    src: "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=800&q=80",
+    alt: "Repaired and re-lined concrete tank interior",
   },
   {
-    src: "/src/assets/image65.jpg",
-    alt: "Line marking for pedestrian walkways in a warehouse",
+    src: "https://images.unsplash.com/photo-1595079676601-f1adf5be5dee?w=800&q=80",
+    alt: "Finished epoxy floor repair in a warehouse aisle",
   },
 ];
 
@@ -203,7 +220,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
   );
 }
 
-export default function HeavyDutyLineMarking() {
+export default function HighBuildEpoxyFloorRepair() {
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const closeLightbox = () => setLightboxIndex(null);
@@ -221,24 +238,39 @@ export default function HeavyDutyLineMarking() {
       {/* ===== HERO — compact ===== */}
       <header className="relative flex h-[60vh] min-h-[420px] items-center overflow-hidden bg-[#1C2326] text-white">
         <img
-          src="https://images.unsplash.com/photo-1601058268499-e52658b8bb88?w=1600&q=80"
-          alt="Heavy duty line marking in an industrial warehouse"
+          src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1600&q=80"
+          alt="High build epoxy resin mortar repair on a concrete floor joint"
           className="absolute inset-0 h-full w-full object-cover opacity-45"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1C2326] via-[#1C2326]/60 to-[#1C2326]/30" />
 
         <div className="relative mx-auto w-full max-w-6xl px-6">
           <p className="text-xs font-medium uppercase tracking-[0.25em] text-[#e2867a]">
-            Servicing Sydney
+            High Build Epoxy Floor Repair
           </p>
           <h1 className="mt-4 max-w-2xl text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
-            Heavy duty line marking, built for the busiest facilities
+            Refresh your flooring and increase your safety today
           </h1>
           <p className="mt-5 max-w-xl text-[15px] text-[#cfd6d4] sm:text-base">
-            Epoxy, MMA, two pack polyurethane and polyaspartic line marking
-            for mega warehouses, workshops, food processing facilities and
-            bus depots — engineered to outlast traditional paint.
+            The right joints, patching and striping protect your slab's
+            structural integrity — and everyone who works on it. High build
+            epoxy resin mortar repairs, done by a team that pays attention
+            to the details.
           </p>
+
+          <ul className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2">
+            {LOCATIONS.map((loc, i) => (
+              <React.Fragment key={loc}>
+                <li className="text-sm text-[#cfd6d4]">{loc}</li>
+                {i < LOCATIONS.length - 1 && (
+                  <span className="text-sm text-[#5b6669]" aria-hidden="true">
+                    |
+                  </span>
+                )}
+              </React.Fragment>
+            ))}
+          </ul>
+
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <a
               href="/contact"
@@ -250,37 +282,37 @@ export default function HeavyDutyLineMarking() {
               href="#gallery"
               className="text-sm font-medium text-[#cfd6d4] transition hover:text-white"
             >
-              View completed projects →
+              View completed repairs →
             </a>
           </div>
         </div>
       </header>
 
-      {/* ===== BENEFITS ===== */}
+      {/* ===== REPAIR SERVICES ===== */}
       <section id="benefits" className="mx-auto max-w-6xl px-6 py-14">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-          What you get
+          Repairs we provide
         </p>
         <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-          Heavy duty line marking vs. traditional paint
+          Industrial and commercial epoxy repair, for a range of industries
         </h2>
 
-        <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
-          {BENEFITS.map((b) => (
-            <div key={b.label}>
+        <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {REPAIR_LIST.map((s) => (
+            <div key={s.label}>
               <span className="block h-px w-10 bg-[#A11717]" />
               <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">
-                {b.label}
+                {s.label}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">
-                {b.detail}
+                {s.detail}
               </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== WHY / PREP ===== */}
+      {/* ===== WHY US ===== */}
       <section
         id="why-us"
         className="border-y border-[#eceeed] bg-[#FAFBFB] py-14"
@@ -290,118 +322,100 @@ export default function HeavyDutyLineMarking() {
             Why it works
           </p>
           <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-            Preparation is the key
+            Attention to detail that protects your slab
           </h2>
 
           <div className="mt-8 grid items-start gap-10 lg:grid-cols-2">
             <div className="space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
               <p>
-                Before applying a two pack line marking product, proper
-                preparation is crucial. That means cleaning, repairing and
-                grinding the surface, plus ensuring the right temperature
-                and humidity for application. Skip these steps and you risk
-                poor adhesion, premature wear, and a shortened lifespan.
+                When it comes to flooring repairs, a company that pays
+                attention to the little details makes a big difference.
+                Getting the joints, patching and striping right has a real
+                impact on facility maintenance, on the structural integrity
+                of your floor slab, and on overall safety.
               </p>
               <p>
-                It's just as important to choose the right two pack product
-                for the specific application, since different formulations
-                suit different surfaces and environments.
-              </p>
-              <p>
-                Our team takes the time to properly prepare the surface and
-                select the right product, so the resulting line marking is
-                more durable and long-lasting — saving time and money over
-                the long run.
+                Sydney Epoxy Floors provide floor maintenance and repairs
+                using high build epoxy resin mortar, so your ongoing needs
+                can always be met and your flooring system stays easily
+                well-preserved.
               </p>
             </div>
 
-            <ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {APPLICATIONS.map((use) => (
-                <li
-                  key={use}
-                  className="flex items-start gap-2 text-sm text-[#3f4a4d]"
-                >
-                  <span
-                    className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
-                    aria-hidden="true"
-                  />
-                  {use}
-                </li>
-              ))}
-            </ul>
+            <p className="rounded-xl border border-[#eceeed] bg-white px-5 py-4 text-sm text-[#3f4a4d]">
+              <span className="font-semibold text-[#1C2326]">
+                A more economical alternative.
+              </span>{" "}
+              Epoxy repairs stand the test of time and are easy to keep
+              clean, saving you the cost of extra cleaning tools and
+              products down the line.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ===== MATERIAL OPTIONS ===== */}
-      <section id="materials" className="mx-auto max-w-6xl px-6 py-14">
+      {/* ===== DETAILED SERVICES ===== */}
+      <section id="services" className="mx-auto max-w-6xl px-6 py-14">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-          Choose your material
+          Our approach
         </p>
         <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-          Heavy duty line marking materials
+          Time-efficient repairs so your business can soldier on
         </h2>
-        <p className="mt-3 max-w-2xl text-sm text-[#5b6669]">
-          Two pack products cost around 5 times more than standard line
-          marking paint, but the superior adhesion and durability make them
-          the right choice for a long-term line marking solution.
-        </p>
 
-        <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {MATERIALS.map((m) => (
+        <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
+          {DETAILED_SERVICES.map((s) => (
             <div
-              key={m.title}
-              className="rounded-2xl border border-[#eceeed] bg-white p-6"
+              key={s.title}
+              className="rounded-2xl border border-[#eceeed] bg-white p-6 sm:p-8"
             >
               <span className="block h-px w-10 bg-[#A11717]" />
               <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">
-                {m.title}
+                {s.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">
-                {m.detail}
+                {s.detail}
               </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== TRADITIONAL PAINT COMPARISON ===== */}
-      <section className="bg-[#0E1214] py-14">
+      {/* ===== APPLICATIONS ===== */}
+      <section id="areas" className="bg-[#0E1214] py-12">
         <div className="mx-auto max-w-4xl px-6">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-            Weighing it up
+            Suitable for
           </p>
           <h2 className="mt-3 text-center text-3xl font-semibold leading-tight text-white">
-            What about traditional line marking paint?
+            Epoxy floor repair for every kind of space
           </h2>
-          <p className="mt-5 text-center text-[15px] leading-relaxed text-[#cfd6d4]">
-            Traditional line marking paint, such as waterborne or
-            chlorinated rubber products, has been widely used for decades
-            in car parks and sports fields. Its fast curing time allows
-            quick application with minimal disruption, and it's forgiving
-            and easy to apply with good adhesion to most surfaces and
-            minimal prep. It simply doesn't match the durability or
-            lifespan of Epoxy, MMA, Polyaspartic or Two Pack Polyurethane.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <a
-              href="/sydney-line-marking"
-              className="rounded-full border border-[#3a4448] px-7 py-3 text-sm font-semibold text-white transition hover:border-white"
-            >
-              Get a general line marking quote →
-            </a>
-          </div>
+
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            {APPLICATIONS.map((area) => (
+              <li
+                key={area}
+                className="flex items-center gap-2 text-sm text-[#e7eaec]"
+              >
+                <span
+                  className="h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
+                  aria-hidden="true"
+                />
+                {area}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       {/* ===== GALLERY — 4 columns ===== */}
-      <section id="gallery" className="py-14">
+      <section id="gallery" className="bg-[#FAFBFB] py-14">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
             Completed work
           </p>
           <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#1C2326]">
-            Photos of our completed heavy duty line marking projects
+            Photos of our completed epoxy floor repairs
           </h2>
 
           <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
@@ -431,8 +445,9 @@ export default function HeavyDutyLineMarking() {
             Sydney <span className="text-[#A11717]">Epoxy</span> Floor
           </span>
           <p className="max-w-md text-sm text-[#5b6669]">
-            Get a personalised quote for your heavy duty line marking
-            project.
+            Stop a small issue becoming a significant one. Contact Sydney
+            Epoxy Floors today to schedule a High Build Epoxy Floor Repair
+            consultation.
           </p>
           <a
             href="/contact"

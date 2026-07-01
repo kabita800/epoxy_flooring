@@ -22,7 +22,8 @@ import SEFsuperclear from "./Services/SEFsuperclear";
 import Overtiles from "./Services/Overtiles";
 import HeavyDuty from "./Services/HeavyDuty";
 import Driveways from "./Services/Driveways";
-
+import Concrete from "./Services/Concrete";
+import HighBuild from "./Services/HighBuild";
 
 function App() {
   return (
@@ -71,6 +72,10 @@ function App() {
           path="/services/driveway-epoxy-flooring"
           element={<Driveways />}
         />
+        <Route path="/services/concrete-grinding" element={<Concrete />} />
+        <Route path="/services/concrete" element={<Concrete />} />
+        <Route path="/services/epoxy-repair-service" element={<HighBuild />} />
+        <Route path="/services/high-build" element={<HighBuild />} />
       </Routes>
       <Footer />
     </BrowserRouter>

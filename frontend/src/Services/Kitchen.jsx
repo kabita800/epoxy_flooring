@@ -11,41 +11,147 @@ import React, { useState, useEffect } from "react";
 const NAV_LINKS = ["Benefits", "Why us", "Areas", "Gallery", "FAQ"];
 
 const BENEFITS = [
-  { label: "Fast turnaround", detail: "Installed over a single weekend to minimise downtime." },
-  { label: "Slip resistance", detail: "Engineered texture holds traction even when wet." },
-  { label: "Food-compliant", detail: "Meets hygiene standards for food prep environments." },
-  { label: "Impact & thermal shock", detail: "Withstands dropped equipment and rapid temperature swings." },
-  { label: "Seamless & easy to clean", detail: "Joint-free surface resists contaminants and bacteria." },
+  {
+    label: "Fast turnaround",
+    detail: "Installed over a single weekend to minimise downtime.",
+  },
+  {
+    label: "Slip resistance",
+    detail: "Engineered texture holds traction even when wet.",
+  },
+  {
+    label: "Food-compliant",
+    detail: "Meets hygiene standards for food prep environments.",
+  },
+  {
+    label: "Impact & thermal shock",
+    detail: "Withstands dropped equipment and rapid temperature swings.",
+  },
+  {
+    label: "Seamless & easy to clean",
+    detail: "Joint-free surface resists contaminants and bacteria.",
+  },
 ];
 
 const FAQ = [
-  { q: "What are the available options for commercial kitchen floor coating?", a: "Epoxy and cementitious polyurethane (poly-cement) systems, such as Sikafloor Purcem, are the two primary food-grade solutions we install." },
-  { q: "What is the difference between the two?", a: "Epoxy systems are fast-curing and cost-effective for lighter-duty kitchens, while poly-cement systems offer greater thermal shock and impact resistance for high-traffic, high-staff environments." },
-  { q: "What is the cost difference?", a: "Poly-cement systems carry a higher material cost than epoxy, reflecting their superior durability under constant heat, moisture and heavy foot traffic." },
-  { q: "What product do you recommend for our jobs?", a: "For kitchens running more than five staff, we recommend a polyurethane cement system such as Sikafloor Purcem." },
-  { q: "Why is my epoxy floor failing?", a: "Low-solids or water-based epoxies are not built for food-industry conditions, and tend to lift or wear away quickly under grease, heat and washdown." },
-  { q: "How do I select the right contractor?", a: "Look for a contractor with documented food-industry installs, a fast single-visit turnaround, and willingness to provide a free on-site measurement and quote." },
+  {
+    q: "What are the available options for commercial kitchen floor coating?",
+    a: "Epoxy and cementitious polyurethane (poly-cement) systems, such as Sikafloor Purcem, are the two primary food-grade solutions we install.",
+  },
+  {
+    q: "What is the difference between the two?",
+    a: "Epoxy systems are fast-curing and cost-effective for lighter-duty kitchens, while poly-cement systems offer greater thermal shock and impact resistance for high-traffic, high-staff environments.",
+  },
+  {
+    q: "What is the cost difference?",
+    a: "Poly-cement systems carry a higher material cost than epoxy, reflecting their superior durability under constant heat, moisture and heavy foot traffic.",
+  },
+  {
+    q: "What product do you recommend for our jobs?",
+    a: "For kitchens running more than five staff, we recommend a polyurethane cement system such as Sikafloor Purcem.",
+  },
+  {
+    q: "Why is my epoxy floor failing?",
+    a: "Low-solids or water-based epoxies are not built for food-industry conditions, and tend to lift or wear away quickly under grease, heat and washdown.",
+  },
+  {
+    q: "How do I select the right contractor?",
+    a: "Look for a contractor with documented food-industry installs, a fast single-visit turnaround, and willingness to provide a free on-site measurement and quote.",
+  },
 ];
 
 const AREAS = [
-  { name: "Freezers & Coolrooms", icon: <path d="M12 2v20M5 6l14 12M19 6L5 18" strokeLinecap="round" /> },
-  { name: "Washrooms", icon: <path d="M7 3v6M17 3v6M4 9h16l-1.5 11a2 2 0 01-2 2h-9a2 2 0 01-2-2L4 9z" strokeLinecap="round" strokeLinejoin="round" /> },
-  { name: "Commercial Kitchens", icon: <><path d="M4 4h16v4H4z" strokeLinejoin="round" /><path d="M6 8v12M18 8v12M4 20h16" strokeLinecap="round" /></> },
-  { name: "Food Processing Areas", icon: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" strokeLinecap="round" strokeLinejoin="round" /></> },
-  { name: "Loading Bays", icon: <><rect x="3" y="9" width="13" height="8" rx="1" /><path d="M16 12h3l2 3v2h-5z" strokeLinejoin="round" /><circle cx="7.5" cy="19" r="1.5" /><circle cx="17.5" cy="19" r="1.5" /></> },
-  { name: "Abattoirs", icon: <path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z" strokeLinejoin="round" /> },
-  { name: "Beverage Processing Areas", icon: <path d="M9 2h6l-1 6h2l-5 14-1-8H8l1-6V2z" strokeLinejoin="round" /> },
+  {
+    name: "Freezers & Coolrooms",
+    icon: <path d="M12 2v20M5 6l14 12M19 6L5 18" strokeLinecap="round" />,
+  },
+  {
+    name: "Washrooms",
+    icon: (
+      <path
+        d="M7 3v6M17 3v6M4 9h16l-1.5 11a2 2 0 01-2 2h-9a2 2 0 01-2-2L4 9z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+  },
+  {
+    name: "Commercial Kitchens",
+    icon: (
+      <>
+        <path d="M4 4h16v4H4z" strokeLinejoin="round" />
+        <path d="M6 8v12M18 8v12M4 20h16" strokeLinecap="round" />
+      </>
+    ),
+  },
+  {
+    name: "Food Processing Areas",
+    icon: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 3" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ),
+  },
+  {
+    name: "Loading Bays",
+    icon: (
+      <>
+        <rect x="3" y="9" width="13" height="8" rx="1" />
+        <path d="M16 12h3l2 3v2h-5z" strokeLinejoin="round" />
+        <circle cx="7.5" cy="19" r="1.5" />
+        <circle cx="17.5" cy="19" r="1.5" />
+      </>
+    ),
+  },
+  {
+    name: "Abattoirs",
+    icon: (
+      <path
+        d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"
+        strokeLinejoin="round"
+      />
+    ),
+  },
+  {
+    name: "Beverage Processing Areas",
+    icon: <path d="M9 2h6l-1 6h2l-5 14-1-8H8l1-6V2z" strokeLinejoin="round" />,
+  },
 ];
 
 const GALLERY = [
-  { src: "/src/assets/image9.jpg", alt: "Finished epoxy floor in a commercial kitchen prep area" },
-  { src: "/src/assets/image10.jpg", alt: "Seamless coated flooring in a food processing facility" },
-  { src: "/src/assets/image11.jpg", alt: "Slip-resistant floor coating near stainless kitchen equipment" },
-  { src: "/src/assets/image22.jpg", alt: "Industrial kitchen floor coating finished project" },
-  { src: "/src/assets/image25.jpg", alt: "Coated flooring in a commercial food preparation area" },
-  { src: "/src/assets/image24.jpg", alt: "Hygienic seamless flooring in a restaurant kitchen" },
-  { src: "/src/assets/image6.jpg", alt: "Durable resin flooring in a food processing plant" },
-  { src: "/src/assets/image12.jpg", alt: "Industrial coated floor in a loading bay area" },
+  {
+    src: "/src/assets/image9.jpg",
+    alt: "Finished epoxy floor in a commercial kitchen prep area",
+  },
+  {
+    src: "/src/assets/image10.jpg",
+    alt: "Seamless coated flooring in a food processing facility",
+  },
+  {
+    src: "/src/assets/image11.jpg",
+    alt: "Slip-resistant floor coating near stainless kitchen equipment",
+  },
+  {
+    src: "/src/assets/image22.jpg",
+    alt: "Industrial kitchen floor coating finished project",
+  },
+  {
+    src: "/src/assets/image25.jpg",
+    alt: "Coated flooring in a commercial food preparation area",
+  },
+  {
+    src: "/src/assets/image24.jpg",
+    alt: "Hygienic seamless flooring in a restaurant kitchen",
+  },
+  {
+    src: "/src/assets/image6.jpg",
+    alt: "Durable resin flooring in a food processing plant",
+  },
+  {
+    src: "/src/assets/image12.jpg",
+    alt: "Industrial coated floor in a loading bay area",
+  },
 ];
 
 function FaqItem({ item, isOpen, onToggle }) {
@@ -60,7 +166,9 @@ function FaqItem({ item, isOpen, onToggle }) {
         <span className="text-[15px] font-medium text-[#1C2326]">{item.q}</span>
         <span
           className={`flex h-7 w-7 flex-none items-center justify-center rounded-full border text-base leading-none transition-colors ${
-            isOpen ? "border-[#A11717] text-[#A11717]" : "border-[#c7cccb] text-[#5b6669]"
+            isOpen ?
+              "border-[#A11717] text-[#A11717]"
+            : "border-[#c7cccb] text-[#5b6669]"
           }`}
           aria-hidden="true"
         >
@@ -69,10 +177,14 @@ function FaqItem({ item, isOpen, onToggle }) {
       </button>
       <div
         className={`grid overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "grid-rows-[1fr] pb-5 opacity-100" : "grid-rows-[0fr] opacity-0"
+          isOpen ?
+            "grid-rows-[1fr] pb-5 opacity-100"
+          : "grid-rows-[0fr] opacity-0"
         }`}
       >
-        <p className="min-h-0 text-sm leading-relaxed text-[#5b6669]">{item.a}</p>
+        <p className="min-h-0 text-sm leading-relaxed text-[#5b6669]">
+          {item.a}
+        </p>
       </div>
     </div>
   );
@@ -105,7 +217,14 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
         className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6"
         aria-label="Close"
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
           <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
         </svg>
       </button>
@@ -119,8 +238,19 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
         className="absolute left-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:left-6"
         aria-label="Previous image"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path
+            d="M15 6l-6 6 6 6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
 
@@ -133,7 +263,14 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
         className="absolute right-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6"
         aria-label="Next image"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
           <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
@@ -174,7 +311,6 @@ export default function CommercialKitchenFlooring() {
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
       `}</style>
 
-
       {/* ===== HERO — compact ===== */}
       <header className="relative flex h-[60vh] min-h-[420px] items-center overflow-hidden bg-[#1C2326] text-white">
         <img
@@ -189,7 +325,8 @@ export default function CommercialKitchenFlooring() {
             Food &amp; Hospitality Flooring Systems
           </p>
           <h1 className="mt-4 max-w-2xl text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
-            Industrial-grade floor coatings for commercial kitchens &amp; food processing plants
+            Industrial-grade floor coatings for commercial kitchens &amp; food
+            processing plants
           </h1>
           <p className="mt-5 max-w-xl text-[15px] text-[#cfd6d4] sm:text-base">
             Resin-based systems built to survive heat, grease, washdown and
@@ -198,7 +335,7 @@ export default function CommercialKitchenFlooring() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
             <a
-              href="#contact"
+              href="/contact"
               className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1C2326]"
             >
               Request a free site quote
@@ -215,7 +352,9 @@ export default function CommercialKitchenFlooring() {
 
       {/* ===== BENEFITS ===== */}
       <section id="benefits" className="mx-auto max-w-6xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">What you get</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+          What you get
+        </p>
         <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
           Engineered for the demands of food-grade environments
         </h2>
@@ -224,17 +363,26 @@ export default function CommercialKitchenFlooring() {
           {BENEFITS.map((b) => (
             <div key={b.label}>
               <span className="block h-px w-10 bg-[#A11717]" />
-              <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">{b.label}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">{b.detail}</p>
+              <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">
+                {b.label}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">
+                {b.detail}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
       {/* ===== WHY SUITABLE ===== */}
-      <section id="why-us" className="border-y border-[#eceeed] bg-[#FAFBFB] py-14">
+      <section
+        id="why-us"
+        className="border-y border-[#eceeed] bg-[#FAFBFB] py-14"
+      >
         <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">Why it works</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+            Why it works
+          </p>
           <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
             Built for the conditions food prep floors actually face
           </h2>
@@ -243,21 +391,20 @@ export default function CommercialKitchenFlooring() {
             <div className="space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
               <p>
                 In food preparation areas, flooring affects the hygiene of an
-                entire facility. Our coating systems for commercial kitchens
-                and food processing areas are built to the highest standards,
+                entire facility. Our coating systems for commercial kitchens and
+                food processing areas are built to the highest standards,
                 helping sites comply with good hygiene practice guidelines.
               </p>
               <p>
                 Resin-based industrial coatings install quickly, hold up to
-                constant wear, resist slips, and form a thick protective
-                barrier — without forcing a long shutdown.
+                constant wear, resist slips, and form a thick protective barrier
+                — without forcing a long shutdown.
               </p>
               <p>
-                Not every epoxy product belongs in a commercial kitchen.
-                Floors here face heavy foot traffic, constant moisture, food
-                fats and oils, and frequent mechanical cleaning, so the
-                system has to be matched to the environment, not just to the
-                floor.
+                Not every epoxy product belongs in a commercial kitchen. Floors
+                here face heavy foot traffic, constant moisture, food fats and
+                oils, and frequent mechanical cleaning, so the system has to be
+                matched to the environment, not just to the floor.
               </p>
             </div>
 
@@ -275,15 +422,23 @@ export default function CommercialKitchenFlooring() {
       {/* ===== AREAS SERVED ===== */}
       <section id="areas" className="bg-[#0E1214] py-12">
         <div className="mx-auto max-w-4xl px-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">Suitable for</p>
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+            Suitable for
+          </p>
           <h2 className="mt-3 text-center text-3xl font-semibold leading-tight text-white">
             Areas we coat
           </h2>
 
           <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             {AREAS.map((area) => (
-              <li key={area.name} className="flex items-center gap-2 text-sm text-[#e7eaec]">
-                <span className="h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]" aria-hidden="true" />
+              <li
+                key={area.name}
+                className="flex items-center gap-2 text-sm text-[#e7eaec]"
+              >
+                <span
+                  className="h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
+                  aria-hidden="true"
+                />
                 {area.name}
               </li>
             ))}
@@ -294,7 +449,9 @@ export default function CommercialKitchenFlooring() {
       {/* ===== GALLERY — 4 columns ===== */}
       <section id="gallery" className="bg-[#FAFBFB] py-14">
         <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">Completed work</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+            Completed work
+          </p>
           <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#1C2326]">
             Photos of our completed food industry floor coating projects
           </h2>
@@ -321,7 +478,9 @@ export default function CommercialKitchenFlooring() {
 
       {/* ===== FAQ — accordion ===== */}
       <section id="faq" className="mx-auto max-w-4xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">FAQ</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+          FAQ
+        </p>
         <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#1C2326]">
           Useful tips &amp; questions
         </h2>
@@ -345,15 +504,15 @@ export default function CommercialKitchenFlooring() {
             Sydney <span className="text-[#A11717]">Epoxy</span> Floor
           </span>
           <p className="max-w-md text-sm text-[#5b6669]">
-            Get a personalised quote for your commercial kitchen or food processing floor.
+            Get a personalised quote for your commercial kitchen or food
+            processing floor.
           </p>
           <a
-            href="#contact-form"
+            href="/contact"
             className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313]"
           >
             Contact us
           </a>
-          <p className="mt-6 text-xs text-[#9aa3a6]">© {new Date().getFullYear()} Sydney Epoxy Floor. All rights reserved.</p>
         </div>
       </footer>
 
