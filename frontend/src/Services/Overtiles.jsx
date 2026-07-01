@@ -1,4 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import before1 from "/src/assets/before1.jpeg";
+import after1 from "/src/assets/after1.jpg";
+
+import before2 from "/src/assets/before2.webp";
+import after2 from "/src/assets/after2.webp";
+
+import before3 from "/src/assets/before3.jpg";
+import after3 from "/src/assets/after3.jpg";
 
 /**
  * Epoxy Flooring Over Tiles — landing page
@@ -98,50 +106,49 @@ const SYSTEMS = [
 const VIDEOS = [
   {
     title: "Epoxy Flooring Applied Over Old Tiles in a Commercial Kitchen",
-    embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    embedUrl: "https://www.youtube.com/embed/G-MbLHCdoLA",
   },
   {
     title: "Metallic Epoxy Flooring Applied Over Old Tiles",
-    embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    embedUrl: "https://www.youtube.com/embed/H9cotao1r7E",
   },
 ];
-
 const GALLERY = [
   {
-    src: "/src/assets/image50.jpg",
+    src: "/src/assets/image3.jpg",
     alt: "Epoxy flooring applied over old tiles in a kitchen",
   },
   {
-    src: "/src/assets/image51.jpg",
+    src: "/src/assets/iamge4.jpg",
     alt: "Solid colour epoxy coating over tiled restaurant floor",
   },
   {
-    src: "/src/assets/image52.jpg",
+    src: "/src/assets/image5.jpg",
     alt: "Flake epoxy coating applied over tiles in a garage",
   },
   {
-    src: "/src/assets/image53.jpg",
+    src: "/src/assets/image6.jpg",
     alt: "Metallic epoxy floor over tiles in a shopping centre",
   },
   {
-    src: "/src/assets/image54.jpg",
+    src: "/src/assets/image7.jpg",
     alt: "Epoxy over tile flooring in a mechanical workshop",
   },
   {
-    src: "/src/assets/image55.jpg",
+    src: "/src/assets/image8.jpg",
     alt: "Epoxy tiled flooring transformation in a lift lobby",
   },
   {
-    src: "/src/assets/image56.jpg",
+    src: "/src/assets/image9.jpg",
     alt: "Epoxy coating over old tiles on a balcony",
   },
   {
-    src: "/src/assets/image57.jpg",
+    src: "/src/assets/image10.jpg",
     alt: "Epoxy tile renewal in a cafe",
   },
 ];
 
-function BeforeAfterSlider() {
+function BeforeAfterSlider({ before, after }) {
   const containerRef = useRef(null);
   const [position, setPosition] = useState(50);
   const draggingRef = useRef(false);
@@ -552,9 +559,11 @@ export default function EpoxyOverTiles() {
           finished epoxy over tile system.
         </p>
 
-        <div className="mt-8">
-          <BeforeAfterSlider />
-        </div>
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                 <BeforeAfterSlider before={before1} after={after1} />
+                 <BeforeAfterSlider before={before2} after={after2} />
+                 <BeforeAfterSlider before={before3} after={after3} />
+               </div>
       </section>
 
       {/* ===== AVAILABLE SYSTEMS ===== */}

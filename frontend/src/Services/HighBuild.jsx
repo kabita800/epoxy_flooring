@@ -82,35 +82,35 @@ const APPLICATIONS = [
 
 const GALLERY = [
   {
-    src: "https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=800&q=80",
+    src: "/src/assets/floor.jpg",
     alt: "Epoxy joint and crack repair on a warehouse floor",
   },
   {
-    src: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=80",
+    src: "/src/assets/flake.jpg",
     alt: "Concrete surface being patched ahead of epoxy coating",
   },
   {
-    src: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80",
+    src: "/src/assets/floors.jpg",
     alt: "Spalled joint repair on an industrial slab",
   },
   {
-    src: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+    src: "/src/assets/garage.jpg",
     alt: "Crack injection repair on commercial flooring",
   },
   {
-    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    src: "/src/assets/image11.jpg",
     alt: "Re-surfaced concrete floor in a commercial kitchen",
   },
   {
-    src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+    src: "/src/assets/image12.jpg",
     alt: "High build epoxy mortar applied to a damaged floor section",
   },
   {
-    src: "https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?w=800&q=80",
+    src: "/src/assets/image13.jpg",
     alt: "Repaired and re-lined concrete tank interior",
   },
   {
-    src: "https://images.unsplash.com/photo-1595079676601-f1adf5be5dee?w=800&q=80",
+    src: "/src/assets/metallic.jpg",
     alt: "Finished epoxy floor repair in a warehouse aisle",
   },
 ];

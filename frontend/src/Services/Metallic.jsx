@@ -1,4 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import before1 from "/src/assets/before1.jpeg";
+import after1 from "/src/assets/after1.jpg";
+
+import before2 from "/src/assets/before2.webp";
+import after2 from "/src/assets/after2.webp";
+
+import before3 from "/src/assets/before3.jpg";
+import after3 from "/src/assets/after3.jpg";
 
 /**
  * Metallic & Marble Effect Epoxy Flooring — landing page
@@ -20,11 +28,13 @@ const BENEFITS = [
   },
   {
     label: "Tile-compatible",
-    detail: "Applies directly over concrete or tiled floors, no removal needed.",
+    detail:
+      "Applies directly over concrete or tiled floors, no removal needed.",
   },
   {
     label: "Deep, dimensional look",
-    detail: "Metallic pigments create the illusion of craters, ripples and flow.",
+    detail:
+      "Metallic pigments create the illusion of craters, ripples and flow.",
   },
   {
     label: "Durable protective topcoat",
@@ -99,7 +109,7 @@ const GALLERY = [
   },
 ];
 
-function BeforeAfterSlider() {
+function BeforeAfterSlider({ before, after }) {
   const containerRef = useRef(null);
   const [position, setPosition] = useState(50);
   const draggingRef = useRef(false);
@@ -139,8 +149,8 @@ function BeforeAfterSlider() {
       className="relative aspect-[16/9] w-full select-none overflow-hidden rounded-2xl border border-[#eceeed]"
     >
       <img
-        src="https://images.unsplash.com/photo-1616627981619-3d6c5f19e9b5?w=1400&q=80"
-        alt="Bare concrete floor before metallic epoxy coating"
+        src={before}
+        alt="Before"
         className="absolute inset-0 h-full w-full object-cover"
         draggable={false}
       />
@@ -149,13 +159,12 @@ function BeforeAfterSlider() {
         style={{ width: `${position}%` }}
       >
         <img
-          src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1400&q=80"
-          alt="Finished metallic epoxy floor after coating"
+          src={after}
+          alt="After"
           className="h-full w-full object-cover"
           style={{
-            width: containerRef.current
-              ? containerRef.current.offsetWidth
-              : "100%",
+            width:
+              containerRef.current ? containerRef.current.offsetWidth : "100%",
             maxWidth: "none",
           }}
           draggable={false}
@@ -399,11 +408,11 @@ export default function MetallicMarbleFlooring() {
           <div className="mt-8 grid items-start gap-10 lg:grid-cols-2">
             <div className="space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
               <p>
-                Metallic epoxy flooring creates a glossy, deep-looking floor
-                in a range of colours and visual effects. Some finishes give
-                a three-dimensional appearance, the illusion of craters,
-                ripples and swirling rivers of metallic-looking plasma — or
-                it can be done in a single, simple colour.
+                Metallic epoxy flooring creates a glossy, deep-looking floor in
+                a range of colours and visual effects. Some finishes give a
+                three-dimensional appearance, the illusion of craters, ripples
+                and swirling rivers of metallic-looking plasma — or it can be
+                done in a single, simple colour.
               </p>
               <p>
                 At Sydney Epoxy Floors, we believe "less is more," but we're
@@ -413,8 +422,8 @@ export default function MetallicMarbleFlooring() {
               </p>
               <p>
                 Prices start from $130.00 per SQM for jobs over 100 square
-                metres. Smaller jobs attract higher fees depending on
-                surface condition, access and area size.
+                metres. Smaller jobs attract higher fees depending on surface
+                condition, access and area size.
               </p>
             </div>
 
@@ -441,16 +450,20 @@ export default function MetallicMarbleFlooring() {
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
           See the difference
         </p>
+
         <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
           Drag the slider to view the transformation
         </h2>
+
         <p className="mt-3 max-w-xl text-sm text-[#5b6669]">
-          Move the white slider to compare a bare floor before coating
-          against a finished metallic epoxy floor.
+          Move the white slider to compare a bare floor before coating against a
+          finished metallic epoxy floor.
         </p>
 
-        <div className="mt-8">
-          <BeforeAfterSlider />
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <BeforeAfterSlider before={before1} after={after1} />
+          <BeforeAfterSlider before={before2} after={after2} />
+          <BeforeAfterSlider before={before3} after={after3} />
         </div>
       </section>
 
@@ -481,26 +494,6 @@ export default function MetallicMarbleFlooring() {
                 </p>
               </div>
             ))}
-          </div>
-
-          <div className="mt-10 max-w-3xl space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
-            <p>
-              Epoxy coatings can be applied directly over concrete and tiled
-              floors without removing the tiles. In most cases this won't
-              disturb floor height, so doors and skirting boards don't need
-              trimming.
-            </p>
-            <p>
-              Once applied, solvents can be used to diffuse and move the
-              metallic pigments through the epoxy, creating the look of
-              flowing rivers and fractured, molten metal across the surface.
-            </p>
-            <p>
-              These floors offer many years of service, but the finish
-              depends on ongoing care and protection. Performance is similar
-              to a high-gloss polished timber floor, so it isn't recommended
-              for high-traffic areas.
-            </p>
           </div>
         </div>
       </section>
@@ -542,8 +535,8 @@ export default function MetallicMarbleFlooring() {
             Sydney <span className="text-[#A11717]">Epoxy</span> Floor
           </span>
           <p className="max-w-md text-sm text-[#5b6669]">
-            Get a personalised quote for your metallic or marble effect
-            epoxy floor.
+            Get a personalised quote for your metallic or marble effect epoxy
+            floor.
           </p>
           <a
             href="/contact"

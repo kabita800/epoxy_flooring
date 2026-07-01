@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { Link } from "react-router-dom";
 
 /* ----------------------------------------------------------------
    GALLERY DATA — replace src with your real image paths
@@ -388,9 +389,12 @@ const Gallery = () => {
                 patterns, we bring your ideas to life, making your floors a true
                 reflection of your style.
               </p>
-              <button className="gal-btn-primary bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-6 py-3 rounded-sm font-semibold gal-mono text-xs uppercase tracking-wide">
-                Request a Custom Quote
-              </button>
+              <Link
+  to="/contact"
+  className="gal-btn-primary inline-flex items-center justify-center bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-6 py-3 rounded-sm font-semibold gal-mono text-xs uppercase tracking-wide"
+>
+  Request a Custom Quote
+</Link>
             </Reveal>
           </div>
         </section>

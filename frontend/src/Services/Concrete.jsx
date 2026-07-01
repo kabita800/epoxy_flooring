@@ -78,35 +78,35 @@ const APPLICATIONS = [
 
 const GALLERY = [
   {
-    src: "/src/assets/image74.jpg",
+    src: "/src/assets/image1.jpg",
     alt: "Dustless concrete grinding equipment in a warehouse",
   },
   {
-    src: "/src/assets/image75.jpg",
+    src: "/src/assets/image2.jpg",
     alt: "Concrete grinding preparation in a commercial kitchen",
   },
   {
-    src: "/src/assets/image76.jpg",
+    src: "/src/assets/image3.jpg",
     alt: "Diamond grinding of a garage floor slab",
   },
   {
-    src: "/src/assets/image77.jpg",
+    src: "/src/assets/iamge4.jpg",
     alt: "Tile surface preparation before recoating",
   },
   {
-    src: "/src/assets/image78.jpg",
+    src: "/src/assets/image5.jpg",
     alt: "Concrete grinding in an industrial workshop",
   },
   {
-    src: "/src/assets/image79.jpg",
+    src: "/src/assets/image6.jpg",
     alt: "Coating removal on a factory floor",
   },
   {
-    src: "/src/assets/image80.jpg",
+    src: "/src/assets/image7.jpg",
     alt: "Line marking removal in a warehouse aisle",
   },
   {
-    src: "/src/assets/image81.jpg",
+    src: "/src/assets/image8.jpg",
     alt: "Concrete grinding on a sports field slab",
   },
 ];

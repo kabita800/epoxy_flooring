@@ -1,4 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import before1 from "/src/assets/before1.jpeg";
+import after1 from "/src/assets/after1.jpg";
+
+import before2 from "/src/assets/before2.webp";
+import after2 from "/src/assets/after2.webp";
+
+import before3 from "/src/assets/before3.jpg";
+import after3 from "/src/assets/after3.jpg";
 
 /**
  * Seamless Epoxy Flake Flooring — landing page
@@ -50,40 +58,43 @@ const APPLICATIONS = [
 
 const GALLERY = [
   {
-    src: "/src/assets/image34.jpg",
+    src: "/src/assets/image11.jpg",
     alt: "Seamless epoxy flake floor in a residential garage",
   },
   {
-    src: "/src/assets/image35.jpg",
+    src: "/src/assets/image12.jpg",
     alt: "Epoxy flake flooring in a retail showroom",
   },
   {
-    src: "/src/assets/image36.jpg",
+    src: "/src/assets/image13.jpg",
     alt: "Flake epoxy floor in a warehouse storage facility",
   },
   {
-    src: "/src/assets/image37.jpg",
+    src: "/src/assets/image14.jpg",
     alt: "Epoxy flake floor finish on a cafe patio",
   },
   {
-    src: "/src/assets/image38.jpg",
+    src: "/src/assets/image15.jpg",
     alt: "Grey and white epoxy flake flooring in a shop",
   },
   {
-    src: "/src/assets/image39.jpg",
+    src: "/src/assets/image16.jpg",
     alt: "Epoxy flake floor in a veterinary clinic",
   },
   {
-    src: "/src/assets/image40.jpg",
+    src: "/src/assets/image17.jpg",
     alt: "Textured epoxy flake floor in a bar interior",
   },
   {
-    src: "/src/assets/image41.jpg",
+    src: "/src/assets/image18.jpg",
     alt: "Epoxy flake floor coating in a lift lobby",
   },
 ];
 
-function BeforeAfterSlider() {
+
+
+
+function BeforeAfterSlider({ before, after }) {
   const containerRef = useRef(null);
   const [position, setPosition] = useState(50);
   const draggingRef = useRef(false);
@@ -435,9 +446,11 @@ export default function SeamlessEpoxyFlakeFlooring() {
           against our seamless epoxy flake finish.
         </p>
 
-        <div className="mt-8">
-          <BeforeAfterSlider />
-        </div>
+         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  <BeforeAfterSlider before={before1} after={after1} />
+                  <BeforeAfterSlider before={before2} after={after2} />
+                  <BeforeAfterSlider before={before3} after={after3} />
+                </div>
       </section>
 
       {/* ===== GALLERY — 4 columns ===== */}

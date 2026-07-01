@@ -63,7 +63,7 @@ function LinkList({ items }) {
         <li key={item}>
           <a
             href="#"
-            className="text-[12.5px] text-gray-500 hover:text-[#A11717] transition-colors leading-snug"
+            className="footer-link text-[12.5px] text-gray-500 hover:text-[#A11717] transition-all duration-300 leading-snug"
           >
             {item}
           </a>
@@ -75,13 +75,14 @@ function LinkList({ items }) {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#f8f7f5] border-t border-[#e5e3de] font-sans">
+    <footer className="bg-[#f8f7f5] border-t border-[#e5e3de] font-sans relative overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A11717]/30 to-transparent" />
       <div className="max-w-6xl mx-auto px-8 pt-10 pb-8 grid grid-cols-[180px_1fr_1fr_1fr] gap-10">
         {/* Brand column */}
         <div>
           <a
             href="#"
-            className="flex items-center gap-2.5 shrink-0 no-underline"
+            className="flex items-center gap-2.5 shrink-0 no-underline transition-transform duration-300 hover:-translate-y-0.5"
           >
             <img
               src="/src/assets/logo.svg"
@@ -149,7 +150,7 @@ export default function Footer() {
                 key={label}
                 href="#"
                 aria-label={label}
-                className="w-[30px] h-[30px] rounded-md border border-gray-200 bg-white flex items-center justify-center text-gray-500 hover:border-[#A11717] hover:text-[#A11717] transition-colors"
+                className="footer-icon w-[30px] h-[30px] rounded-full border border-gray-200 bg-white flex items-center justify-center text-gray-500 hover:border-[#A11717] hover:text-[#A11717] transition-all duration-300"
               >
                 <svg
                   width="15"
@@ -193,7 +194,7 @@ export default function Footer() {
               <Link
                 key={label}
                 to={href}
-                className="text-[12px] text-gray-500 hover:text-[#A11717] transition-colors no-underline"
+                className="footer-link text-[12px] text-gray-500 hover:text-[#A11717] transition-all duration-300 no-underline"
               >
                 {label}
               </Link>

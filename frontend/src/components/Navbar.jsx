@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -113,15 +113,27 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-
   const [openDropdown, setOpenDropdown] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-sm">
+    <nav
+      className={`nav-shell sticky top-0 z-50 ${scrolled ? "scrolled" : ""}`}
+    >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* LOGO */}
 
-        <NavLink to="/" className="flex items-center gap-3 no-underline">
+        <NavLink
+          to="/"
+          className="flex items-center gap-3 no-underline transition-transform duration-300 hover:-translate-y-0.5"
+        >
           <img
             src="/src/assets/logo.svg"
             alt="Sydney Epoxy Floors"
@@ -146,24 +158,8 @@ export default function Navbar() {
               {dropdown ?
                 <button
                   onClick={() => setOpenDropdown(!openDropdown)}
-                  className="
-
-flex
-items-center
-gap-1
-px-3
-py-2
-rounded-md
-text-[13px]
-text-gray-700
-hover:text-[#A11717]
-hover:bg-red-50
-transition
-bg-transparent
-border-none
-cursor-pointer
-
-"
+                  aria-expanded={openDropdown}
+                  className="nav-link-hover flex items-center gap-1 px-3 py-2 rounded-full text-[13px] text-gray-700 hover:text-[#A11717] hover:bg-red-50/70 transition-all duration-300 bg-transparent border-none cursor-pointer"
                 >
                   {label}
 
@@ -173,11 +169,11 @@ cursor-pointer
                   to={href}
                   className={({ isActive }) =>
                     [
-                      "px-3 py-2 rounded-md text-[13px] transition no-underline",
+                      "nav-link-hover px-3 py-2 rounded-full text-[13px] transition-all duration-300 no-underline",
 
                       isActive ?
                         "text-[#A11717] font-bold"
-                      : "text-gray-700 hover:text-[#A11717] hover:bg-red-50",
+                      : "text-gray-700 hover:text-[#A11717] hover:bg-red-50/70",
                     ].join(" ")
                   }
                 >
@@ -194,67 +190,13 @@ cursor-pointer
               {/* DROPDOWN */}
 
               {dropdown && openDropdown && (
-                <div
-                  className="
-
-absolute
-
-top-full
-
-left-0
-
-mt-2
-
-w-[280px]
-
-max-h-[320px]
-
-overflow-y-auto
-
-bg-white
-
-shadow-lg
-
-rounded-md
-
-border
-
-border-gray-200
-
-py-2
-
-z-50
-
-"
-                >
+                <div className="dropdown-panel absolute top-full left-0 mt-2 w-[280px] max-h-[320px] overflow-y-auto bg-white/95 shadow-[0_20px_45px_-20px_rgba(22,24,27,0.45)] rounded-2xl border border-gray-200 py-2 z-50 backdrop-blur">
                   {dropdown.map((item) => (
                     <NavLink
                       key={item.label}
                       to={item.href}
                       onClick={() => setOpenDropdown(false)}
-                      className="
-
-block
-
-px-4
-
-py-1.5
-
-text-[12px]
-
-font-medium
-
-text-gray-600
-
-hover:text-[#A11717]
-
-hover:bg-red-50
-
-transition
-
-no-underline
-
-"
+                      className="block px-4 py-2 text-[12px] font-medium text-gray-600 hover:text-[#A11717] hover:bg-red-50/70 transition-all duration-300 no-underline"
                     >
                       {item.label}
                     </NavLink>
@@ -270,20 +212,25 @@ no-underline
         <div className="flex items-center gap-3">
           <NavLink
             to="/contact"
-            className="hidden lg:flex bg-[#A11717] text-white px-4 py-2 rounded-md text-sm no-underline"
+            className="hidden lg:flex bg-[#A11717] text-white px-4 py-2 rounded-full text-sm no-underline shadow-[0_14px_30px_-15px_rgba(161,23,23,0.8)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_35px_-12px_rgba(161,23,23,0.9)]"
           >
             Contact Us →
           </NavLink>
 
           <button
-            className="lg:hidden flex flex-col gap-1.5"
+            className="lg:hidden flex flex-col gap-1.5 p-2 rounded-full hover:bg-red-50/70 transition-all duration-300"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
           >
-            <span className="w-5 h-0.5 bg-black" />
-
-            <span className="w-5 h-0.5 bg-black" />
-
-            <span className="w-5 h-0.5 bg-black" />
+            <span
+              className={`w-5 h-0.5 bg-black transition-all duration-300 ${mobileOpen ? "translate-y-[6px] rotate-45" : ""}`}
+            />
+            <span
+              className={`w-5 h-0.5 bg-black transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`}
+            />
+            <span
+              className={`w-5 h-0.5 bg-black transition-all duration-300 ${mobileOpen ? "-translate-y-[6px] -rotate-45" : ""}`}
+            />
           </button>
         </div>
       </div>
@@ -291,7 +238,7 @@ no-underline
       {/* MOBILE MENU */}
 
       {mobileOpen && (
-        <div className="lg:hidden border-t px-6 py-4 flex flex-col gap-2">
+        <div className="mobile-menu-panel lg:hidden border-t border-black/5 px-6 py-4 flex flex-col gap-2 bg-white/95 backdrop-blur">
           {NAV_LINKS.map(({ label, href, badge }) => (
             <NavLink
               key={label}
@@ -299,11 +246,11 @@ no-underline
               onClick={() => setMobileOpen(false)}
               className={({ isActive }) =>
                 [
-                  "px-3 py-2 rounded-md text-sm no-underline",
+                  "px-3 py-2 rounded-full text-sm no-underline transition-all duration-300",
 
                   isActive ?
                     "text-[#A11717] font-bold bg-red-50"
-                  : "text-gray-700",
+                  : "text-gray-700 hover:bg-red-50/70 hover:text-[#A11717]",
                 ].join(" ")
               }
             >
@@ -318,7 +265,7 @@ no-underline
           <NavLink
             to="/contact"
             onClick={() => setMobileOpen(false)}
-            className="mt-3 bg-[#A11717] text-white px-3 py-2.5 rounded-md text-sm font-semibold text-center no-underline hover:bg-[#831111] transition duration-200"
+            className="mt-3 bg-[#A11717] text-white px-3 py-2.5 rounded-full text-sm font-semibold text-center no-underline hover:bg-[#831111] transition-all duration-300"
           >
             Contact Us →
           </NavLink>

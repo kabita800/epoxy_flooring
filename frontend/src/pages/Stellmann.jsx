@@ -214,9 +214,13 @@ export default function Stellmann() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 mb-9">
-                  <button className="stl-cta-btn bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-6 py-3 rounded-sm font-semibold stl-mono text-xs uppercase tracking-wide">
-                    Get a free safety quote
-                  </button>
+                  
+<Link
+  to="/contact"
+  className="stl-cta-btn inline-flex items-center justify-center bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-6 py-3 rounded-sm font-semibold stl-mono text-xs uppercase tracking-wide"
+>
+  Get a free safety quote
+</Link>
                   <a
                     href="tel:1300037699"
                     className="border border-[var(--paper)]/25 hover:bg-[var(--paper)] hover:text-[var(--ink)] text-[var(--paper)] px-6 py-3 rounded-sm font-semibold no-underline text-center stl-mono text-xs uppercase tracking-wide transition-colors"

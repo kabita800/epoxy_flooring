@@ -44,35 +44,35 @@ const COST_FACTORS = [
 
 const GALLERY = [
   {
-    src: "/src/assets/image66.jpg",
+    src: "/src/assets/image20.jpg",
     alt: "Resurfaced residential driveway with epoxy coating",
   },
   {
-    src: "/src/assets/image67.jpg",
+    src: "/src/assets/image19.jpg",
     alt: "Grey epoxy coated driveway in front of a modern home",
   },
   {
-    src: "/src/assets/image68.jpg",
+    src: "/src/assets/image21.jpg",
     alt: "Outdoor patio area with non-slip epoxy finish",
   },
   {
-    src: "/src/assets/image69.jpg",
+    src: "/src/assets/image22.jpg",
     alt: "Driveway resurfacing project before and after",
   },
   {
-    src: "/src/assets/image70.jpg",
+    src: "/src/assets/image23.jpg",
     alt: "Two pack polyurethane coated driveway",
   },
   {
-    src: "/src/assets/image71.jpg",
+    src: "/src/assets/image24.jpg",
     alt: "Outdoor alfresco area with epoxy floor coating",
   },
   {
-    src: "/src/assets/image72.jpg",
+    src: "/src/assets/image25.jpg",
     alt: "Light-reflective epoxy driveway finish",
   },
   {
-    src: "/src/assets/image73.jpg",
+    src: "/src/assets/image18.jpg",
     alt: "Completed driveway resurfacing project",
   },
 ];

@@ -65,35 +65,35 @@ const MATERIALS = [
 
 const GALLERY = [
   {
-    src: "/src/assets/image58.jpg",
+    src: "/src/assets/image15.jpg",
     alt: "Heavy duty epoxy line marking in a warehouse",
   },
   {
-    src: "/src/assets/image59.jpg",
+    src: "/src/assets/image16.jpg",
     alt: "Yellow safety line marking in a mechanical workshop",
   },
   {
-    src: "/src/assets/image60.jpg",
+    src: "/src/assets/image17.jpg",
     alt: "Polyaspartic line marking in a food processing facility",
   },
   {
-    src: "/src/assets/image61.jpg",
+    src: "/src/assets/image18.jpg",
     alt: "Line marking in a bus depot",
   },
   {
-    src: "/src/assets/image62.jpg",
+    src: "/src/assets/image19.jpg",
     alt: "Two pack polyurethane line marking on a loading dock",
   },
   {
-    src: "/src/assets/image63.jpg",
+    src: "/src/assets/image20.jpg",
     alt: "MMA line marking on an outdoor road surface",
   },
   {
-    src: "/src/assets/image64.jpg",
+    src: "/src/assets/image21.jpg",
     alt: "Heavy duty line marking in a truck depot",
   },
   {
-    src: "/src/assets/image65.jpg",
+    src: "/src/assets/image22.jpg",
     alt: "Line marking for pedestrian walkways in a warehouse",
   },
 ];

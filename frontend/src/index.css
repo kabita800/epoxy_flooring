@@ -1,23 +1,163 @@
 @import "tailwindcss";
 
-@media(max-width:640px){
-
-body{
-overflow-x:hidden;
+:root {
+  color-scheme: light;
 }
 
-h1,h2,h3{
-word-break:normal;
+html {
+  scroll-behavior: smooth;
 }
 
-.hero-content{
-padding-top:40px;
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(161, 23, 23, 0.08), transparent 30%),
+    linear-gradient(135deg, #fcfbf8 0%, #f6f2eb 100%);
+  color: #16181b;
+  font-family: Inter, sans-serif;
 }
 
-.service-card:hover,
-.feature-card:hover,
-.area-card:hover{
-transform:none;
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  width: 320px;
+  height: 320px;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.28;
+  pointer-events: none;
+  z-index: -1;
+  animation: drift 18s ease-in-out infinite alternate;
 }
 
+body::before {
+  top: -80px;
+  left: -90px;
+  background: rgba(161, 23, 23, 0.2);
+}
+
+body::after {
+  right: -100px;
+  bottom: -80px;
+  background: rgba(22, 24, 27, 0.14);
+  animation-duration: 22s;
+}
+
+::selection {
+  background: rgba(161, 23, 23, 0.2);
+  color: #16181b;
+}
+
+.nav-shell {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(22, 24, 27, 0.06);
+  transition: all 0.3s ease;
+}
+
+.nav-shell.scrolled {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 16px 30px -22px rgba(22, 24, 27, 0.35);
+}
+
+.nav-link-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link-hover::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #a11717 50%, transparent);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.nav-link-hover:hover::after,
+.nav-link-hover.active::after {
+  width: 70%;
+}
+
+.dropdown-panel {
+  animation: fadeSlideDown 0.2s ease-out;
+}
+
+.mobile-menu-panel {
+  animation: fadeSlideDown 0.22s ease-out;
+}
+
+.page-transition {
+  animation: pageEnter 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.footer-link {
+  position: relative;
+}
+
+.footer-link:hover {
+  transform: translateX(3px);
+}
+
+.footer-icon:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(25px, -20px, 0) scale(1.08);
+  }
+}
+
+@keyframes fadeSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    word-break: normal;
+  }
+
+  .hero-content {
+    padding-top: 40px;
+  }
+
+  .service-card:hover,
+  .feature-card:hover,
+  .area-card:hover {
+    transform: none;
+  }
 }

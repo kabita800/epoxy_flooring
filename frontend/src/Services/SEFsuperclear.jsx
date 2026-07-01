@@ -44,35 +44,35 @@ const APPLICATIONS = [
 
 const GALLERY = [
   {
-    src: "/src/assets/image42.jpg",
+    src: "/src/assets/image20.jpg",
     alt: "SuperClear grind and seal concrete floor in a retail store",
   },
   {
-    src: "/src/assets/image43.jpg",
+    src: "/src/assets/image21.jpg",
     alt: "Clear coated concrete floor in a photography studio",
   },
   {
-    src: "/src/assets/image44.jpg",
+    src: "/src/assets/image22.jpg",
     alt: "Grind and seal concrete floor finish in a home interior",
   },
   {
-    src: "/src/assets/image45.jpg",
+    src: "/src/assets/image23.jpg",
     alt: "Polished-look concrete floor in a night club",
   },
   {
-    src: "/src/assets/image46.jpg",
+    src: "/src/assets/image24.jpg",
     alt: "SuperClear coated concrete patio floor",
   },
   {
-    src: "/src/assets/image47.jpg",
+    src: "/src/assets/image25.jpg",
     alt: "Grind and seal flooring in a storage facility",
   },
   {
-    src: "/src/assets/image48.jpg",
+    src: "/src/assets/image1.jpg",
     alt: "Clear coated concrete floor in a bar",
   },
   {
-    src: "/src/assets/image49.jpg",
+    src: "/src/assets/image2.jpg",
     alt: "Satin finish grind and seal concrete floor in a factory",
   },
 ];

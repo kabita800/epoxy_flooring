@@ -1,4 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import before1 from "/src/assets/before1.jpeg";
+import after1 from "/src/assets/after1.jpg";
+
+import before2 from "/src/assets/before2.webp";
+import after2 from "/src/assets/after2.webp";
+
+import before3 from "/src/assets/before3.jpg";
+import after3 from "/src/assets/after3.jpg";
 
 /**
  * Solid / Single Colour Epoxy Flooring — landing page
@@ -12,15 +20,18 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 const BENEFITS = [
   {
     label: "Durability",
-    detail: "Resists wear, heavy loads and high-traffic use in warehouses and industrial settings.",
+    detail:
+      "Resists wear, heavy loads and high-traffic use in warehouses and industrial settings.",
   },
   {
     label: "Chemical resistance",
-    detail: "Withstands a wide range of chemicals found in labs and manufacturing plants.",
+    detail:
+      "Withstands a wide range of chemicals found in labs and manufacturing plants.",
   },
   {
     label: "Easy to clean",
-    detail: "Low-maintenance surface suited to food processing and cleanroom environments.",
+    detail:
+      "Low-maintenance surface suited to food processing and cleanroom environments.",
   },
   {
     label: "Aesthetically pleasing",
@@ -28,7 +39,8 @@ const BENEFITS = [
   },
   {
     label: "Cost-effective",
-    detail: "Higher upfront cost pays off through durability and low ongoing maintenance.",
+    detail:
+      "Higher upfront cost pays off through durability and low ongoing maintenance.",
   },
 ];
 
@@ -67,40 +79,40 @@ const SYSTEM_TYPES = [
 
 const GALLERY = [
   {
-    src: "/src/assets/image26.jpg",
+    src: "/src/assets/image2.jpg",
     alt: "Solid grey epoxy floor coating in a warehouse",
   },
   {
-    src: "/src/assets/image27.jpg",
+    src: "/src/assets/image3.jpg",
     alt: "Single colour epoxy floor in a residential garage",
   },
   {
-    src: "/src/assets/image28.jpg",
+    src: "/src/assets/iamge4.jpg",
     alt: "High gloss solid colour epoxy floor in a showroom",
   },
   {
-    src: "/src/assets/image29.jpg",
+    src: "/src/assets/image5.jpg",
     alt: "Solid colour epoxy flooring in a commercial car park",
   },
   {
-    src: "/src/assets/image30.jpg",
+    src: "/src/assets/image6.jpg",
     alt: "Industrial grade epoxy floor in a manufacturing area",
   },
   {
-    src: "/src/assets/image31.jpg",
+    src: "/src/assets/image8.jpg",
     alt: "Solid colour epoxy floor in a medical facility corridor",
   },
   {
-    src: "/src/assets/image32.jpg",
+    src: "/src/assets/image9.jpg",
     alt: "Epoxy coated ramp with anti-slip finish",
   },
   {
-    src: "/src/assets/image33.jpg",
+    src: "/src/assets/image10.jpg",
     alt: "Solid colour epoxy floor in a loading dock",
   },
 ];
 
-function BeforeAfterSlider() {
+function BeforeAfterSlider({ before, after }) {
   const containerRef = useRef(null);
   const [position, setPosition] = useState(50);
   const draggingRef = useRef(false);
@@ -140,8 +152,8 @@ function BeforeAfterSlider() {
       className="relative aspect-[16/9] w-full select-none overflow-hidden rounded-2xl border border-[#eceeed]"
     >
       <img
-        src="/src/assets/image1.jpg"
-        alt="Bare concrete floor before solid colour epoxy coating"
+        src={before}
+        alt="Before"
         className="absolute inset-0 h-full w-full object-cover"
         draggable={false}
       />
@@ -150,13 +162,12 @@ function BeforeAfterSlider() {
         style={{ width: `${position}%` }}
       >
         <img
-          src="/src/assets/image4.jpg"
-          alt="Finished solid colour epoxy floor after coating"
+          src={after}
+          alt="After"
           className="h-full w-full object-cover"
           style={{
-            width: containerRef.current
-              ? containerRef.current.offsetWidth
-              : "100%",
+            width:
+              containerRef.current ? containerRef.current.offsetWidth : "100%",
             maxWidth: "none",
           }}
           draggable={false}
@@ -401,15 +412,15 @@ export default function SolidColourEpoxyFlooring() {
           <div className="mt-8 grid items-start gap-10 lg:grid-cols-2">
             <div className="space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
               <p>
-                Solid colour or single colour epoxy flooring is an
-                attractive, cost-effective choice for any business or
-                residential space, providing exceptional durability against
-                scratches, abrasion and chemical spills.
+                Solid colour or single colour epoxy flooring is an attractive,
+                cost-effective choice for any business or residential space,
+                providing exceptional durability against scratches, abrasion and
+                chemical spills.
               </p>
               <p>
                 The glossy finish increases brightness in even the darkest
-                spaces, while anti-slip elements help keep the surface safe
-                to work and walk on.
+                spaces, while anti-slip elements help keep the surface safe to
+                work and walk on.
               </p>
               <p>
                 Durable and attractive, it's a strong fit anywhere longevity,
@@ -444,12 +455,14 @@ export default function SolidColourEpoxyFlooring() {
           Drag the slider to view the transformation
         </h2>
         <p className="mt-3 max-w-xl text-sm text-[#5b6669]">
-          Move the white slider to compare a bare floor before coating
-          against our industrial-grade, solid colour epoxy finish.
+          Move the white slider to compare a bare floor before coating against
+          our industrial-grade, solid colour epoxy finish.
         </p>
 
-        <div className="mt-8">
-          <BeforeAfterSlider />
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <BeforeAfterSlider before={before1} after={after1} />
+          <BeforeAfterSlider before={before2} after={after2} />
+          <BeforeAfterSlider before={before3} after={after3} />
         </div>
       </section>
 
