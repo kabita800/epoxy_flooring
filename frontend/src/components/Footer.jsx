@@ -77,9 +77,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#f8f7f5] border-t border-[#e5e3de] font-sans relative overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A11717]/30 to-transparent" />
-      <div className="max-w-6xl mx-auto px-8 pt-10 pb-8 grid grid-cols-[180px_1fr_1fr_1fr] gap-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pt-8 sm:pt-10 pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr] gap-6 sm:gap-8 lg:gap-10">
         {/* Brand column */}
-        <div>
+        <div className="max-w-[280px] sm:col-span-2 lg:col-span-1">
           <a
             href="#"
             className="flex items-center gap-2.5 shrink-0 no-underline transition-transform duration-300 hover:-translate-y-0.5"
@@ -105,7 +105,7 @@ export default function Footer() {
         </div>
 
         {/* Contact column */}
-        <div>
+        <div className="sm:mt-0">
           <ColLabel>Contact us</ColLabel>
           <a
             href="tel:1300037699"
@@ -171,13 +171,13 @@ export default function Footer() {
         </div>
 
         {/* Services left */}
-        <div>
+        <div className="sm:mt-0">
           <ColLabel>Flooring services</ColLabel>
           <LinkList items={SERVICES_LEFT} />
         </div>
 
         {/* Services right */}
-        <div>
+        <div className="sm:mt-0">
           <ColLabel>More services</ColLabel>
           <LinkList items={SERVICES_RIGHT} />
         </div>
@@ -185,7 +185,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-[#e0ded9]">
-        <div className="max-w-6xl mx-auto px-8 py-3.5 flex items-center justify-between flex-wrap gap-2">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <nav
             className="flex flex-wrap gap-x-4 gap-y-1"
             aria-label="Footer navigation"

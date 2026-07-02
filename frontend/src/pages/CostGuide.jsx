@@ -73,24 +73,72 @@ const RATE_CARD = [
 ];
 
 const FACTORS = [
-  { icon: Layers, title: "Size of the job", body: "Larger floors mean a lower rate per sqm — mobilisation cost is fixed, and big-format planetary grinders cover ground faster." },
-  { icon: Truck, title: "Site access", body: "Stairs, lifts and tight corridors force smaller handheld grinders, which take 2–3× longer than truck-mounted gear." },
-  { icon: Clock, title: "Working hours", body: "Standard rates apply Mon–Fri, 7am–3.30pm. After-hours work to protect your trading hours attracts penalty rates." },
-  { icon: Building2, title: "Parking & logistics", body: "CBD sites and strict strata buildings without onsite parking add cost for paid parking or ferrying equipment." },
-  { icon: Wrench, title: "Condition of the slab", body: "Cracks, divots and ramping need repair mortar and extra grinding before a single coat goes down." },
-  { icon: RefreshCw, title: "Staged works", body: "Splitting a warehouse into stages to keep you trading multiplies travel, setup and site-clean per visit." },
+  {
+    icon: Layers,
+    title: "Size of the job",
+    body: "Larger floors mean a lower rate per sqm — mobilisation cost is fixed, and big-format planetary grinders cover ground faster.",
+  },
+  {
+    icon: Truck,
+    title: "Site access",
+    body: "Stairs, lifts and tight corridors force smaller handheld grinders, which take 2–3× longer than truck-mounted gear.",
+  },
+  {
+    icon: Clock,
+    title: "Working hours",
+    body: "Standard rates apply Mon–Fri, 7am–3.30pm. After-hours work to protect your trading hours attracts penalty rates.",
+  },
+  {
+    icon: Building2,
+    title: "Parking & logistics",
+    body: "CBD sites and strict strata buildings without onsite parking add cost for paid parking or ferrying equipment.",
+  },
+  {
+    icon: Wrench,
+    title: "Condition of the slab",
+    body: "Cracks, divots and ramping need repair mortar and extra grinding before a single coat goes down.",
+  },
+  {
+    icon: RefreshCw,
+    title: "Staged works",
+    body: "Splitting a warehouse into stages to keep you trading multiplies travel, setup and site-clean per visit.",
+  },
 ];
 
 const RED_FLAGS = [
-  { title: "The prep shortcut", cheap: "Acid etching or light hand grinders", sef: "Industrial diamond grinding to spec CSP", result: "Epoxy lifts under hot tyres." },
-  { title: "The material shortcut", cheap: "Water-based, high-solvent epoxy", sef: "100% solids resin", result: "Thin coat wears through within months." },
-  { title: "The UV shortcut", cheap: "No polyaspartic topcoat", sef: "UV-stable polyaspartic topcoat", result: "Floor yellows within 12 months." },
+  {
+    title: "The prep shortcut",
+    cheap: "Acid etching or light hand grinders",
+    sef: "Industrial diamond grinding to spec CSP",
+    result: "Epoxy lifts under hot tyres.",
+  },
+  {
+    title: "The material shortcut",
+    cheap: "Water-based, high-solvent epoxy",
+    sef: "100% solids resin",
+    result: "Thin coat wears through within months.",
+  },
+  {
+    title: "The UV shortcut",
+    cheap: "No polyaspartic topcoat",
+    sef: "UV-stable polyaspartic topcoat",
+    result: "Floor yellows within 12 months.",
+  },
 ];
 
 const PROMISE = [
-  { title: "Local & permanent", body: "Two fully stocked, brick-and-mortar showrooms. Not a mobile number that can disappear." },
-  { title: "No hot-tyre exclusion", body: "Most budget warranties exclude hot tyre pick-up in the fine print. Ours doesn't." },
-  { title: "Proven longevity", body: "One of the few NSW companies that has watched its own floors survive 20 years of real use." },
+  {
+    title: "Local & permanent",
+    body: "Two fully stocked, brick-and-mortar showrooms. Not a mobile number that can disappear.",
+  },
+  {
+    title: "No hot-tyre exclusion",
+    body: "Most budget warranties exclude hot tyre pick-up in the fine print. Ours doesn't.",
+  },
+  {
+    title: "Proven longevity",
+    body: "One of the few NSW companies that has watched its own floors survive 20 years of real use.",
+  },
 ];
 
 /* ----------------------------------------------------------------
@@ -117,7 +165,13 @@ function useInView(options = {}) {
   return [ref, inView];
 }
 
-const Reveal = ({ as: Tag = "div", className = "", delay = 0, children, ...rest }) => {
+const Reveal = ({
+  as: Tag = "div",
+  className = "",
+  delay = 0,
+  children,
+  ...rest
+}) => {
   const [ref, inView] = useInView();
   return (
     <Tag
@@ -137,12 +191,26 @@ const Eyebrow = ({ children, light = false }) => (
       light ? "text-[var(--clay)]" : "text-[var(--brick)]"
     }`}
   >
-    <span className={`w-1 h-1 rounded-full ${light ? "bg-[var(--clay)]" : "bg-[var(--brick)]"}`} />
+    <span
+      className={`w-1 h-1 rounded-full ${light ? "bg-[var(--clay)]" : "bg-[var(--brick)]"}`}
+    />
     {children}
   </span>
 );
 
 export default function CostGuide() {
+  const [activeFactor, setActiveFactor] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveFactor((prev) => (prev === FACTORS.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentFactor = FACTORS[activeFactor];
+  const CurrentIcon = currentFactor.icon;
+
   return (
     <>
       <style>{`
@@ -168,6 +236,7 @@ export default function CostGuide() {
 
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(24px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes glowPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
+        @keyframes factorSlideIn { 0% { opacity: 0; transform: translateX(12px); } 100% { opacity: 1; transform: translateX(0); } }
 
         .reveal {
           opacity: 0;
@@ -201,6 +270,8 @@ export default function CostGuide() {
 
         .price-row { transition: background-color 0.3s ease; }
         .price-row:hover { background-color: var(--surface); }
+
+        .factor-slide-enter { animation: factorSlideIn 0.45s cubic-bezier(0.16,1,0.3,1); }
 
         .img-zoom img { transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
         .img-zoom:hover img { transform: scale(1.06); }
@@ -254,13 +325,22 @@ export default function CostGuide() {
               <div className="relative">
                 <div
                   className="glow absolute -inset-6 rounded-full opacity-60 blur-3xl"
-                  style={{ background: "radial-gradient(circle, rgba(161,23,23,0.18), transparent 70%)" }}
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(161,23,23,0.18), transparent 70%)",
+                  }}
                 />
                 <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-[0_30px_60px_-20px_rgba(26,26,24,0.25)]">
-                  <img src={IMAGES.hero} alt="Glossy epoxy resin floor finish" className="w-full h-full object-cover" />
+                  <img
+                    src={IMAGES.hero}
+                    alt="Glossy epoxy resin floor finish"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl px-6 py-5 hidden sm:block shadow-[0_20px_40px_-12px_rgba(26,26,24,0.2)] border border-[var(--line)]">
-                  <p className="cg-serif text-3xl font-medium leading-none text-[var(--brick)]">21+</p>
+                  <p className="cg-serif text-3xl font-medium leading-none text-[var(--brick)]">
+                    21+
+                  </p>
                   <p className="cg-mono text-[10px] uppercase tracking-wide text-[var(--slate-soft)] mt-1.5">
                     years, one company
                   </p>
@@ -270,7 +350,6 @@ export default function CostGuide() {
           </div>
         </header>
 
-        
         {/* ---------- RATE CARD ---------- */}
         <section className="py-16 md:py-16 bg-[var(--cream)]">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
@@ -291,16 +370,26 @@ export default function CostGuide() {
                 <div
                   key={item.name}
                   className={`price-row grid grid-cols-12 gap-4 px-6 md:px-8 py-6 items-center ${
-                    i !== RATE_CARD.length - 1 ? "border-b border-[var(--line)]" : ""
+                    i !== RATE_CARD.length - 1 ?
+                      "border-b border-[var(--line)]"
+                    : ""
                   }`}
                 >
                   <div className="col-span-12 md:col-span-5">
-                    <h3 className="font-semibold text-[var(--ink)] text-[15px]">{item.name}</h3>
-                    <p className="text-[var(--slate)] text-[13px] mt-1 leading-relaxed">{item.note}</p>
+                    <h3 className="font-semibold text-[var(--ink)] text-[15px]">
+                      {item.name}
+                    </h3>
+                    <p className="text-[var(--slate)] text-[13px] mt-1 leading-relaxed">
+                      {item.note}
+                    </p>
                   </div>
                   <div className="col-span-7 md:col-span-3">
-                    <span className="cg-serif text-xl font-medium text-[var(--ink)]">{item.price}</span>
-                    <span className="text-[13px] text-[var(--slate-soft)] ml-1">{item.unit}</span>
+                    <span className="cg-serif text-xl font-medium text-[var(--ink)]">
+                      {item.price}
+                    </span>
+                    <span className="text-[13px] text-[var(--slate-soft)] ml-1">
+                      {item.unit}
+                    </span>
                   </div>
                   <div className="col-span-5 md:col-span-4 md:text-right">
                     <span className="cg-mono text-[11px] uppercase tracking-wide text-[var(--brick)] bg-[var(--brick)]/8 px-2.5 py-1 rounded-full">
@@ -325,21 +414,44 @@ export default function CostGuide() {
             <Reveal className="max-w-2xl mb-12">
               <Eyebrow>Behind the number</Eyebrow>
               <h2 className="cg-serif text-2xl md:text-[2.1rem] font-medium text-[var(--ink)] leading-[1.2]">
-                About half of your quote is logistics and labour, not
-                material.
+                About half of your quote is logistics and labour, not material.
               </h2>
             </Reveal>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {FACTORS.map(({ icon: Icon, title, body }, i) => (
-                <Reveal key={title} delay={i * 60} className="lift-card bg-white rounded-2xl p-7">
+            <div className="max-w-3xl mx-auto">
+              <Reveal key={currentFactor.title}>
+                <div className="factor-slide-enter lift-card bg-white rounded-2xl p-7 md:p-8">
                   <div className="w-11 h-11 rounded-xl bg-[var(--brick)]/8 flex items-center justify-center mb-5">
-                    <Icon size={19} strokeWidth={1.75} className="text-[var(--brick)]" />
+                    <CurrentIcon
+                      size={19}
+                      strokeWidth={1.75}
+                      className="text-[var(--brick)]"
+                    />
                   </div>
-                  <h3 className="font-semibold text-[15px] text-[var(--ink)] mb-2">{title}</h3>
-                  <p className="text-[var(--slate)] text-[13.5px] leading-relaxed">{body}</p>
-                </Reveal>
-              ))}
+                  <h3 className="font-semibold text-[15px] text-[var(--ink)] mb-2">
+                    {currentFactor.title}
+                  </h3>
+                  <p className="text-[var(--slate)] text-[13.5px] leading-relaxed">
+                    {currentFactor.body}
+                  </p>
+                </div>
+              </Reveal>
+
+              <div className="mt-6 flex items-center justify-center gap-2">
+                {FACTORS.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    aria-label={`Show factor ${index + 1}`}
+                    onClick={() => setActiveFactor(index)}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      activeFactor === index ?
+                        "w-6 bg-[var(--brick)]"
+                      : "w-2.5 bg-[var(--ink)]/20"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -356,16 +468,36 @@ export default function CostGuide() {
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { img: IMAGES.grind, name: "Diamond grind & prep", desc: "Industrial CSP-rated surface preparation — the foundation every coat depends on." },
-                { img: IMAGES.flake, name: "Premium flake system", desc: "Broadcast flake with UV-stable topcoat. 10+ years commercial, 15+ residential." },
-                { img: IMAGES.metallic, name: "Metallic & marble effect", desc: "Pigment-driven, one-of-a-kind floors for showrooms and feature spaces." },
+                {
+                  img: IMAGES.grind,
+                  name: "Diamond grind & prep",
+                  desc: "Industrial CSP-rated surface preparation — the foundation every coat depends on.",
+                },
+                {
+                  img: IMAGES.flake,
+                  name: "Premium flake system",
+                  desc: "Broadcast flake with UV-stable topcoat. 10+ years commercial, 15+ residential.",
+                },
+                {
+                  img: IMAGES.metallic,
+                  name: "Metallic & marble effect",
+                  desc: "Pigment-driven, one-of-a-kind floors for showrooms and feature spaces.",
+                },
               ].map((s, i) => (
                 <Reveal key={s.name} delay={i * 80}>
                   <div className="img-zoom aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_1px_2px_rgba(26,26,24,0.06),0_12px_28px_-12px_rgba(26,26,24,0.18)]">
-                    <img src={s.img} alt={s.name} className="w-full h-full object-cover" />
+                    <img
+                      src={s.img}
+                      alt={s.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <h3 className="font-semibold text-[15px] text-[var(--ink)] mt-5">{s.name}</h3>
-                  <p className="text-[var(--slate)] text-[13.5px] mt-1.5 leading-relaxed">{s.desc}</p>
+                  <h3 className="font-semibold text-[15px] text-[var(--ink)] mt-5">
+                    {s.name}
+                  </h3>
+                  <p className="text-[var(--slate)] text-[13.5px] mt-1.5 leading-relaxed">
+                    {s.desc}
+                  </p>
                 </Reveal>
               ))}
             </div>
@@ -390,18 +522,32 @@ export default function CostGuide() {
                   className="lift-card bg-white rounded-2xl p-6 md:p-7 grid md:grid-cols-12 gap-4 items-center"
                 >
                   <div className="md:col-span-3">
-                    <h3 className="font-semibold text-[15px] text-[var(--ink)]">{r.title}</h3>
+                    <h3 className="font-semibold text-[15px] text-[var(--ink)]">
+                      {r.title}
+                    </h3>
                   </div>
                   <div className="md:col-span-4 flex items-start gap-2">
-                    <XCircle size={15} className="text-[var(--brick)] mt-0.5 shrink-0" />
-                    <span className="text-[13.5px] text-[var(--ink)]/70">{r.cheap}</span>
+                    <XCircle
+                      size={15}
+                      className="text-[var(--brick)] mt-0.5 shrink-0"
+                    />
+                    <span className="text-[13.5px] text-[var(--ink)]/70">
+                      {r.cheap}
+                    </span>
                   </div>
                   <div className="md:col-span-3 flex items-start gap-2">
-                    <CheckCircle2 size={15} className="text-[var(--good)] mt-0.5 shrink-0" />
-                    <span className="text-[13.5px] text-[var(--ink)]/70">{r.sef}</span>
+                    <CheckCircle2
+                      size={15}
+                      className="text-[var(--good)] mt-0.5 shrink-0"
+                    />
+                    <span className="text-[13.5px] text-[var(--ink)]/70">
+                      {r.sef}
+                    </span>
                   </div>
                   <div className="md:col-span-2">
-                    <span className="text-[12.5px] text-[var(--slate-soft)] italic">{r.result}</span>
+                    <span className="text-[12.5px] text-[var(--slate-soft)] italic">
+                      {r.result}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -416,8 +562,8 @@ export default function CostGuide() {
               <Reveal className="md:col-span-5 order-2 md:order-1">
                 <Eyebrow>See it before you sign</Eyebrow>
                 <h2 className="cg-serif text-2xl md:text-[2.1rem] font-medium text-[var(--ink)] leading-[1.2]">
-                  Most contractors show you a plastic sample. We'll show you
-                  the floor.
+                  Most contractors show you a plastic sample. We'll show you the
+                  floor.
                 </h2>
                 <p className="text-[var(--slate)] text-base mt-5 leading-relaxed">
                   Walk full-scale installations of our premium flake and
@@ -426,18 +572,32 @@ export default function CostGuide() {
                 </p>
                 <div className="mt-7 space-y-3">
                   <div className="flex items-start gap-3">
-                    <MapPin size={16} className="text-[var(--brick)] mt-0.5 shrink-0" />
-                    <span className="text-[14px] text-[var(--ink)]">Silverwater — 6 Giffard Street, Silverwater NSW</span>
+                    <MapPin
+                      size={16}
+                      className="text-[var(--brick)] mt-0.5 shrink-0"
+                    />
+                    <span className="text-[14px] text-[var(--ink)]">
+                      Silverwater — 6 Giffard Street, Silverwater NSW
+                    </span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <MapPin size={16} className="text-[var(--brick)] mt-0.5 shrink-0" />
-                    <span className="text-[14px] text-[var(--ink)]">Rydalmere — Unit C/283 Victoria Road, Rydalmere NSW</span>
+                    <MapPin
+                      size={16}
+                      className="text-[var(--brick)] mt-0.5 shrink-0"
+                    />
+                    <span className="text-[14px] text-[var(--ink)]">
+                      Rydalmere — Unit C/283 Victoria Road, Rydalmere NSW
+                    </span>
                   </div>
                 </div>
               </Reveal>
               <Reveal delay={150} className="md:col-span-7 order-1 md:order-2">
                 <div className="aspect-[16/10] overflow-hidden rounded-3xl shadow-[0_1px_2px_rgba(26,26,24,0.06),0_24px_48px_-16px_rgba(26,26,24,0.2)]">
-                  <img src={IMAGES.showroom} alt="Sydney Epoxy Floors showroom" className="w-full h-full object-cover" />
+                  <img
+                    src={IMAGES.showroom}
+                    alt="Sydney Epoxy Floors showroom"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </Reveal>
             </div>
@@ -458,10 +618,16 @@ export default function CostGuide() {
               {PROMISE.map((p, i) => (
                 <Reveal key={p.title} delay={i * 70} className="promise-item">
                   <div className="num-badge w-9 h-9 rounded-full bg-white border border-[var(--line)] flex items-center justify-center mb-4">
-                    <span className="cg-serif text-sm font-medium">{(i + 1).toString().padStart(2, "0")}</span>
+                    <span className="cg-serif text-sm font-medium">
+                      {(i + 1).toString().padStart(2, "0")}
+                    </span>
                   </div>
-                  <h3 className="font-semibold text-[15px] text-[var(--ink)] mb-2">{p.title}</h3>
-                  <p className="text-[var(--slate)] text-[13.5px] leading-relaxed">{p.body}</p>
+                  <h3 className="font-semibold text-[15px] text-[var(--ink)] mb-2">
+                    {p.title}
+                  </h3>
+                  <p className="text-[var(--slate)] text-[13.5px] leading-relaxed">
+                    {p.body}
+                  </p>
                 </Reveal>
               ))}
             </div>
@@ -481,7 +647,10 @@ export default function CostGuide() {
           />
           <div
             className="glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-3xl opacity-40"
-            style={{ background: "radial-gradient(circle, rgba(161,23,23,0.5), transparent 70%)" }}
+            style={{
+              background:
+                "radial-gradient(circle, rgba(161,23,23,0.5), transparent 70%)",
+            }}
           />
           <div className="relative max-w-6xl mx-auto px-6 lg:px-10 py-24 md:py-28 text-center">
             <Reveal>

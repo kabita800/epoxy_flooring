@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import before1 from "/src/assets/before1.jpeg";
-import after1 from "/src/assets/after1.jpg";
+import before1 from "/src/assets/before4.jpg";
+import after1 from "/src/assets/after4.jpg";
 
-import before2 from "/src/assets/before2.webp";
-import after2 from "/src/assets/after2.webp";
+import before2 from "/src/assets/before5.jpg";
+import after2 from "/src/assets/after5.jpg";
 
-import before3 from "/src/assets/before3.jpg";
-import after3 from "/src/assets/after3.jpg";
+import before3 from "/src/assets/before6.jpg";
+import after3 from "/src/assets/after6.jpg";
 
 /**
- * Solid / Single Colour Epoxy Flooring — landing page
+ * Solid / Single Colour Epoxy Flooring — landing page (ANIMATED)
  *
  * Same visual system as the Metallic & Marble / Poly-Cement pages:
  * white surfaces, steel-grey neutrals, and a single deep-red accent
- * (#A11717) used sparingly. Compact hero, simple sections, before/after
- * slider, image gallery.
+ * (#A11717) used sparingly. Motion layered throughout: a staggered hero
+ * entrance with ambient zoom, scroll-triggered reveals on every section,
+ * animated dividers/counters, a staggered before/after slider set, an
+ * animated system-type comparison grid, hover micro-interactions, and a
+ * smooth lightbox transition. Respects prefers-reduced-motion.
  */
 
 const BENEFITS = [
@@ -112,10 +115,94 @@ const GALLERY = [
   },
 ];
 
-function BeforeAfterSlider({ before, after }) {
+/* ---------------------------------------------------------------------- */
+/*  Scroll-reveal hook — adds "is-visible" once an element enters view    */
+/* ---------------------------------------------------------------------- */
+
+function useReveal(options = {}) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px", ...options }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return [ref, visible];
+}
+
+function Reveal({ as: Tag = "div", className = "", delay = 0, children, ...rest }) {
+  const [ref, visible] = useReveal();
+  return (
+    <Tag
+      ref={ref}
+      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
+      {...rest}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+/* ---------------------------------------------------------------------- */
+/*  Animated count-up number                                              */
+/* ---------------------------------------------------------------------- */
+
+function CountUp({ to, suffix = "", duration = 1400 }) {
+  const [ref, visible] = useReveal();
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!visible) return;
+    let start = null;
+    let raf;
+    const step = (ts) => {
+      if (start === null) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * to));
+      if (progress < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [visible, to, duration]);
+
+  return (
+    <span ref={ref}>
+      {value}
+      {suffix}
+    </span>
+  );
+}
+
+/* ---------------------------------------------------------------------- */
+/*  Before / after slider                                                 */
+/* ---------------------------------------------------------------------- */
+
+function BeforeAfterSlider({ before, after, delay = 0 }) {
   const containerRef = useRef(null);
   const [position, setPosition] = useState(50);
   const draggingRef = useRef(false);
+  const [wrapRef, visible] = useReveal();
 
   const updateFromClientX = useCallback((clientX) => {
     const el = containerRef.current;
@@ -148,70 +235,80 @@ function BeforeAfterSlider({ before, after }) {
 
   return (
     <div
-      ref={containerRef}
-      className="relative aspect-[16/9] w-full select-none overflow-hidden rounded-2xl border border-[#eceeed]"
+      ref={wrapRef}
+      className={`reveal reveal-scale ${visible ? "is-visible" : ""}`}
+      style={{ transitionDelay: visible ? `${delay}ms` : "0ms" }}
     >
-      <img
-        src={before}
-        alt="Before"
-        className="absolute inset-0 h-full w-full object-cover"
-        draggable={false}
-      />
       <div
-        className="absolute inset-0 h-full overflow-hidden"
-        style={{ width: `${position}%` }}
+        ref={containerRef}
+        className="slider-shell relative aspect-[16/9] w-full select-none overflow-hidden rounded-2xl border border-[#eceeed]"
       >
         <img
-          src={after}
-          alt="After"
-          className="h-full w-full object-cover"
-          style={{
-            width:
-              containerRef.current ? containerRef.current.offsetWidth : "100%",
-            maxWidth: "none",
-          }}
+          src={before}
+          alt="Before"
+          className="absolute inset-0 h-full w-full object-cover"
           draggable={false}
         />
-      </div>
-
-      <div
-        className="absolute inset-y-0 z-10 flex w-0 items-center justify-center"
-        style={{ left: `${position}%` }}
-      >
-        <div className="absolute h-full w-[2px] bg-white" />
-        <button
-          type="button"
-          onMouseDown={() => (draggingRef.current = true)}
-          onTouchStart={() => (draggingRef.current = true)}
-          className="relative flex h-10 w-10 flex-none cursor-ew-resize items-center justify-center rounded-full bg-white shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A11717]"
-          aria-label="Drag to compare before and after"
+        <div
+          className="absolute inset-0 h-full overflow-hidden"
+          style={{ width: `${position}%` }}
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#1C2326"
-            strokeWidth="2"
-          >
-            <path
-              d="M8 6l-6 6 6 6M16 6l6 6-6 6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
+          <img
+            src={after}
+            alt="After"
+            className="h-full w-full object-cover"
+            style={{
+              width:
+                containerRef.current ? containerRef.current.offsetWidth : "100%",
+              maxWidth: "none",
+            }}
+            draggable={false}
+          />
+        </div>
 
-      <span className="absolute left-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white">
-        Before
-      </span>
-      <span className="absolute right-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white">
-        After
-      </span>
+        <div
+          className="absolute inset-y-0 z-10 flex w-0 items-center justify-center"
+          style={{ left: `${position}%` }}
+        >
+          <div className="absolute h-full w-[2px] bg-white" />
+          <button
+            type="button"
+            onMouseDown={() => (draggingRef.current = true)}
+            onTouchStart={() => (draggingRef.current = true)}
+            className="handle-pulse relative flex h-10 w-10 flex-none cursor-ew-resize items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-200 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A11717]"
+            aria-label="Drag to compare before and after"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#1C2326"
+              strokeWidth="2"
+            >
+              <path
+                d="M8 6l-6 6 6 6M16 6l6 6-6 6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <span className="absolute left-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white">
+          Before
+        </span>
+        <span className="absolute right-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white">
+          After
+        </span>
+      </div>
     </div>
   );
 }
+
+/* ---------------------------------------------------------------------- */
+/*  Lightbox                                                               */
+/* ---------------------------------------------------------------------- */
 
 function Lightbox({ images, index, onClose, onPrev, onNext }) {
   useEffect(() => {
@@ -229,7 +326,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8"
+      className="lightbox-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
@@ -237,7 +334,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
       <button
         type="button"
         onClick={onClose}
-        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6"
+        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 hover:rotate-90 sm:right-6 sm:top-6"
         aria-label="Close"
       >
         <svg
@@ -258,7 +355,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
           e.stopPropagation();
           onPrev();
         }}
-        className="absolute left-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:left-6"
+        className="absolute left-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 hover:-translate-x-1 sm:left-6"
         aria-label="Previous image"
       >
         <svg
@@ -283,7 +380,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
           e.stopPropagation();
           onNext();
         }}
-        className="absolute right-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6"
+        className="absolute right-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 hover:translate-x-1 sm:right-6"
         aria-label="Next image"
       >
         <svg
@@ -299,7 +396,8 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
       </button>
 
       <figure
-        className="flex max-h-full max-w-4xl flex-col items-center"
+        key={index}
+        className="lightbox-figure flex max-h-full max-w-4xl flex-col items-center"
         onClick={(e) => e.stopPropagation()}
       >
         <img
@@ -318,8 +416,18 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
   );
 }
 
+/* ---------------------------------------------------------------------- */
+/*  Page                                                                   */
+/* ---------------------------------------------------------------------- */
+
 export default function SolidColourEpoxyFlooring() {
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 50);
+    return () => clearTimeout(t);
+  }, []);
 
   const closeLightbox = () => setLightboxIndex(null);
   const prevImage = () =>
@@ -331,42 +439,290 @@ export default function SolidColourEpoxyFlooring() {
     <div className="min-h-screen bg-white text-[#2E3A3E] font-[Inter,sans-serif]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* ---------- base reveal-on-scroll ---------- */
+        .reveal {
+          opacity: 0;
+          transform: translateY(28px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform;
+        }
+        .reveal.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-scale {
+          transform: translateY(20px) scale(0.97);
+        }
+        .reveal-scale.is-visible {
+          transform: translateY(0) scale(1);
+        }
+
+        /* ---------- hero ---------- */
+        @keyframes heroImgIn {
+          from { opacity: 0; transform: scale(1.12); }
+          to { opacity: 0.45; transform: scale(1); }
+        }
+        @keyframes kenburns {
+          0% { transform: scale(1); }
+          100% { transform: scale(1.08); }
+        }
+        .hero-img {
+          animation: heroImgIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+            kenburns 18s ease-in-out 1.4s infinite alternate;
+        }
+        @keyframes fadeUpHero {
+          from { opacity: 0; transform: translateY(22px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-in .hero-eyebrow { animation: fadeUpHero 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+        .hero-in .hero-title { animation: fadeUpHero 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+        .hero-in .hero-copy { animation: fadeUpHero 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
+        .hero-in .hero-cta { animation: fadeUpHero 0.8s cubic-bezier(0.16,1,0.3,1) 0.65s both; }
+
+        @keyframes pulseRing {
+          0% { box-shadow: 0 0 0 0 rgba(161,23,23,0.45); }
+          70% { box-shadow: 0 0 0 12px rgba(161,23,23,0); }
+          100% { box-shadow: 0 0 0 0 rgba(161,23,23,0); }
+        }
+        .cta-pulse {
+          animation: pulseRing 2.6s ease-out infinite;
+        }
+
+        @keyframes arrowNudge {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(6px); }
+        }
+        .arrow-nudge:hover .nudge-arrow {
+          animation: arrowNudge 0.9s ease-in-out infinite;
+        }
+
+        /* floating ambient particles in hero */
+        @keyframes floatY {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          50% { transform: translateY(-18px) translateX(6px); }
+        }
+        .float-particle {
+          animation: floatY 6s ease-in-out infinite;
+        }
+
+        /* ---------- benefit divider line draw ---------- */
+        .divider-line {
+          transform-origin: left;
+          transform: scaleX(0);
+          transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .is-visible .divider-line {
+          transform: scaleX(1);
+        }
+
+        /* ---------- benefit card hover ---------- */
+        .benefit-card {
+          transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+        }
+        .benefit-card:hover {
+          transform: translateY(-6px);
+        }
+        .benefit-card:hover .divider-line {
+          transform: scaleX(1.3);
+          background-color: #8a1313;
+        }
+
+        /* ---------- typical uses list stagger ---------- */
+        .app-item {
+          opacity: 0;
+          transform: translateX(-10px);
+          transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .is-visible .app-item {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .app-dot {
+          transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .app-item:hover .app-dot {
+          transform: scale(1.6);
+        }
+
+        @keyframes dotPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(161,23,23,0.5); }
+          50% { box-shadow: 0 0 0 5px rgba(161,23,23,0); }
+        }
+        .is-visible .app-dot {
+          animation: dotPulse 2.4s ease-out infinite;
+        }
+
+        /* ---------- slider handle ---------- */
+        @keyframes handlePulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(161,23,23,0.35); }
+          50% { box-shadow: 0 0 0 8px rgba(161,23,23,0); }
+        }
+        .handle-pulse {
+          animation: handlePulse 2.2s ease-out infinite;
+        }
+        .slider-shell {
+          transition: box-shadow 0.4s ease;
+        }
+        .slider-shell:hover {
+          box-shadow: 0 18px 40px -12px rgba(28,35,38,0.25);
+        }
+
+        /* ---------- system type cards ---------- */
+        .system-card {
+          transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+            box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+        .system-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 16px 32px -14px rgba(28,35,38,0.2);
+          border-color: #A11717;
+        }
+        .system-card:hover .divider-line {
+          transform: scaleX(1.3);
+          background-color: #8a1313;
+        }
+
+        /* ---------- transformation heading underline sweep ---------- */
+        .accent-underline {
+          position: relative;
+          display: inline-block;
+        }
+        .accent-underline::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -4px;
+          height: 2px;
+          width: 100%;
+          background: #A11717;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s;
+        }
+        .is-visible .accent-underline::after {
+          transform: scaleX(1);
+        }
+
+        /* ---------- gallery ---------- */
+        .gallery-tile {
+          opacity: 0;
+          transform: translateY(24px) scale(0.96);
+          transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+            transform 0.6s cubic-bezier(0.16,1,0.3,1);
+        }
+        .is-visible .gallery-tile {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        .gallery-caption {
+          transform: translateY(100%);
+          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .group:hover .gallery-caption {
+          transform: translateY(0);
+        }
+        .group:hover img {
+          filter: brightness(0.85);
+        }
+
+        /* ---------- lightbox transitions ---------- */
+        @keyframes backdropIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .lightbox-backdrop {
+          animation: backdropIn 0.25s ease forwards;
+        }
+        @keyframes figureIn {
+          from { opacity: 0; transform: scale(0.94); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .lightbox-figure {
+          animation: figureIn 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+
+        /* ---------- footer cta ---------- */
+        .footer-cta {
+          transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease;
+        }
+        .footer-cta:hover {
+          transform: translateY(-3px) scale(1.03);
+          box-shadow: 0 12px 24px -8px rgba(161,23,23,0.45);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.001ms !important;
+          }
+          .reveal { opacity: 1; transform: none; }
+        }
       `}</style>
 
       {/* ===== HERO — compact ===== */}
-      <header className="relative flex h-[60vh] min-h-[420px] items-center overflow-hidden bg-[#1C2326] text-white">
+      <header
+        className={`relative flex h-[60vh] min-h-[420px] items-center overflow-hidden bg-[#1C2326] text-white ${
+          heroLoaded ? "hero-in" : ""
+        }`}
+      >
         <img
           src="/src/assets/iamge4.jpg"
           alt="Solid colour epoxy floor coating in an industrial space"
-          className="absolute inset-0 h-full w-full object-cover opacity-45"
+          className="hero-img absolute inset-0 h-full w-full object-cover opacity-0"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1C2326] via-[#1C2326]/60 to-[#1C2326]/30" />
 
+        {/* ambient floating particles */}
+        <span
+          className="float-particle absolute left-[8%] top-[22%] h-2 w-2 rounded-full bg-[#e2867a]/70"
+          style={{ animationDelay: "0s" }}
+          aria-hidden="true"
+        />
+        <span
+          className="float-particle absolute left-[22%] top-[65%] h-1.5 w-1.5 rounded-full bg-white/50"
+          style={{ animationDelay: "1.2s" }}
+          aria-hidden="true"
+        />
+        <span
+          className="float-particle absolute right-[14%] top-[30%] h-2 w-2 rounded-full bg-[#A11717]/60"
+          style={{ animationDelay: "2.1s" }}
+          aria-hidden="true"
+        />
+        <span
+          className="float-particle absolute right-[26%] top-[70%] h-1 w-1 rounded-full bg-white/60"
+          style={{ animationDelay: "0.6s" }}
+          aria-hidden="true"
+        />
+
         <div className="relative mx-auto w-full max-w-6xl px-6">
-          <p className="text-xs font-medium uppercase tracking-[0.25em] text-[#e2867a]">
+          <p className="hero-eyebrow text-xs font-medium uppercase tracking-[0.25em] text-[#e2867a] opacity-0">
             Servicing Sydney Metropolitan Areas
           </p>
-          <h1 className="mt-4 max-w-2xl text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
+          <h1 className="hero-title mt-4 max-w-2xl text-3xl font-semibold leading-[1.15] tracking-tight opacity-0 sm:text-4xl lg:text-5xl">
             Solid &amp; single colour epoxy flooring, built for longevity and
             style
           </h1>
-          <p className="mt-5 max-w-xl text-[15px] text-[#cfd6d4] sm:text-base">
+          <p className="hero-copy mt-5 max-w-xl text-[15px] text-[#cfd6d4] opacity-0 sm:text-base">
             An attractive, cost-effective floor coating that protects against
             scratches, abrasion and chemical spills, with a glossy, anti-slip
             finish for commercial and domestic spaces alike.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-5">
+          <div className="hero-cta mt-8 flex flex-wrap items-center gap-5 opacity-0">
             <a
               href="/contact"
-              className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1C2326]"
+              className="cta-pulse rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:scale-105 hover:bg-[#8a1313] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1C2326]"
             >
               Request a free site quote
             </a>
             <a
               href="#gallery"
-              className="text-sm font-medium text-[#cfd6d4] transition hover:text-white"
+              className="arrow-nudge group inline-flex items-center gap-1 text-sm font-medium text-[#cfd6d4] transition hover:text-white"
             >
-              View completed projects →
+              View completed projects
+              <span className="nudge-arrow inline-block">→</span>
             </a>
           </div>
         </div>
@@ -374,24 +730,26 @@ export default function SolidColourEpoxyFlooring() {
 
       {/* ===== BENEFITS ===== */}
       <section id="benefits" className="mx-auto max-w-6xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-          What you get
-        </p>
-        <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-          Advantages of solid colour system epoxy flooring
-        </h2>
+        <Reveal>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+            What you get
+          </p>
+          <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+            Advantages of solid colour system epoxy flooring
+          </h2>
+        </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
-          {BENEFITS.map((b) => (
-            <div key={b.label}>
-              <span className="block h-px w-10 bg-[#A11717]" />
+          {BENEFITS.map((b, i) => (
+            <Reveal key={b.label} delay={i * 90} className="benefit-card">
+              <span className="divider-line block h-px w-10 bg-[#A11717]" />
               <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">
                 {b.label}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">
                 {b.detail}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -402,15 +760,17 @@ export default function SolidColourEpoxyFlooring() {
         className="border-y border-[#eceeed] bg-[#FAFBFB] py-14"
       >
         <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-            Why it works
-          </p>
-          <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-            Typical uses of the solid colour epoxy system
-          </h2>
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+              Why it works
+            </p>
+            <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+              Typical uses of the solid colour epoxy system
+            </h2>
+          </Reveal>
 
           <div className="mt-8 grid items-start gap-10 lg:grid-cols-2">
-            <div className="space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
+            <Reveal delay={100} className="space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
               <p>
                 Solid colour or single colour epoxy flooring is an attractive,
                 cost-effective choice for any business or residential space,
@@ -426,70 +786,116 @@ export default function SolidColourEpoxyFlooring() {
                 Durable and attractive, it's a strong fit anywhere longevity,
                 reliability and style all matter.
               </p>
-            </div>
+            </Reveal>
 
-            <ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {TYPICAL_USES.map((use) => (
-                <li
-                  key={use}
-                  className="flex items-start gap-2 text-sm text-[#3f4a4d]"
-                >
-                  <span
-                    className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
-                    aria-hidden="true"
-                  />
-                  {use}
-                </li>
-              ))}
-            </ul>
+            <Reveal delay={200}>
+              <ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
+                {TYPICAL_USES.map((use, i) => (
+                  <li
+                    key={use}
+                    className="app-item flex items-start gap-2 text-sm text-[#3f4a4d]"
+                    style={{ transitionDelay: `${i * 60}ms` }}
+                  >
+                    <span
+                      className="app-dot mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
+                      style={{ animationDelay: `${i * 200}ms` }}
+                      aria-hidden="true"
+                    />
+                    {use}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </div>
+
+          {/* animated stat strip */}
+          <Reveal delay={100} className="mt-14 grid grid-cols-2 gap-6 border-t border-[#eceeed] pt-10 sm:grid-cols-4">
+            <div>
+              <p className="text-3xl font-semibold text-[#1C2326]">
+                <CountUp to={21} suffix="+" />
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wide text-[#7a8487]">
+                Years experience
+              </p>
+            </div>
+            <div>
+              <p className="text-3xl font-semibold text-[#1C2326]">
+                <CountUp to={1500} suffix="+" />
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wide text-[#7a8487]">
+                Floors completed
+              </p>
+            </div>
+            <div>
+              <p className="text-3xl font-semibold text-[#1C2326]">
+                <CountUp to={12} />
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wide text-[#7a8487]">
+                Typical applications
+              </p>
+            </div>
+            <div>
+              <p className="text-3xl font-semibold text-[#1C2326]">
+                <CountUp to={100} suffix="%" />
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-wide text-[#7a8487]">
+                Chemical resistant finish
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ===== BEFORE / AFTER SLIDER ===== */}
       <section id="transformation" className="mx-auto max-w-6xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-          See the difference
-        </p>
-        <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-          Drag the slider to view the transformation
-        </h2>
-        <p className="mt-3 max-w-xl text-sm text-[#5b6669]">
-          Move the white slider to compare a bare floor before coating against
-          our industrial-grade, solid colour epoxy finish.
-        </p>
+        <Reveal>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+            See the difference
+          </p>
+          <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+            <span className="accent-underline">Drag the slider</span> to view
+            the transformation
+          </h2>
+          <p className="mt-3 max-w-xl text-sm text-[#5b6669]">
+            Move the white slider to compare a bare floor before coating
+            against our industrial-grade, solid colour epoxy finish.
+          </p>
+        </Reveal>
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <BeforeAfterSlider before={before1} after={after1} />
-          <BeforeAfterSlider before={before2} after={after2} />
-          <BeforeAfterSlider before={before3} after={after3} />
+          <BeforeAfterSlider before={after1} after={before1} delay={0} />
+          <BeforeAfterSlider before={after2} after={before2} delay={120} />
+          <BeforeAfterSlider before={after3} after={before3} delay={240} />
         </div>
       </section>
 
       {/* ===== SYSTEM TYPES ===== */}
       <section id="types" className="bg-[#FAFBFB] py-14">
         <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-            Choose your system
-          </p>
-          <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
-            Three types of solid colour floor coating systems
-          </h2>
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+              Choose your system
+            </p>
+            <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+              Three types of solid colour floor coating systems
+            </h2>
+          </Reveal>
 
           <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {SYSTEM_TYPES.map((t) => (
-              <div
+            {SYSTEM_TYPES.map((t, i) => (
+              <Reveal
                 key={t.title}
-                className="rounded-2xl border border-[#eceeed] bg-white p-6"
+                delay={i * 120}
+                className="system-card rounded-2xl border border-[#eceeed] bg-white p-6"
               >
-                <span className="block h-px w-10 bg-[#A11717]" />
+                <span className="divider-line block h-px w-10 bg-[#A11717]" />
                 <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">
                   {t.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">
                   {t.detail}
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -498,36 +904,42 @@ export default function SolidColourEpoxyFlooring() {
       {/* ===== GALLERY — 4 columns ===== */}
       <section id="gallery" className="py-14">
         <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
-            Completed work
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#1C2326]">
-            Photos of our completed solid colour epoxy coating projects
-          </h2>
+          <Reveal>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+              Completed work
+            </p>
+            <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#1C2326]">
+              Photos of our completed solid colour epoxy coating projects
+            </h2>
+          </Reveal>
 
-          <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+          <Reveal delay={100} className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
             {GALLERY.map((img, i) => (
               <button
                 key={img.src}
                 type="button"
                 onClick={() => setLightboxIndex(i)}
-                className="group relative overflow-hidden rounded-xl bg-[#EDF1F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A11717] focus-visible:ring-offset-2"
+                className="gallery-tile group relative overflow-hidden rounded-xl bg-[#EDF1F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A11717] focus-visible:ring-offset-2"
+                style={{ transitionDelay: `${i * 70}ms` }}
               >
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-56"
+                  className="h-48 w-full object-cover transition duration-500 group-hover:scale-110 sm:h-56"
                   loading="lazy"
                 />
+                <span className="gallery-caption absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-left text-xs text-white">
+                  {img.alt}
+                </span>
               </button>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ===== FOOTER ===== */}
       <footer id="contact" className="border-t border-[#eceeed] py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
+        <Reveal as="div" className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
           <span className="text-sm font-semibold text-[#1C2326]">
             Sydney <span className="text-[#A11717]">Epoxy</span> Floor
           </span>
@@ -536,11 +948,11 @@ export default function SolidColourEpoxyFlooring() {
           </p>
           <a
             href="/contact"
-            className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313]"
+            className="footer-cta rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white"
           >
             Contact us
           </a>
-        </div>
+        </Reveal>
       </footer>
 
       <Lightbox

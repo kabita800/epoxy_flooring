@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import before1 from "/src/assets/before1.jpeg";
+import { ZoomIn, Play } from "lucide-react";
+import before1 from "/src/assets/before1.jpg";
 import after1 from "/src/assets/after1.jpg";
 
-import before2 from "/src/assets/before2.webp";
-import after2 from "/src/assets/after2.webp";
+import before2 from "/src/assets/before3.jpg";
+import after2 from "/src/assets/after3.jpg";
 
-import before3 from "/src/assets/before3.jpg";
-import after3 from "/src/assets/after3.jpg";
+import before3 from "/src/assets/before7.jpg";
+import after3 from "/src/assets/after7.jpg";
 
 /**
- * Epoxy Flooring Over Tiles — landing page
+ * Epoxy Flooring Over Tiles — landing page (animated)
  *
- * Same visual system as the previous SEF pages: white surfaces, steel-grey
- * neutrals, and a single deep-red accent (#A11717) used sparingly. Compact
- * hero, simple sections, before/after slider, system breakdown with
- * application steps, video showcase, image gallery.
+ * Same visual system as the other SEF pages: white surfaces, steel-grey
+ * neutrals, and a single deep-red accent (#A11717) used sparingly. This
+ * pass layers in a page-load sequence, scroll-triggered reveals, staggered
+ * grids, an animated system-card accordion with staggered step reveal, an
+ * inviting idle-pulse on the before/after handle, hover micro-interactions
+ * and lightbox transitions — all respecting prefers-reduced-motion.
  */
 
 const BENEFITS = [
@@ -148,9 +151,65 @@ const GALLERY = [
   },
 ];
 
+/* ---------------------------------------------------------------------- */
+/* Scroll-reveal primitive                                                 */
+/* ---------------------------------------------------------------------- */
+
+function useReveal(threshold = 0.15) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold, rootMargin: "0px 0px -64px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return [ref, visible];
+}
+
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+  as: Tag = "div",
+  ...rest
+}) {
+  const [ref, visible] = useReveal();
+  return (
+    <Tag
+      ref={ref}
+      className={`reveal ${visible ? "reveal-visible" : ""} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+      {...rest}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+/* ---------------------------------------------------------------------- */
+/* Before / after slider                                                   */
+/* ---------------------------------------------------------------------- */
+
 function BeforeAfterSlider({ before, after }) {
   const containerRef = useRef(null);
   const [position, setPosition] = useState(50);
+  const [interacted, setInteracted] = useState(false);
   const draggingRef = useRef(false);
 
   const updateFromClientX = useCallback((clientX) => {
@@ -182,14 +241,19 @@ function BeforeAfterSlider({ before, after }) {
     };
   }, [updateFromClientX]);
 
+  const startDrag = () => {
+    draggingRef.current = true;
+    setInteracted(true);
+  };
+
   return (
     <div
       ref={containerRef}
-      className="relative aspect-[16/9] w-full select-none overflow-hidden rounded-2xl border border-[#eceeed]"
+      className="slider-frame relative aspect-[16/9] w-full select-none overflow-hidden rounded-2xl border border-[#eceeed]"
     >
-      <img
-        src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=1400&q=80"
-        alt="Old worn tiled floor before epoxy coating"
+       <img
+        src={before}
+        alt="Before"
         className="absolute inset-0 h-full w-full object-cover"
         draggable={false}
       />
@@ -198,13 +262,12 @@ function BeforeAfterSlider({ before, after }) {
         style={{ width: `${position}%` }}
       >
         <img
-          src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1400&q=80"
-          alt="Finished epoxy floor applied over tiles"
+          src={after}
+          alt="After"
           className="h-full w-full object-cover"
           style={{
-            width: containerRef.current
-              ? containerRef.current.offsetWidth
-              : "100%",
+            width:
+              containerRef.current ? containerRef.current.offsetWidth : "100%",
             maxWidth: "none",
           }}
           draggable={false}
@@ -218,9 +281,11 @@ function BeforeAfterSlider({ before, after }) {
         <div className="absolute h-full w-[2px] bg-white" />
         <button
           type="button"
-          onMouseDown={() => (draggingRef.current = true)}
-          onTouchStart={() => (draggingRef.current = true)}
-          className="relative flex h-10 w-10 flex-none cursor-ew-resize items-center justify-center rounded-full bg-white shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A11717]"
+          onMouseDown={startDrag}
+          onTouchStart={startDrag}
+          className={`slider-handle relative flex h-10 w-10 flex-none cursor-ew-resize items-center justify-center rounded-full bg-white shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A11717] ${
+            interacted ? "" : "slider-handle-invite"
+          }`}
           aria-label="Drag to compare before and after"
         >
           <svg
@@ -240,22 +305,26 @@ function BeforeAfterSlider({ before, after }) {
         </button>
       </div>
 
-      <span className="absolute left-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white">
+      <span className="tag-before absolute left-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white">
         Before
       </span>
-      <span className="absolute right-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white">
+      <span className="tag-after absolute right-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white">
         After
       </span>
     </div>
   );
 }
 
+/* ---------------------------------------------------------------------- */
+/* System card with animated accordion                                     */
+/* ---------------------------------------------------------------------- */
+
 function SystemCard({ system }) {
   const [stepsOpen, setStepsOpen] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-[#eceeed] bg-white p-6 sm:p-8">
-      <span className="block h-px w-10 bg-[#A11717]" />
+    <div className="lift-card group rounded-2xl border border-[#eceeed] bg-white p-6 sm:p-8">
+      <span className="accent-line accent-line-hover block h-px w-10 bg-[#A11717]" />
       <h3 className="mt-4 text-xl font-semibold text-[#1C2326]">
         {system.title}
       </h3>
@@ -279,19 +348,19 @@ function SystemCard({ system }) {
       <button
         type="button"
         onClick={() => setStepsOpen((v) => !v)}
-        className="mt-6 flex items-center gap-2 text-sm font-semibold text-[#1C2326] focus:outline-none"
+        className="faq-row -mx-2 mt-6 flex items-center gap-2 rounded-lg px-2 py-1 text-sm font-semibold text-[#1C2326] focus:outline-none"
         aria-expanded={stepsOpen}
       >
         <span
-          className={`flex h-6 w-6 flex-none items-center justify-center rounded-full border text-sm leading-none transition-colors ${
+          className={`faq-icon flex h-6 w-6 flex-none items-center justify-center rounded-full border text-sm leading-none ${
             stepsOpen ?
-              "border-[#A11717] text-[#A11717]"
+              "border-[#A11717] text-[#A11717] faq-icon-open"
             : "border-[#c7cccb] text-[#5b6669]"
           }`}
         >
-          {stepsOpen ? "–" : "+"}
+          +
         </span>
-        Application steps
+        <span className="faq-question">Application steps</span>
       </button>
 
       <div
@@ -299,9 +368,13 @@ function SystemCard({ system }) {
           stepsOpen ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
-        <ol className="min-h-0 space-y-3">
+        <ol className={`steps-list min-h-0 space-y-3 ${stepsOpen ? "steps-list-open" : ""}`}>
           {system.steps.map((step, i) => (
-            <li key={i} className="flex gap-3 text-sm leading-relaxed text-[#3f4a4d]">
+            <li
+              key={i}
+              className="step-line flex gap-3 text-sm leading-relaxed text-[#3f4a4d]"
+              style={{ transitionDelay: stepsOpen ? `${i * 45}ms` : "0ms" }}
+            >
               <span className="flex-none font-semibold text-[#A11717]">
                 {String(i + 1).padStart(2, "0")}
               </span>
@@ -313,6 +386,10 @@ function SystemCard({ system }) {
     </div>
   );
 }
+
+/* ---------------------------------------------------------------------- */
+/* Lightbox                                                                 */
+/* ---------------------------------------------------------------------- */
 
 function Lightbox({ images, index, onClose, onPrev, onNext }) {
   useEffect(() => {
@@ -330,7 +407,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8"
+      className="lightbox-backdrop fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 sm:p-8"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
@@ -338,7 +415,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
       <button
         type="button"
         onClick={onClose}
-        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6"
+        className="icon-btn absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6 sm:top-6"
         aria-label="Close"
       >
         <svg
@@ -359,7 +436,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
           e.stopPropagation();
           onPrev();
         }}
-        className="absolute left-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:left-6"
+        className="icon-btn absolute left-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:left-6"
         aria-label="Previous image"
       >
         <svg
@@ -384,7 +461,7 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
           e.stopPropagation();
           onNext();
         }}
-        className="absolute right-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6"
+        className="icon-btn absolute right-3 flex h-11 w-11 flex-none items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 sm:right-6"
         aria-label="Next image"
       >
         <svg
@@ -404,9 +481,10 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
         onClick={(e) => e.stopPropagation()}
       >
         <img
+          key={img.src}
           src={img.src}
           alt={img.alt}
-          className="max-h-[80vh] w-auto max-w-full rounded-lg object-contain"
+          className="lightbox-img max-h-[80vh] w-auto max-w-full rounded-lg object-contain"
         />
         <figcaption className="mt-4 text-center text-sm text-[#cfd6d4]">
           {img.alt}
@@ -419,54 +497,302 @@ function Lightbox({ images, index, onClose, onPrev, onNext }) {
   );
 }
 
+/* ---------------------------------------------------------------------- */
+/* Page                                                                     */
+/* ---------------------------------------------------------------------- */
+
 export default function EpoxyOverTiles() {
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 80);
+    return () => clearTimeout(t);
+  }, []);
 
   const closeLightbox = () => setLightboxIndex(null);
-  const prevImage = () =>
-    setLightboxIndex((i) => (i === 0 ? GALLERY.length - 1 : i - 1));
-  const nextImage = () =>
-    setLightboxIndex((i) => (i === GALLERY.length - 1 ? 0 : i + 1));
+  const prevImage = useCallback(
+    () => setLightboxIndex((i) => (i === 0 ? GALLERY.length - 1 : i - 1)),
+    []
+  );
+  const nextImage = useCallback(
+    () => setLightboxIndex((i) => (i === GALLERY.length - 1 ? 0 : i + 1)),
+    []
+  );
 
   return (
     <div className="min-h-screen bg-white text-[#2E3A3E] font-[Inter,sans-serif]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* ---------- generic scroll reveal ---------- */
+        .reveal {
+          opacity: 0;
+          transform: translateY(28px);
+          transition: opacity 0.7s cubic-bezier(.16,.84,.44,1),
+                      transform 0.7s cubic-bezier(.16,.84,.44,1);
+          will-change: opacity, transform;
+        }
+        .reveal-visible { opacity: 1; transform: translateY(0); }
+
+        .reveal-left { transform: translateX(-24px); }
+        .reveal-left.reveal-visible { transform: translateX(0); }
+
+        .reveal-scale { transform: translateY(18px) scale(0.94); }
+        .reveal-scale.reveal-visible { transform: translateY(0) scale(1); }
+
+        /* accent line grows in on reveal */
+        .accent-line {
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.7s cubic-bezier(.16,.84,.44,1) 0.15s;
+        }
+        .reveal-visible .accent-line { transform: scaleX(1); }
+        .group:hover .accent-line-hover { transform: scaleX(1.6); }
+        .accent-line-hover { transition: transform 0.4s ease; }
+
+        /* ---------- hero load-in sequence ---------- */
+        .hero-item {
+          opacity: 0;
+          transform: translateY(22px);
+          transition: opacity 0.8s cubic-bezier(.16,.84,.44,1),
+                      transform 0.8s cubic-bezier(.16,.84,.44,1);
+        }
+        .hero-loaded .hero-item { opacity: 1; transform: translateY(0); }
+        .hero-loaded .hero-eyebrow { transition-delay: 0.05s; }
+        .hero-loaded .hero-title   { transition-delay: 0.18s; }
+        .hero-loaded .hero-desc    { transition-delay: 0.34s; }
+        .hero-loaded .hero-cta     { transition-delay: 0.48s; }
+
+        @keyframes kenburns {
+          0%   { transform: scale(1); }
+          100% { transform: scale(1.1); }
+        }
+        .hero-img { animation: kenburns 22s ease-in-out infinite alternate; }
+
+        @keyframes overlayPulse {
+          0%, 100% { opacity: 0.9; }
+          50%      { opacity: 0.72; }
+        }
+        .hero-overlay { animation: overlayPulse 9s ease-in-out infinite; }
+
+        @keyframes arrowNudge {
+          0%, 100% { transform: translateX(0); }
+          50%      { transform: translateX(5px); }
+        }
+        .link-arrow:hover span { animation: arrowNudge 0.8s ease-in-out infinite; display: inline-block; }
+
+        /* ---------- buttons ---------- */
+        .btn-primary {
+          position: relative;
+          overflow: hidden;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+        .btn-primary::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,0.35), transparent 60%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        .btn-primary:hover::after { opacity: 1; }
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 24px -8px rgba(161,23,23,0.55);
+        }
+        .btn-primary:active { transform: translateY(0) scale(0.98); }
+
+        /* ---------- cards ---------- */
+        .lift-card {
+          transition: transform 0.35s cubic-bezier(.16,.84,.44,1),
+                      box-shadow 0.35s cubic-bezier(.16,.84,.44,1),
+                      border-color 0.35s ease;
+        }
+        .lift-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 18px 34px -18px rgba(28,35,38,0.28);
+          border-color: #d8dcdb;
+        }
+
+        /* ---------- applications list ---------- */
+        @keyframes bulletPulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50%      { transform: scale(1.5); opacity: 0.55; }
+        }
+        .bullet-dot { animation: bulletPulse 2.4s ease-in-out infinite; }
+
+        /* ---------- before / after slider ---------- */
+        .slider-frame { transition: box-shadow 0.4s ease; }
+        .slider-frame:hover { box-shadow: 0 18px 34px -18px rgba(28,35,38,0.3); }
+        @keyframes handleInvite {
+          0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(161,23,23,0.0), 0 4px 10px rgba(0,0,0,0.25); }
+          50%      { transform: scale(1.08); box-shadow: 0 0 0 8px rgba(161,23,23,0.12), 0 4px 10px rgba(0,0,0,0.25); }
+        }
+        .slider-handle-invite { animation: handleInvite 1.8s ease-in-out infinite; }
+        .slider-handle { transition: transform 0.2s ease; }
+        .slider-handle:hover { transform: scale(1.12); }
+        .slider-handle:active { transform: scale(0.95); }
+
+        .tag-before, .tag-after { opacity: 0; transition: opacity 0.5s ease; }
+        .reveal-visible .tag-before { opacity: 1; transition-delay: 0.3s; }
+        .reveal-visible .tag-after  { opacity: 1; transition-delay: 0.45s; }
+
+        /* ---------- system card accordion ---------- */
+        .faq-row { transition: background-color 0.3s ease; }
+        .faq-row:hover { background-color: #FAFBFB; }
+        .faq-question { transition: color 0.25s ease, transform 0.25s ease; }
+        .faq-row:hover .faq-question { color: #A11717; transform: translateX(2px); }
+        .faq-icon {
+          transition: transform 0.35s cubic-bezier(.16,.84,.44,1),
+                      border-color 0.3s ease, color 0.3s ease;
+        }
+        .faq-icon-open { transform: rotate(135deg); }
+        .faq-row:hover .faq-icon:not(.faq-icon-open) {
+          border-color: #A11717;
+          color: #A11717;
+          transform: rotate(90deg);
+        }
+
+        .step-line {
+          opacity: 0;
+          transform: translateX(-10px);
+          transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .steps-list-open .step-line { opacity: 1; transform: translateX(0); }
+
+        /* ---------- video showcase ---------- */
+        .video-card {
+          transition: transform 0.35s cubic-bezier(.16,.84,.44,1),
+                      box-shadow 0.35s cubic-bezier(.16,.84,.44,1),
+                      border-color 0.35s ease;
+        }
+        .video-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 18px 34px -18px rgba(28,35,38,0.28);
+          border-color: #3a4448;
+        }
+
+        /* ---------- gallery ---------- */
+        .gallery-btn {
+          transition: transform 0.4s cubic-bezier(.16,.84,.44,1), box-shadow 0.4s ease;
+        }
+        .gallery-btn:hover {
+          transform: translateY(-4px) scale(1.015);
+          box-shadow: 0 16px 30px -16px rgba(28,35,38,0.35);
+        }
+        .gallery-img {
+          transition: transform 0.6s cubic-bezier(.16,.84,.44,1), filter 0.5s ease;
+        }
+        .gallery-btn:hover .gallery-img {
+          transform: scale(1.09);
+          filter: brightness(0.85);
+        }
+        .gallery-overlay {
+          opacity: 0;
+          transform: translateY(10px);
+          transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .gallery-btn:hover .gallery-overlay {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .gallery-zoom-icon {
+          transform: scale(0.6) rotate(-12deg);
+          opacity: 0;
+          transition: transform 0.4s cubic-bezier(.34,1.56,.64,1) 0.05s, opacity 0.3s ease;
+        }
+        .gallery-btn:hover .gallery-zoom-icon {
+          transform: scale(1) rotate(0deg);
+          opacity: 1;
+        }
+
+        /* ---------- lightbox ---------- */
+        @keyframes backdropIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        .lightbox-backdrop { animation: backdropIn 0.25s ease; }
+
+        @keyframes imgIn {
+          from { opacity: 0; transform: scale(0.92); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+        .lightbox-img { animation: imgIn 0.35s cubic-bezier(.16,.84,.44,1); }
+
+        .icon-btn { transition: transform 0.2s ease, background-color 0.2s ease; }
+        .icon-btn:hover { transform: scale(1.1); }
+        .icon-btn:active { transform: scale(0.92); }
+
+        /* ---------- footer CTA glow ---------- */
+        @keyframes glowPulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(161,23,23,0.35); }
+          50%      { box-shadow: 0 0 0 12px rgba(161,23,23,0); }
+        }
+        .glow-cta { animation: glowPulse 2.6s ease-in-out infinite; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .reveal, .reveal-left, .reveal-scale, .hero-item,
+          .tag-before, .tag-after, .step-line {
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+          .hero-img, .hero-overlay, .bullet-dot, .glow-cta,
+          .slider-handle-invite, .lightbox-backdrop, .lightbox-img,
+          .link-arrow:hover span {
+            animation: none !important;
+          }
+          .lift-card:hover, .gallery-btn:hover, .btn-primary:hover,
+          .icon-btn:hover, .slider-handle:hover, .video-card:hover,
+          .faq-icon, .faq-question {
+            transform: none !important;
+          }
+        }
       `}</style>
 
       {/* ===== HERO — compact ===== */}
-      <header className="relative flex h-[60vh] min-h-[420px] items-center overflow-hidden bg-[#1C2326] text-white">
+      <header
+        className={`relative flex h-[60vh] min-h-[420px] items-center overflow-hidden bg-[#1C2326] text-white ${
+          heroLoaded ? "hero-loaded" : ""
+        }`}
+      >
         <img
           src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=1600&q=80"
           alt="Epoxy flooring applied over old tiles"
-          className="absolute inset-0 h-full w-full object-cover opacity-45"
+          className="hero-img absolute inset-0 h-full w-full object-cover opacity-45"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1C2326] via-[#1C2326]/60 to-[#1C2326]/30" />
+        <div className="hero-overlay absolute inset-0 bg-gradient-to-t from-[#1C2326] via-[#1C2326]/60 to-[#1C2326]/30" />
 
         <div className="relative mx-auto w-full max-w-6xl px-6">
-          <p className="text-xs font-medium uppercase tracking-[0.25em] text-[#e2867a]">
+          <p className="hero-item hero-eyebrow text-xs font-medium uppercase tracking-[0.25em] text-[#e2867a]">
             SEF Premium Over Tile Epoxy Flooring
           </p>
-          <h1 className="mt-4 max-w-2xl text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
+          <h1 className="hero-item hero-title mt-4 max-w-2xl text-3xl font-semibold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
             Can epoxy flooring be applied over floor tiles?
           </h1>
-          <p className="mt-5 max-w-xl text-[15px] text-[#cfd6d4] sm:text-base">
+          <p className="hero-item hero-desc mt-5 max-w-xl text-[15px] text-[#cfd6d4] sm:text-base">
             Yes — with correct preparation and true industrial grade epoxy
             resin coatings, our system gives new life to most old tiled
             surfaces, without disturbing floor heights.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-5">
+          <div className="hero-item hero-cta mt-8 flex flex-wrap items-center gap-5">
             <a
               href="/contact"
-              className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1C2326]"
+              onMouseMove={(e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--x", `${e.clientX - r.left}px`);
+                e.currentTarget.style.setProperty("--y", `${e.clientY - r.top}px`);
+              }}
+              className="btn-primary rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1C2326]"
             >
               Request a free site quote
             </a>
             <a
               href="#gallery"
-              className="text-sm font-medium text-[#cfd6d4] transition hover:text-white"
+              className="link-arrow text-sm font-medium text-[#cfd6d4] transition hover:text-white"
             >
-              View completed projects →
+              View completed projects <span>→</span>
             </a>
           </div>
         </div>
@@ -474,24 +800,28 @@ export default function EpoxyOverTiles() {
 
       {/* ===== BENEFITS ===== */}
       <section id="benefits" className="mx-auto max-w-6xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+        <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
           What you get
-        </p>
-        <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+        </Reveal>
+        <Reveal
+          delay={80}
+          as="h2"
+          className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]"
+        >
           Fast, durable and smart floor covering systems
-        </h2>
+        </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
-          {BENEFITS.map((b) => (
-            <div key={b.label}>
-              <span className="block h-px w-10 bg-[#A11717]" />
+          {BENEFITS.map((b, i) => (
+            <Reveal key={b.label} delay={i * 90} className="group">
+              <span className="accent-line block h-px w-10 bg-[#A11717]" />
               <h3 className="mt-4 text-[15px] font-semibold text-[#1C2326]">
                 {b.label}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-[#5b6669]">
                 {b.detail}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -502,44 +832,58 @@ export default function EpoxyOverTiles() {
         className="border-y border-[#eceeed] bg-[#FAFBFB] py-14"
       >
         <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+          <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
             Why it works
-          </p>
-          <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+          </Reveal>
+          <Reveal
+            delay={80}
+            as="h2"
+            className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]"
+          >
             Ideal for the following applications
-          </h2>
+          </Reveal>
 
           <div className="mt-8 grid items-start gap-10 lg:grid-cols-2">
             <div className="space-y-5 text-[15px] leading-relaxed text-[#3f4a4d]">
-              <p>
-                Whether it's a busy kitchen, a showroom, or the toughness
-                needed in a garage floor, epoxy flooring effortlessly fits
-                in, making it a go-to choice across a wide range of spaces.
-              </p>
-              <p>
-                Tiles must be sound and fairly damage-free for the system to
-                be applied over them. From there, the process is relatively
-                fast, and preparation is the most important key to a
-                successful result.
-              </p>
-              <p className="rounded-xl border border-[#eceeed] bg-white px-5 py-4 text-sm text-[#3f4a4d]">
+              <Reveal delay={120} className="reveal-left">
+                <p>
+                  Whether it's a busy kitchen, a showroom, or the toughness
+                  needed in a garage floor, epoxy flooring effortlessly fits
+                  in, making it a go-to choice across a wide range of spaces.
+                </p>
+              </Reveal>
+              <Reveal delay={210} className="reveal-left">
+                <p>
+                  Tiles must be sound and fairly damage-free for the system to
+                  be applied over them. From there, the process is relatively
+                  fast, and preparation is the most important key to a
+                  successful result.
+                </p>
+              </Reveal>
+              <Reveal
+                delay={300}
+                className="reveal-left lift-card rounded-xl border border-[#eceeed] bg-white px-5 py-4 text-sm text-[#3f4a4d]"
+                as="p"
+              >
                 Unfortunately, at this point in time, we don't offer this
                 service inside homes.
-              </p>
+              </Reveal>
             </div>
 
             <ul className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
-              {APPLICATIONS.map((use) => (
-                <li
+              {APPLICATIONS.map((use, i) => (
+                <Reveal
                   key={use}
-                  className="flex items-start gap-2 text-sm text-[#3f4a4d]"
+                  as="li"
+                  delay={i * 80}
+                  className="reveal-left flex items-start gap-2 text-sm text-[#3f4a4d]"
                 >
                   <span
-                    className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
+                    className="bullet-dot mt-2 h-1.5 w-1.5 flex-none rounded-full bg-[#A11717]"
                     aria-hidden="true"
                   />
                   {use}
-                </li>
+                </Reveal>
               ))}
             </ul>
           </div>
@@ -548,37 +892,53 @@ export default function EpoxyOverTiles() {
 
       {/* ===== BEFORE / AFTER SLIDER ===== */}
       <section id="transformation" className="mx-auto max-w-6xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+        <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
           See the difference
-        </p>
-        <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+        </Reveal>
+        <Reveal
+          delay={80}
+          as="h2"
+          className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]"
+        >
           Drag the slider to view the transformation
-        </h2>
-        <p className="mt-3 max-w-xl text-sm text-[#5b6669]">
+        </Reveal>
+        <Reveal delay={160} as="p" className="mt-3 max-w-xl text-sm text-[#5b6669]">
           Move the white slider to compare an old tiled floor against our
           finished epoxy over tile system.
-        </p>
+        </Reveal>
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                 <BeforeAfterSlider before={before1} after={after1} />
-                 <BeforeAfterSlider before={before2} after={after2} />
-                 <BeforeAfterSlider before={before3} after={after3} />
-               </div>
+          <Reveal delay={120} className="reveal-scale">
+            <BeforeAfterSlider before={after1} after={before1} />
+          </Reveal>
+          <Reveal delay={220} className="reveal-scale">
+            <BeforeAfterSlider before={after2} after={before2} />
+          </Reveal>
+          <Reveal delay={320} className="reveal-scale">
+            <BeforeAfterSlider before={after3} after={before3} />
+          </Reveal>
+        </div>
       </section>
 
       {/* ===== AVAILABLE SYSTEMS ===== */}
       <section id="systems" className="bg-[#FAFBFB] py-14">
         <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+          <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
             Choose your system
-          </p>
-          <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+          </Reveal>
+          <Reveal
+            delay={80}
+            as="h2"
+            className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]"
+          >
             Available epoxy flooring systems for over tiles
-          </h2>
+          </Reveal>
 
           <div className="mt-10 space-y-8">
-            {SYSTEMS.map((system) => (
-              <SystemCard key={system.title} system={system} />
+            {SYSTEMS.map((system, i) => (
+              <Reveal key={system.title} delay={i * 110} className="reveal-scale">
+                <SystemCard system={system} />
+              </Reveal>
             ))}
           </div>
         </div>
@@ -586,17 +946,21 @@ export default function EpoxyOverTiles() {
 
       {/* ===== VIDEO SHOWCASE ===== */}
       <section id="videos" className="mx-auto max-w-6xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+        <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
           Watch it happen
-        </p>
-        <h2 className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]">
+        </Reveal>
+        <Reveal
+          delay={80}
+          as="h2"
+          className="mt-3 max-w-xl text-3xl font-semibold leading-tight text-[#1C2326]"
+        >
           See old tiled floors being transformed
-        </h2>
+        </Reveal>
 
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {VIDEOS.map((video) => (
-            <div key={video.title}>
-              <div className="overflow-hidden rounded-2xl border border-[#eceeed] bg-[#0E1214]">
+          {VIDEOS.map((video, i) => (
+            <Reveal key={video.title} delay={i * 130} className="reveal-scale">
+              <div className="video-card overflow-hidden rounded-2xl border border-[#eceeed] bg-[#0E1214]">
                 <div className="aspect-video w-full">
                   <iframe
                     className="h-full w-full"
@@ -611,7 +975,7 @@ export default function EpoxyOverTiles() {
               <p className="mt-3 text-sm font-medium text-[#1C2326]">
                 {video.title}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -619,28 +983,36 @@ export default function EpoxyOverTiles() {
       {/* ===== GALLERY — 4 columns ===== */}
       <section id="gallery" className="bg-[#FAFBFB] py-14">
         <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
+          <Reveal as="p" className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717]">
             Completed work
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold leading-tight text-[#1C2326]">
+          </Reveal>
+          <Reveal
+            delay={80}
+            as="h2"
+            className="mt-3 text-3xl font-semibold leading-tight text-[#1C2326]"
+          >
             Photos of our completed epoxy flooring projects on tiles
-          </h2>
+          </Reveal>
 
           <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
             {GALLERY.map((img, i) => (
-              <button
-                key={img.src}
-                type="button"
-                onClick={() => setLightboxIndex(i)}
-                className="group relative overflow-hidden rounded-xl bg-[#EDF1F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A11717] focus-visible:ring-offset-2"
-              >
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-56"
-                  loading="lazy"
-                />
-              </button>
+              <Reveal key={img.src} delay={i * 70} className="reveal-scale">
+                <button
+                  type="button"
+                  onClick={() => setLightboxIndex(i)}
+                  className="gallery-btn group relative block w-full overflow-hidden rounded-xl bg-[#EDF1F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A11717] focus-visible:ring-offset-2"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="gallery-img h-48 w-full object-cover sm:h-56"
+                    loading="lazy"
+                  />
+                  <div className="gallery-overlay absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-t from-black/60 via-black/10 to-transparent">
+                    <ZoomIn className="gallery-zoom-icon h-6 w-6 text-white" />
+                  </div>
+                </button>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -649,19 +1021,21 @@ export default function EpoxyOverTiles() {
       {/* ===== FOOTER ===== */}
       <footer id="contact" className="border-t border-[#eceeed] py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
-          <span className="text-sm font-semibold text-[#1C2326]">
+          <Reveal as="span" className="text-sm font-semibold text-[#1C2326]">
             Sydney <span className="text-[#A11717]">Epoxy</span> Floor
-          </span>
-          <p className="max-w-md text-sm text-[#5b6669]">
+          </Reveal>
+          <Reveal delay={80} as="p" className="max-w-md text-sm text-[#5b6669]">
             Get a personalised quote for your over-tile epoxy flooring
             project.
-          </p>
-          <a
-            href="/contact"
-            className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313]"
-          >
-            Contact us
-          </a>
+          </Reveal>
+          <Reveal delay={160}>
+            <a
+              href="/contact"
+              className="btn-primary glow-cta rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white"
+            >
+              Contact us
+            </a>
+          </Reveal>
         </div>
       </footer>
 

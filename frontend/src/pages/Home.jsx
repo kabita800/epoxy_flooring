@@ -33,14 +33,84 @@ const instagramPosts = [
 ];
 
 const services = [
-  { title: "Warehouse Epoxy Flooring", image: "/src/assets/floor.jpg", link: "/services/warehouse-epoxy-flooring", spec: "High load-bearing" },
-  { title: "Workshop Epoxy Flooring", image: "/src/assets/floors.jpg", link: "/services/workshop-epoxy-flooring", spec: "Chemical resistant" },
-  { title: "Garage Epoxy Flooring", image: "/src/assets/garage.jpg", link: "/services/garage-epoxy-flooring", spec: "Stain proof" },
-  { title: "Industrial Epoxy Flooring", image: "/src/assets/industrial.jpg", link: "/services/industrial-epoxy-flooring", spec: "Heavy traffic rated" },
-  { title: "Commercial Epoxy Flooring", image: "/src/assets/commerical.jpg", link: "/services/commercial-epoxy-flooring", spec: "Slip resistant" },
-  { title: "Metallic Epoxy Flooring", image: "/src/assets/metallic.jpg", link: "/services/metallic-epoxy-flooring", spec: "Statement finish" },
-  { title: "Flake Epoxy Flooring", image: "/src/assets/flake.jpg", link: "/services/flake-epoxy-flooring", spec: "Textured grip" },
-  { title: "Concrete Grinding", image: "/src/assets/concrete.jpg", link: "/services/concrete-grinding", spec: "Surface prep" },
+  {
+    title: "Warehouse Epoxy Flooring",
+    image: "/src/assets/floor.jpg",
+    link: "/services/warehouse-epoxy-flooring",
+    spec: "High load-bearing",
+  },
+  {
+    title: "Workshop Epoxy Flooring",
+    image: "/src/assets/floors.jpg",
+    link: "/services/workshop-epoxy-flooring",
+    spec: "Chemical resistant",
+  },
+  {
+    title: "Garage Epoxy Flooring",
+    image: "/src/assets/garage.jpg",
+    link: "/services/garage-epoxy-flooring",
+    spec: "Stain proof",
+  },
+  {
+    title: "Industrial Epoxy Flooring",
+    image: "/src/assets/industrial.jpg",
+    link: "/services/industrial-epoxy-flooring",
+    spec: "Heavy traffic rated",
+  },
+  {
+    title: "Epoxy for Kitchens",
+    image: "/src/assets/commerical.jpg",
+    link: "/services/epoxy-kitchens",
+    spec: "Food-safe finish",
+  },
+  {
+    title: "Cementitious Polyurethane",
+    image: "/src/assets/concrete.jpg",
+    link: "/services/polyurethane-floor-coating",
+    spec: "Impact resistant",
+  },
+  {
+    title: "Metallic Epoxy Flooring",
+    image: "/src/assets/metallic.jpg",
+    link: "/services/metallic-epoxy-flooring",
+    spec: "Statement finish",
+  },
+  {
+    title: "Solid Colour Epoxy",
+    image: "/src/assets/floor.jpg",
+    link: "/services/solid-colour-epoxy",
+    spec: "Clean modern look",
+  },
+  {
+    title: "Premium Flake Epoxy",
+    image: "/src/assets/flake.jpg",
+    link: "/services/flake-epoxy-flooring",
+    spec: "Textured grip",
+  },
+  {
+    title: "SEF SuperClear",
+    image: "/src/assets/industrial.jpg",
+    link: "/services/sef-superclear",
+    spec: "Grind and seal",
+  },
+  {
+    title: "Epoxy Over Tiles",
+    image: "/src/assets/floors.jpg",
+    link: "/services/epoxy-over-tiles",
+    spec: "No demolition",
+  },
+  {
+    title: "Heavy Duty Line Marking",
+    image: "/src/assets/concrete.jpg",
+    link: "/services/line-marking",
+    spec: "Safe traffic flow",
+  },
+  {
+    title: "Driveway Epoxy Flooring",
+    image: "/src/assets/garage.jpg",
+    link: "/services/driveway-epoxy-flooring",
+    spec: "Weather resistant",
+  },
 ];
 
 const serviceList = [
@@ -59,18 +129,53 @@ const serviceList = [
 ];
 
 const serviceAreas = [
-  "Sydney Eastern Suburbs", "Sydney CBD", "Sydney North Shore", "Sydney Inner West",
-  "Sydney Hills District", "Blue Mountains", "Western Sydney", "Hawkesbury",
-  "South West Sydney", "Sutherland Shire", "Wollongong", "Newcastle", "Gosford", "Central Coast",
+  "Sydney Eastern Suburbs",
+  "Sydney CBD",
+  "Sydney North Shore",
+  "Sydney Inner West",
+  "Sydney Hills District",
+  "Blue Mountains",
+  "Western Sydney",
+  "Hawkesbury",
+  "South West Sydney",
+  "Sutherland Shire",
+  "Wollongong",
+  "Newcastle",
+  "Gosford",
+  "Central Coast",
 ];
 
 const whyCards = [
-  { icon: Award, title: "21+ Years of Experience", text: "Over two decades delivering premium epoxy flooring solutions across Sydney using UV-stable systems built for Australian conditions." },
-  { icon: Wrench, title: "Industrial Diamond Grinding", text: "Every floor receives professional diamond grinding preparation to create a permanent bond and prevent peeling or delamination." },
-  { icon: ShieldCheck, title: "Safety & Compliance", text: "HACCP-compliant flooring systems with up to R13 slip resistance for commercial kitchens, healthcare and industrial facilities." },
-  { icon: Leaf, title: "Eco-Friendly Systems", text: "Low-VOC, non-toxic epoxy systems that are safer for families, pets, employees and customers." },
-  { icon: Star, title: "330+ Five-Star Reviews", text: "One of Sydney's highest-rated epoxy flooring specialists with a 4.9-star average rating and a commitment to customer satisfaction." },
-  { icon: MapPin, title: "Visit Our Showroom", text: "Explore our Silverwater showroom and compare flake, metallic and solid-colour epoxy finishes before making your decision." },
+  {
+    icon: Award,
+    title: "21+ Years of Experience",
+    text: "Over two decades delivering premium epoxy flooring solutions across Sydney using UV-stable systems built for Australian conditions.",
+  },
+  {
+    icon: Wrench,
+    title: "Industrial Diamond Grinding",
+    text: "Every floor receives professional diamond grinding preparation to create a permanent bond and prevent peeling or delamination.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Safety & Compliance",
+    text: "HACCP-compliant flooring systems with up to R13 slip resistance for commercial kitchens, healthcare and industrial facilities.",
+  },
+  {
+    icon: Leaf,
+    title: "Eco-Friendly Systems",
+    text: "Low-VOC, non-toxic epoxy systems that are safer for families, pets, employees and customers.",
+  },
+  {
+    icon: Star,
+    title: "330+ Five-Star Reviews",
+    text: "One of Sydney's highest-rated epoxy flooring specialists with a 4.9-star average rating and a commitment to customer satisfaction.",
+  },
+  {
+    icon: MapPin,
+    title: "Visit Our Showroom",
+    text: "Explore our Silverwater showroom and compare flake, metallic and solid-colour epoxy finishes before making your decision.",
+  },
 ];
 
 /* ----------------------------------------------------------------
@@ -99,7 +204,13 @@ function useInView(options = {}) {
   return [ref, inView];
 }
 
-const Reveal = ({ as: Tag = "div", className = "", delay = 0, children, ...rest }) => {
+const Reveal = ({
+  as: Tag = "div",
+  className = "",
+  delay = 0,
+  children,
+  ...rest
+}) => {
   const [ref, inView] = useInView();
   return (
     <Tag
@@ -192,6 +303,7 @@ const PourSwirl = ({ className = "", style = {} }) => (
 
 const Home = () => {
   const [current, setCurrent] = useState(0);
+  const [activeWhyCard, setActiveWhyCard] = useState(0);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -199,6 +311,13 @@ const Home = () => {
       setCurrent((prev) => (prev === heroImages.length - 1 ? 0 : prev + 1));
     }, 5000);
     return () => clearInterval(slider);
+  }, []);
+
+  useEffect(() => {
+    const whySlider = setInterval(() => {
+      setActiveWhyCard((prev) => (prev === whyCards.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(whySlider);
   }, []);
 
   useEffect(() => {
@@ -244,6 +363,7 @@ const Home = () => {
         @keyframes dotPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(161,23,23,0.5); } 70% { box-shadow: 0 0 0 9px rgba(161,23,23,0); } }
         @keyframes arrowSlide { 0% { transform: translateX(0); } 50% { transform: translateX(5px); } 100% { transform: translateX(0); } }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes whySlideIn { 0% { opacity: 0; transform: translateX(12px); } 100% { opacity: 1; transform: translateX(0); } }
 
         .reveal {
           opacity: 0;
@@ -303,6 +423,7 @@ const Home = () => {
         .why-card:hover .why-icon svg { color: var(--paper); }
         .why-icon { transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), background-color 0.3s ease; }
         .why-icon svg { transition: color 0.3s ease; }
+        .why-slider-enter { animation: whySlideIn 0.45s cubic-bezier(0.22,1,0.36,1); }
 
         .spec-row { transition: padding-left 0.25s ease; }
         .spec-row:hover { padding-left: 6px; }
@@ -361,32 +482,34 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)]/80 via-transparent to-transparent" />
 
           {/* Signature pour swirl, floating top-right of hero */}
-          <PourSwirl
-            className="pour-spin absolute -right-20 -top-20 w-[300px] h-[300px] opacity-70 hidden lg:block"
-          />
+          <PourSwirl className="pour-spin absolute -right-20 -top-20 w-[300px] h-[300px] opacity-70 hidden lg:block" />
 
-          <div className={`relative z-10 max-w-6xl mx-auto h-full flex items-end md:items-center px-5 sm:px-8 md:px-10 pb-12 md:pb-0 ${loaded ? "hero-loaded" : ""}`}>
-            <div className="max-w-2xl text-[var(--paper)] hero-content">
-              <p className="sef-mono uppercase tracking-[2px] text-[11px] sm:text-xs text-[var(--resin-soft)] font-semibold mb-4 flex items-center gap-2.5">
+          <div
+            className={`relative z-10 max-w-6xl mx-auto h-full flex items-center justify-center px-5 sm:px-8 md:px-10 py-10 sm:items-end sm:justify-start md:items-center md:pb-0 ${loaded ? "hero-loaded" : ""}`}
+          >
+            <div className="max-w-2xl w-full text-[var(--paper)] hero-content text-center sm:text-left flex flex-col items-center sm:items-start">
+              <p className="sef-mono uppercase tracking-[2px] text-[11px] sm:text-xs text-[var(--resin-soft)] font-semibold mb-4 flex items-center gap-2.5 justify-center sm:justify-start">
                 <span className="inline-block w-6 h-px bg-[var(--resin-soft)]" />
                 Sydney · Est. 2003
               </p>
 
-              <h1 className="sef-display text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.05] mb-4">
+              <h1 className="sef-display text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.05] mb-4 text-center sm:text-left">
                 Floors poured to
                 <br />
-                <span className="text-[var(--resin-soft)]">outlast everything</span>
+                <span className="text-[var(--resin-soft)]">
+                  outlast everything
+                </span>
                 <br />
                 on top of them.
               </h1>
 
-              <p className="text-sm md:text-base text-[var(--paper)]/70 max-w-lg mb-7 leading-relaxed">
+              <p className="text-sm md:text-base text-[var(--paper)]/70 max-w-lg mb-7 leading-relaxed text-center sm:text-left mx-auto sm:mx-0">
                 High-performance epoxy flooring systems engineered for
                 warehouses, workshops, garages and commercial spaces across
                 Sydney — diamond-ground, seamless, built for decades.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3 items-center sm:items-start">
                 <Link
                   to="/contact"
                   className="btn-primary bg-[var(--resin)] hover:bg-[var(--resin-deep)] text-[var(--paper)] px-5 py-2.5 rounded-sm font-semibold no-underline inline-flex items-center justify-center gap-2 sef-mono text-xs uppercase tracking-wide"
@@ -410,7 +533,9 @@ const Home = () => {
                 onClick={() => setCurrent(index)}
                 aria-label={`Show slide ${index + 1}`}
                 className={`hero-dot h-1 rounded-full ${
-                  current === index ? "bg-[var(--resin)] hero-dot-active w-6" : "bg-[var(--paper)]/40 w-3"
+                  current === index ?
+                    "bg-[var(--resin)] hero-dot-active w-6"
+                  : "bg-[var(--paper)]/40 w-3"
                 }`}
               />
             ))}
@@ -430,16 +555,18 @@ const Home = () => {
                 <h2 className="sef-display text-2xl md:text-3xl font-extrabold text-[var(--ink)] leading-[1.15] mb-4">
                   Built on prep.
                   <br />
-                  <span className="text-[var(--resin-deep)]">Finished to last.</span>
+                  <span className="text-[var(--resin-deep)]">
+                    Finished to last.
+                  </span>
                 </h2>
 
                 <p className="text-sm md:text-base text-[var(--steel)] leading-relaxed mb-6 max-w-md">
                   Our qualified team, experienced estimators, and project
                   managers are committed to client satisfaction from first
                   enquiry to final coat. We invest continuously in advanced
-                  grinding equipment and ongoing training so every floor we
-                  pour is effective, environmentally responsible, and built
-                  to outlast the building around it.
+                  grinding equipment and ongoing training so every floor we pour
+                  is effective, environmentally responsible, and built to
+                  outlast the building around it.
                 </p>
 
                 <Link
@@ -454,19 +581,25 @@ const Home = () => {
                     <h3 className="sef-display text-2xl font-extrabold text-[var(--resin-deep)]">
                       <CountUp to={21} suffix="+" />
                     </h3>
-                    <p className="sef-mono text-[10px] uppercase tracking-wide text-[var(--steel)] mt-1.5">Years Experience</p>
+                    <p className="sef-mono text-[10px] uppercase tracking-wide text-[var(--steel)] mt-1.5">
+                      Years Experience
+                    </p>
                   </div>
                   <div className="stat-block">
                     <h3 className="sef-display text-2xl font-extrabold text-[var(--resin-deep)]">
                       <CountUp to={500} suffix="+" />
                     </h3>
-                    <p className="sef-mono text-[10px] uppercase tracking-wide text-[var(--steel)] mt-1.5">Projects Done</p>
+                    <p className="sef-mono text-[10px] uppercase tracking-wide text-[var(--steel)] mt-1.5">
+                      Projects Done
+                    </p>
                   </div>
                   <div className="stat-block">
                     <h3 className="sef-display text-2xl font-extrabold text-[var(--resin-deep)]">
                       <CountUp to={100} suffix="%" />
                     </h3>
-                    <p className="sef-mono text-[10px] uppercase tracking-wide text-[var(--steel)] mt-1.5">Satisfaction</p>
+                    <p className="sef-mono text-[10px] uppercase tracking-wide text-[var(--steel)] mt-1.5">
+                      Satisfaction
+                    </p>
                   </div>
                 </div>
               </Reveal>
@@ -486,9 +619,7 @@ const Home = () => {
                   <div className="absolute inset-0 ring-1 ring-inset ring-[var(--paper)]/10" />
                 </div>
 
-                <div
-                  className="pour-float absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 bg-[var(--ink)] text-[var(--paper)] shadow-xl rounded-sm px-4 py-3.5 max-w-[210px]"
-                >
+                <div className="pour-float absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 bg-[var(--ink)] text-[var(--paper)] shadow-xl rounded-sm px-4 py-3.5 max-w-[210px]">
                   <p className="sef-mono text-[9px] uppercase tracking-[1.5px] text-[var(--resin-soft)] mb-1.5">
                     Coverage
                   </p>
@@ -514,13 +645,13 @@ const Home = () => {
               </h2>
             </Reveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {services.map((service, i) => (
                 <Reveal
                   key={service.title}
                   delay={i * 60}
-                  as="a"
-                  {...{ href: service.link }}
+                  as={Link}
+                  to={service.link}
                   className="service-card group relative overflow-hidden rounded-sm shadow-md block bg-[var(--ink)]"
                 >
                   <div className="relative h-[170px] sm:h-[200px] overflow-hidden">
@@ -565,29 +696,49 @@ const Home = () => {
               <h2 className="sef-display text-2xl md:text-3xl font-extrabold text-[var(--paper)] leading-tight">
                 The authority in
                 <br />
-                <span className="text-[var(--resin-soft)]">high-performance flooring</span>
+                <span className="text-[var(--resin-soft)]">
+                  high-performance flooring
+                </span>
               </h2>
             </Reveal>
 
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-              {whyCards.map((item, index) => {
+            <div className="max-w-3xl mx-auto">
+              {(() => {
+                const item = whyCards[activeWhyCard];
                 const Icon = item.icon;
+
                 return (
-                  <Reveal key={index} delay={index * 70}>
-                    <div className="why-card h-full bg-[var(--ink-soft)] rounded-sm p-5 border border-[var(--paper)]/10">
-                      <div className="why-icon w-10 h-10 rounded-sm bg-[var(--paper)]/10 flex items-center justify-center mb-4">
-                        <Icon className="w-4.5 h-4.5 text-[var(--resin-soft)]" />
+                  <Reveal key={item.title}>
+                    <div className="why-card why-slider-enter bg-[var(--ink-soft)] rounded-sm p-6 md:p-8 border border-[var(--paper)]/10 text-center md:text-left">
+                      <div className="why-icon w-12 h-12 rounded-sm bg-[var(--paper)]/10 flex items-center justify-center mb-4 mx-auto md:mx-0">
+                        <Icon className="w-5 h-5 text-[var(--resin-soft)]" />
                       </div>
-                      <h3 className="text-sm font-bold text-[var(--paper)] mb-2">
+                      <h3 className="text-base md:text-lg font-bold text-[var(--paper)] mb-3">
                         {item.title}
                       </h3>
-                      <p className="text-[var(--paper)]/60 text-[13px] leading-relaxed">
+                      <p className="text-[var(--paper)]/70 text-[14px] md:text-[15px] leading-relaxed max-w-2xl">
                         {item.text}
                       </p>
                     </div>
                   </Reveal>
                 );
-              })}
+              })()}
+            </div>
+
+            <div className="mt-6 flex items-center justify-center gap-2">
+              {whyCards.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  aria-label={`Show reason ${index + 1}`}
+                  onClick={() => setActiveWhyCard(index)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    activeWhyCard === index ?
+                      "w-6 bg-[var(--resin)]"
+                    : "w-2.5 bg-[var(--paper)]/40"
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -617,10 +768,17 @@ const Home = () => {
                 <div className="p-5 bg-[var(--ink)]">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-start gap-2.5">
-                      <MapPin className="text-[var(--resin-soft)] mt-0.5 shrink-0" size={16} />
+                      <MapPin
+                        className="text-[var(--resin-soft)] mt-0.5 shrink-0"
+                        size={16}
+                      />
                       <div>
-                        <p className="font-semibold text-[var(--paper)] text-sm">6 Giffard Street</p>
-                        <p className="text-[var(--paper)]/50 text-sm">Silverwater NSW 2128</p>
+                        <p className="font-semibold text-[var(--paper)] text-sm">
+                          6 Giffard Street
+                        </p>
+                        <p className="text-[var(--paper)]/50 text-sm">
+                          Silverwater NSW 2128
+                        </p>
                       </div>
                     </div>
                     <a
@@ -636,19 +794,25 @@ const Home = () => {
               </Reveal>
 
               <Reveal delay={150}>
-                <div className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-x-4 gap-y-3">
                   {serviceAreas.map((area, i) => (
                     <div
                       key={area}
                       className="flex items-center gap-2.5 py-1.5"
                       style={{
                         opacity: 0,
-                        animation: "fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) forwards",
+                        animation:
+                          "fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) forwards",
                         animationDelay: `${i * 0.04}s`,
                       }}
                     >
-                      <MapPin size={14} className="text-[var(--resin)] shrink-0" />
-                      <span className="text-[var(--ink)] text-[14px]">{area}</span>
+                      <MapPin
+                        size={14}
+                        className="text-[var(--resin)] shrink-0"
+                      />
+                      <span className="text-[var(--ink)] text-[14px]">
+                        {area}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -747,7 +911,7 @@ const Home = () => {
                   }}
                   className="insta-tile group overflow-hidden rounded-sm aspect-square bg-[var(--ink)] block relative"
                 >
-                  {post.type === "video" ? (
+                  {post.type === "video" ?
                     <video
                       src={post.src}
                       autoPlay
@@ -756,37 +920,36 @@ const Home = () => {
                       playsInline
                       className="insta-tile-media w-full h-full object-cover"
                     />
-                  ) : (
-                    <img
+                  : <img
                       src={post.src}
                       alt={`Instagram post ${index + 1}`}
                       className="insta-tile-media w-full h-full object-cover"
                     />
-                  )}
+                  }
                 </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-         {/* ===== FOOTER ===== */}
-      <footer id="contact" className="border-t border-[#eceeed] py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
-          <span className="text-sm font-semibold text-[#1C2326]">
-            Sydney <span className="text-[#A11717]">Epoxy</span> Floor
-          </span>
-          <p className="max-w-md text-sm text-[#5b6669]">
-            Get a personalised quote for your commercial kitchen or food
-            processing floor.
-          </p>
-          <a
-            href="/contact"
-            className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313]"
-          >
-            Contact us
-          </a>
-        </div>
-      </footer>
+        {/* ===== FOOTER ===== */}
+        <footer id="contact" className="border-t border-[#eceeed] py-10">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
+            <span className="text-sm font-semibold text-[#1C2326]">
+              Sydney <span className="text-[#A11717]">Epoxy</span> Floor
+            </span>
+            <p className="max-w-md text-sm text-[#5b6669]">
+              Get a personalised quote for your commercial kitchen or food
+              processing floor.
+            </p>
+            <a
+              href="/contact"
+              className="rounded-full bg-[#A11717] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8a1313]"
+            >
+              Contact us
+            </a>
+          </div>
+        </footer>
       </div>
     </>
   );
