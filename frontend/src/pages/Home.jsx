@@ -702,43 +702,71 @@ const Home = () => {
               </h2>
             </Reveal>
 
-            <div className="max-w-3xl mx-auto">
+            {/* Mobile Slider */}
+            <div className="block md:hidden max-w-3xl mx-auto">
               {(() => {
                 const item = whyCards[activeWhyCard];
                 const Icon = item.icon;
 
                 return (
                   <Reveal key={item.title}>
-                    <div className="why-card why-slider-enter bg-[var(--ink-soft)] rounded-sm p-6 md:p-8 border border-[var(--paper)]/10 text-center md:text-left">
-                      <div className="why-icon w-12 h-12 rounded-sm bg-[var(--paper)]/10 flex items-center justify-center mb-4 mx-auto md:mx-0">
+                    <div className="why-card why-slider-enter bg-[var(--ink-soft)] rounded-sm p-6 border border-[var(--paper)]/10 text-center">
+                      <div className="why-icon w-12 h-12 rounded-sm bg-[var(--paper)]/10 flex items-center justify-center mb-4 mx-auto">
                         <Icon className="w-5 h-5 text-[var(--resin-soft)]" />
                       </div>
-                      <h3 className="text-base md:text-lg font-bold text-[var(--paper)] mb-3">
+
+                      <h3 className="text-base font-bold text-[var(--paper)] mb-3">
                         {item.title}
                       </h3>
-                      <p className="text-[var(--paper)]/70 text-[14px] md:text-[15px] leading-relaxed max-w-2xl">
+
+                      <p className="text-[var(--paper)]/70 text-[14px] leading-relaxed">
                         {item.text}
                       </p>
                     </div>
                   </Reveal>
                 );
               })()}
+
+              <div className="mt-6 flex items-center justify-center gap-2">
+                {whyCards.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    aria-label={`Show reason ${index + 1}`}
+                    onClick={() => setActiveWhyCard(index)}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      activeWhyCard === index ?
+                        "w-6 bg-[var(--resin)]"
+                      : "w-2.5 bg-[var(--paper)]/40"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
 
-            <div className="mt-6 flex items-center justify-center gap-2">
-              {whyCards.map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  aria-label={`Show reason ${index + 1}`}
-                  onClick={() => setActiveWhyCard(index)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    activeWhyCard === index ?
-                      "w-6 bg-[var(--resin)]"
-                    : "w-2.5 bg-[var(--paper)]/40"
-                  }`}
-                />
-              ))}
+            {/* Desktop Grid */}
+            <div className="hidden md:grid md:grid-cols-3 gap-6">
+              {whyCards.map((item, index) => {
+                const Icon = item.icon;
+
+                return (
+                  <Reveal key={item.title} delay={index * 80} y={18}>
+                    <div className="why-card bg-[var(--ink-soft)]/80 rounded-sm p-6 md:p-8 border border-[var(--paper)]/10 h-full">
+                      <div className="why-icon w-12 h-12 rounded-sm bg-[var(--paper)]/10 flex items-center justify-center mb-4">
+                        <Icon className="w-5 h-5 text-[var(--resin-soft)]" />
+                      </div>
+
+                      <h3 className="text-base md:text-lg font-bold text-[var(--paper)] mb-3">
+                        {item.title}
+                      </h3>
+
+                      <p className="text-[var(--paper)]/70 text-[14px] md:text-[15px] leading-relaxed">
+                        {item.text}
+                      </p>
+                    </div>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </section>

@@ -418,41 +418,73 @@ export default function CostGuide() {
               </h2>
             </Reveal>
 
-            <div className="max-w-3xl mx-auto">
-              <Reveal key={currentFactor.title}>
-                <div className="factor-slide-enter lift-card bg-white rounded-2xl p-7 md:p-8">
-                  <div className="w-11 h-11 rounded-xl bg-[var(--brick)]/8 flex items-center justify-center mb-5">
-                    <CurrentIcon
-                      size={19}
-                      strokeWidth={1.75}
-                      className="text-[var(--brick)]"
-                    />
-                  </div>
-                  <h3 className="font-semibold text-[15px] text-[var(--ink)] mb-2">
-                    {currentFactor.title}
-                  </h3>
-                  <p className="text-[var(--slate)] text-[13.5px] leading-relaxed">
-                    {currentFactor.body}
-                  </p>
-                </div>
-              </Reveal>
+            {/* Mobile Slider */}
+<div className="block md:hidden max-w-md mx-auto">
+  <Reveal key={currentFactor.title}>
+    <div className="factor-slide-enter lift-card bg-white rounded-2xl p-7">
+      <div className="w-11 h-11 rounded-xl bg-[var(--brick)]/8 flex items-center justify-center mb-5">
+        <CurrentIcon
+          size={19}
+          strokeWidth={1.75}
+          className="text-[var(--brick)]"
+        />
+      </div>
 
-              <div className="mt-6 flex items-center justify-center gap-2">
-                {FACTORS.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    aria-label={`Show factor ${index + 1}`}
-                    onClick={() => setActiveFactor(index)}
-                    className={`h-2.5 rounded-full transition-all duration-300 ${
-                      activeFactor === index ?
-                        "w-6 bg-[var(--brick)]"
-                      : "w-2.5 bg-[var(--ink)]/20"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+      <h3 className="font-semibold text-[15px] text-[var(--ink)] mb-2">
+        {currentFactor.title}
+      </h3>
+
+      <p className="text-[var(--slate)] text-[13.5px] leading-relaxed">
+        {currentFactor.body}
+      </p>
+    </div>
+  </Reveal>
+
+  <div className="mt-6 flex items-center justify-center gap-2">
+    {FACTORS.map((_, index) => (
+      <button
+        key={index}
+        type="button"
+        aria-label={`Show factor ${index + 1}`}
+        onClick={() => setActiveFactor(index)}
+        className={`h-2.5 rounded-full transition-all duration-300 ${
+          activeFactor === index
+            ? "w-6 bg-[var(--brick)]"
+            : "w-2.5 bg-[var(--ink)]/20"
+        }`}
+      />
+    ))}
+  </div>
+</div>
+
+{/* Desktop Grid */}
+<div className="hidden md:grid md:grid-cols-4 gap-6">
+  {FACTORS.map((factor, i) => {
+    const Icon = factor.icon;
+
+    return (
+      <Reveal key={factor.title} delay={i * 80} y={18}>
+        <div className="lift-card bg-white rounded-2xl p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+          <div className="w-11 h-11 rounded-xl bg-[var(--brick)]/8 flex items-center justify-center mb-5">
+            <Icon
+              size={19}
+              strokeWidth={1.75}
+              className="text-[var(--brick)]"
+            />
+          </div>
+
+          <h3 className="font-semibold text-[15px] text-[var(--ink)] mb-2">
+            {factor.title}
+          </h3>
+
+          <p className="text-[13.5px] text-[var(--slate)] leading-relaxed">
+            {factor.body}
+          </p>
+        </div>
+      </Reveal>
+    );
+  })}
+</div>
           </div>
         </section>
 

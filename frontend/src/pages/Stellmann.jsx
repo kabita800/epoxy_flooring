@@ -435,7 +435,7 @@ export default function Stellmann() {
                   </Link>
                   <a
                     href="tel:1300037699"
-                    className="border border-[var(--paper)]/25 hover:bg-[var(--paper)] hover:text-[var(--ink)] text-[var(--paper)] px-6 py-3 rounded-sm font-semibold no-underline text-center stl-mono text-xs uppercase tracking-wide transition-colors"
+                    className="border border-[var(--paper)]/25 bg-[var(--paper)] text-[var(--ink)] px-6 py-3 rounded-sm font-semibold no-underline text-center stl-mono text-xs uppercase tracking-wide transition-colors"
                   >
                     <span className="stl-tel-icon">☎</span> 1300 037 699
                   </a>
@@ -496,57 +496,77 @@ export default function Stellmann() {
         </section>
 
         {/* ============ HOW IT WORKS — feature grid ============ */}
-        <section className="pt-4 pb-14 md:pt-6 md:pb-20 bg-[var(--paper)]">
-          <div className="max-w-6xl mx-auto px-5 md:px-10">
-            <Reveal className="max-w-xl mb-10">
-              <span className="stl-mono inline-flex items-center gap-2 text-[11px] uppercase tracking-[1.5px] text-[var(--resin-deep)] font-semibold mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--resin)] stl-eyebrow-dot" />
-                How It Works
-              </span>
-              <h2 className="stl-display text-2xl md:text-3xl font-extrabold text-[var(--ink)] leading-tight mb-3">
-                Not acid etching. Not grip tape.
-              </h2>
-              <span className="stl-heading-underline mb-3" />
-              <p className="text-sm text-[var(--steel)] leading-relaxed max-w-lg">
-                A high-clarity polyurethane coating infused with anti-slip
-                microspheres bonds chemically to your existing surface — same
-                look, certified grip the moment it gets wet.
-              </p>
-            </Reveal>
+        <section className="pt-4 pb-14 md:pt-8 md:pb-20 bg-[var(--paper)]">
+  <div className="max-w-7xl mx-auto px-6 lg:px-10">
+    <Reveal className="max-w-2xl mb-12">
+      <span className="stl-mono inline-flex items-center gap-2 text-[11px] uppercase tracking-[1.5px] text-[var(--resin-deep)] font-semibold mb-3">
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--resin)] stl-eyebrow-dot" />
+        How It Works
+      </span>
 
-            <div className="max-w-3xl mx-auto">
-              <Reveal key={currentFeature.title}>
-                <div className="stl-feature-slider stl-feature bg-[var(--concrete)] border border-[var(--ink)]/8 rounded-sm p-6 md:p-8 h-full">
-                  <div className="stl-feature-icon w-11 h-11 rounded-sm bg-[var(--paper)] text-[var(--resin-deep)] flex items-center justify-center mb-5">
-                    {currentFeature.icon}
-                  </div>
-                  <h3 className="font-bold text-sm text-[var(--ink)] mb-2">
-                    {currentFeature.title}
-                  </h3>
-                  <p className="text-[13px] text-[var(--steel)] leading-relaxed">
-                    {currentFeature.desc}
-                  </p>
-                </div>
-              </Reveal>
+      <h2 className="stl-display text-2xl lg:text-3xl font-extrabold text-[var(--ink)] leading-tight mb-3">
+        Not acid etching. Not grip tape.
+      </h2>
 
-              <div className="mt-6 flex items-center justify-center gap-2">
-                {FEATURES.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    aria-label={`Show feature ${index + 1}`}
-                    onClick={() => setActiveFeature(index)}
-                    className={`h-2.5 rounded-full transition-all duration-300 ${
-                      activeFeature === index ?
-                        "w-6 bg-[var(--resin)]"
-                      : "w-2.5 bg-[var(--ink)]/20"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+      <span className="stl-heading-underline mb-4" />
+    </Reveal>
+
+    {/* Mobile */}
+  <div className="block md:hidden">
+  <Reveal key={currentFeature.title}>
+    <div className="group bg-[var(--concrete)] border border-[var(--ink)]/8 rounded-sm p-5">
+      <div className="w-10 h-10 rounded-sm bg-[var(--paper)] text-[var(--resin-deep)] flex items-center justify-center mb-4">
+        {currentFeature.icon}
+      </div>
+
+      <h3 className="text-base font-bold text-[var(--ink)] mb-2">
+        {currentFeature.title}
+      </h3>
+
+      <p className="text-[13px] leading-6 text-[var(--steel)]">
+        {currentFeature.desc}
+      </p>
+    </div>
+  </Reveal>
+
+  <div className="mt-6 flex justify-center gap-2">
+    {FEATURES.map((_, index) => (
+      <button
+        key={index}
+        onClick={() => setActiveFeature(index)}
+        className={`h-2.5 rounded-full transition-all ${
+          activeFeature === index
+            ? "w-6 bg-[var(--resin)]"
+            : "w-2.5 bg-[var(--ink)]/20"
+        }`}
+      />
+    ))}
+  </div>
+</div>
+
+    {/* Desktop */}
+    {/* Desktop: grid of feature boxes */}
+<div className="hidden md:grid md:grid-cols-4 gap-6 lg:gap-8">
+  {FEATURES.map((f, i) => (
+    <Reveal key={f.title} delay={i * 80} y={18}>
+      <div className="group h-full bg-[var(--concrete)] border border-[var(--ink)]/8 rounded-sm p-5 lg:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+  <div className="w-10 h-10 rounded-sm bg-[var(--paper)] text-[var(--resin-deep)] flex items-center justify-center mb-4">
+    {f.icon}
+  </div>
+
+  <h3 className="text-base font-bold text-[var(--ink)] mb-2">
+    {f.title}
+  </h3>
+
+  <p className="text-[13px] leading-6 text-[var(--steel)]">
+    {f.desc}
+  </p>
+</div>
+    </Reveal>
+  ))}
+</div>
+  </div>
+</section>
 
         {/* ============ WHY US — numbered list, ink background ============ */}
         <section className="py-14 md:py-20 bg-[var(--ink)]">
