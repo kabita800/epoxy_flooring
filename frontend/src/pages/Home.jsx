@@ -702,7 +702,7 @@ const Home = () => {
               </h2>
             </Reveal>
 
-            {/* Mobile Slider */}
+           
             <div className="block md:hidden max-w-3xl mx-auto">
               {(() => {
                 const item = whyCards[activeWhyCard];
