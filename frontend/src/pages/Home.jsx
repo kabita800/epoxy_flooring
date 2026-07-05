@@ -464,7 +464,7 @@ const Home = () => {
       `}</style>
 
       <div className="sef-root">
-        {/* ============ HERO ============ */}
+        {/*  HERO  */}
         <section className="relative w-full min-h-[78vh] md:h-[78vh] overflow-hidden bg-[var(--ink)]">
           {heroImages.map((image, index) => (
             <img
@@ -542,7 +542,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* ============ INTRO / STATS ============ */}
+        {/*  INTRO / STATS */}
         <section className="py-14 md:py-20 bg-[var(--paper)]">
           <div className="max-w-6xl mx-auto px-6 lg:px-10">
             <div className="grid lg:grid-cols-2 gap-10 items-center">
@@ -632,7 +632,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* ============ SERVICES GRID ============ */}
+        {/*  SERVICES GRID */}
         <section id="services" className="py-14 md:py-20 bg-[var(--concrete)]">
           <div className="max-w-6xl mx-auto px-5 md:px-10">
             <Reveal className="max-w-xl mb-8">
@@ -702,7 +702,6 @@ const Home = () => {
               </h2>
             </Reveal>
 
-           
             <div className="block md:hidden max-w-3xl mx-auto">
               {(() => {
                 const item = whyCards[activeWhyCard];
