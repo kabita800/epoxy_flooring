@@ -514,7 +514,7 @@ export default function SydneyConcreteGrinding() {
         </div>
       </section>
 
-      {/* ===== DETAILED SERVICES ===== */}
+      {/* DETAILED SERVICES */}
       <section id="services" className="mx-auto max-w-6xl px-6 py-14">
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#A11717] flex items-center">
@@ -544,7 +544,7 @@ export default function SydneyConcreteGrinding() {
         </div>
       </section>
 
-      {/* ===== APPLICATIONS ===== */}
+      {/*  APPLICATIONS  */}
       <section id="areas" className="bg-[#0E1214] py-12">
         <div className="mx-auto max-w-4xl px-6">
           <Reveal>
@@ -572,7 +572,7 @@ export default function SydneyConcreteGrinding() {
         </div>
       </section>
 
-      {/* ===== GALLERY — 4 columns ===== */}
+      {/*  GALLERY — 4 columns */}
       <section id="gallery" className="bg-[#FAFBFB] py-14">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal>
@@ -616,7 +616,7 @@ export default function SydneyConcreteGrinding() {
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
+      {/* FOOTER  */}
       <footer id="contact" className="border-t border-[#eceeed] py-10">
         <Reveal as="div" className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 text-center">
           <span className="scg-footer-brand text-sm font-semibold text-[#1C2326]">
