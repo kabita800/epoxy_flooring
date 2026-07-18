@@ -1,22 +1,27 @@
-import express from 'express';
-// require('dotenv').config()
+import express from "express";
+import dotenv from "dotenv";
+import pool from "./config/db.js";
+
+dotenv.config();
+
 const app = express();
-// const path = require('path');
-// const fs = require('fs');
 
-const port = 3000;
+app.use(express.json());
 
-// app.use(express.json());
-// app.use(express.urlencoded({extended: true}));
+const PORT = process.env.PORT || 5000;
 
-app.get("/", (req,res) => {
-    res.send("it's not working")
+pool.connect()
+  .then(() => {
+    console.log("✅ PostgreSQL Connected");
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+
+app.get("/", (req, res) => {
+  res.send("Backend Running");
 });
 
-// app.get("/login", (req,res) => {
-//     res.send("<h1>please login</h1>")
-// });
-
-app.listen(port, ()=> {
-console.log(`serve at http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
