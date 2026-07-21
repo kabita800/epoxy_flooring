@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
+import Signup from "./Auth/signup";
+import Login from "./Auth/login";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CostGuide from "./pages/CostGuide";
@@ -28,19 +30,31 @@ import HighBuild from "./Services/HighBuild";
 function AppShell() {
   const location = useLocation();
 
+  // Pages where Navbar and Footer should be hidden
+  const hideLayout =
+    location.pathname === "/login" ||
+    location.pathname === "/signup";
+
   return (
     <>
       <ScrollToTop />
-      <Navbar />
+
+      {!hideLayout && <Navbar />}
+
       <main key={location.pathname} className="page-transition">
         <Routes>
           <Route path="/" element={<Home />} />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
           <Route path="/cost-guide" element={<CostGuide />} />
           <Route path="/stellmann" element={<Stellmann />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/contact" element={<Contact />} />
+
           <Route path="/services/epoxy-kitchens" element={<Kitchen />} />
           <Route
             path="/services/industrial-epoxy-flooring"
@@ -63,7 +77,10 @@ function AppShell() {
             path="/services/metallic-epoxy-flooring"
             element={<Metallic />}
           />
-          <Route path="/services/solid-colour-epoxy" element={<Solidcolor />} />
+          <Route
+            path="/services/solid-colour-epoxy"
+            element={<Solidcolor />}
+          />
           <Route
             path="/services/flake-epoxy-flooring"
             element={<Premiumflake />}
@@ -84,7 +101,8 @@ function AppShell() {
           <Route path="/services/high-build" element={<HighBuild />} />
         </Routes>
       </main>
-      <Footer />
+
+      {!hideLayout && <Footer />}
     </>
   );
 }
