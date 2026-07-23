@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 const SERVICES_LEFT = [
   "Kitchens & food processing areas",
@@ -74,6 +75,26 @@ function LinkList({ items }) {
 }
 
 export default function Footer() {
+  const navigate = useNavigate();
+
+  const clickCount = useRef(0);
+  const timer = useRef(null);
+
+  const handleAdminClick = () => {
+    clickCount.current++;
+
+    clearTimeout(timer.current);
+
+    // Reset after 2 seconds if user stops clicking
+    timer.current = setTimeout(() => {
+      clickCount.current = 0;
+    }, 2000);
+
+    if (clickCount.current >= 5) {
+      clickCount.current = 0;
+      navigate("/admin-login");
+    }
+  };
   return (
     <footer className="bg-[#f8f7f5] border-t border-[#e5e3de] font-sans relative overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A11717]/30 to-transparent" />
@@ -200,9 +221,12 @@ export default function Footer() {
               </Link>
             ))}
           </nav>
-          <span className="text-[12px] text-gray-500">
-            &copy; 2026 Industrial Coatings Co Pty Ltd
-          </span>
+          <span
+  onClick={handleAdminClick}
+  className="text-[12px] text-gray-500 cursor-pointer select-none"
+>
+  &copy; 2026 Industrial Coatings Co Pty Ltd
+</span>
         </div>
       </div>
     </footer>

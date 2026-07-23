@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./Auth/signup";
 import Login from "./Auth/login";
+import AdminLogin from "./Auth/adminlogin";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import AdminDashboard from "./admin/adminDashboard";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import CostGuide from "./pages/CostGuide";
@@ -33,7 +36,8 @@ function AppShell() {
   // Pages where Navbar and Footer should be hidden
   const hideLayout =
     location.pathname === "/login" ||
-    location.pathname === "/signup";
+    location.pathname === "/signup" ||
+    location.pathname === "/admin-login";
 
   return (
     <>
@@ -47,6 +51,25 @@ function AppShell() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedAdminRoute>
+                <AdminDashboard />
+              </ProtectedAdminRoute>
+            }
+          />
+
+          <Route path="/admin-login" element={<AdminLogin />} />
+
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedAdminRoute>
+                <AdminDashboard />
+              </ProtectedAdminRoute>
+            }
+          />
 
           <Route path="/cost-guide" element={<CostGuide />} />
           <Route path="/stellmann" element={<Stellmann />} />
@@ -77,10 +100,7 @@ function AppShell() {
             path="/services/metallic-epoxy-flooring"
             element={<Metallic />}
           />
-          <Route
-            path="/services/solid-colour-epoxy"
-            element={<Solidcolor />}
-          />
+          <Route path="/services/solid-colour-epoxy" element={<Solidcolor />} />
           <Route
             path="/services/flake-epoxy-flooring"
             element={<Premiumflake />}
